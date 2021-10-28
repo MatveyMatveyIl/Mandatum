@@ -60,6 +60,7 @@
 
 ### Визуализация связи между слоями
 
+![image](https://user-images.githubusercontent.com/33755240/139300381-69959559-ac6b-4ff3-83ab-f3961595a12a.png)
 
 ## Точки расширения
 
