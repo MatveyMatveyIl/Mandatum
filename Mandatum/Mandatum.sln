@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mandatum", "Mandatum\Mandatum.csproj", "{CF4EF02C-25EF-41A8-AF23-6F567CEA16B4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mandatum", "Mandatum\Mandatum.csproj", "{2A5701E7-ACC9-4672-A0CC-168A3CCC3FFF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -8,9 +8,9 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{CF4EF02C-25EF-41A8-AF23-6F567CEA16B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CF4EF02C-25EF-41A8-AF23-6F567CEA16B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CF4EF02C-25EF-41A8-AF23-6F567CEA16B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CF4EF02C-25EF-41A8-AF23-6F567CEA16B4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2A5701E7-ACC9-4672-A0CC-168A3CCC3FFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A5701E7-ACC9-4672-A0CC-168A3CCC3FFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A5701E7-ACC9-4672-A0CC-168A3CCC3FFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A5701E7-ACC9-4672-A0CC-168A3CCC3FFF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
