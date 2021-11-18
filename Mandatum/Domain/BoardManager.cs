@@ -2,9 +2,20 @@ using System;
 
 namespace Domain
 {
-    public class BoardManager
+    public class BoardManager: IManager<Board>
     {
-        public void AddBoard(int id)
+     
+        public void Add()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Board Get()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Delete()
         {
             throw new NotImplementedException();
         }

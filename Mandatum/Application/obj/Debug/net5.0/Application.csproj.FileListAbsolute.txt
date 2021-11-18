@@ -1,0 +1,16 @@
+/home/egregious/Документы/mandatum/Mandatum/Mandatum/Application/bin/Debug/net5.0/Application
+/home/egregious/Документы/mandatum/Mandatum/Mandatum/Application/bin/Debug/net5.0/Application.deps.json
+/home/egregious/Документы/mandatum/Mandatum/Mandatum/Application/bin/Debug/net5.0/Application.runtimeconfig.json
+/home/egregious/Документы/mandatum/Mandatum/Mandatum/Application/bin/Debug/net5.0/Application.runtimeconfig.dev.json
+/home/egregious/Документы/mandatum/Mandatum/Mandatum/Application/bin/Debug/net5.0/Application.dll
+/home/egregious/Документы/mandatum/Mandatum/Mandatum/Application/bin/Debug/net5.0/ref/Application.dll
+/home/egregious/Документы/mandatum/Mandatum/Mandatum/Application/bin/Debug/net5.0/Application.pdb
+/home/egregious/Документы/mandatum/Mandatum/Mandatum/Application/obj/Debug/net5.0/Application.csproj.AssemblyReference.cache
+/home/egregious/Документы/mandatum/Mandatum/Mandatum/Application/obj/Debug/net5.0/Application.GeneratedMSBuildEditorConfig.editorconfig
+/home/egregious/Документы/mandatum/Mandatum/Mandatum/Application/obj/Debug/net5.0/Application.AssemblyInfoInputs.cache
+/home/egregious/Документы/mandatum/Mandatum/Mandatum/Application/obj/Debug/net5.0/Application.AssemblyInfo.cs
+/home/egregious/Документы/mandatum/Mandatum/Mandatum/Application/obj/Debug/net5.0/Application.csproj.CoreCompileInputs.cache
+/home/egregious/Документы/mandatum/Mandatum/Mandatum/Application/obj/Debug/net5.0/Application.dll
+/home/egregious/Документы/mandatum/Mandatum/Mandatum/Application/obj/Debug/net5.0/ref/Application.dll
+/home/egregious/Документы/mandatum/Mandatum/Mandatum/Application/obj/Debug/net5.0/Application.pdb
+/home/egregious/Документы/mandatum/Mandatum/Mandatum/Application/obj/Debug/net5.0/Application.genruntimeconfig.cache

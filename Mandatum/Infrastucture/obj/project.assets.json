@@ -8,19 +8,19 @@
     "net5.0": []
   },
   "packageFolders": {
-    "/home/matvey/.nuget/packages/": {}
+    "/home/egregious/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/matvey/Desktop/Mandatum/Mandatum/Infrastucture/Infrastucture.csproj",
+      "projectUniqueName": "/home/egregious/Документы/mandatum/Mandatum/Mandatum/Infrastucture/Infrastucture.csproj",
       "projectName": "Infrastucture",
-      "projectPath": "/home/matvey/Desktop/Mandatum/Mandatum/Infrastucture/Infrastucture.csproj",
-      "packagesPath": "/home/matvey/.nuget/packages/",
-      "outputPath": "/home/matvey/Desktop/Mandatum/Mandatum/Infrastucture/obj/",
+      "projectPath": "/home/egregious/Документы/mandatum/Mandatum/Mandatum/Infrastucture/Infrastucture.csproj",
+      "packagesPath": "/home/egregious/.nuget/packages/",
+      "outputPath": "/home/egregious/Документы/mandatum/Mandatum/Mandatum/Infrastucture/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/home/matvey/.nuget/NuGet/NuGet.Config"
+        "/home/egregious/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net5.0"
@@ -58,7 +58,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/snap/dotnet-sdk/146/sdk/5.0.403/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/5.0.403/RuntimeIdentifierGraph.json"
       }
     }
   }

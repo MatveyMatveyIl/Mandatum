@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "lP6qLq15if6agxjnf1fU4NfV5nx1nq6BOaJiqeS6LSCuNG1y/WEeFwlQEPZVF+f7uitlvoI0Ky+PjzxZxfQHQA==",
+  "dgSpecHash": "7Cqb0B2KQF6hjgxaAcAAcE3WF5FVsD27xTlWTg937FB093mGMdv9LaF5spp+I44b647SEATdCJsBWNCcmZdawQ==",
   "success": true,
-  "projectFilePath": "/home/matvey/Desktop/Mandatum/Mandatum/Domain/Domain.csproj",
+  "projectFilePath": "/home/egregious/Документы/mandatum/Mandatum/Mandatum/Domain/Domain.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

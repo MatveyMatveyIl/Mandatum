@@ -1,0 +1,16 @@
+/home/egregious/Документы/mandatum/Mandatum/Mandatum/Infrastructure/bin/Debug/net5.0/Infrastructure
+/home/egregious/Документы/mandatum/Mandatum/Mandatum/Infrastructure/bin/Debug/net5.0/Infrastructure.deps.json
+/home/egregious/Документы/mandatum/Mandatum/Mandatum/Infrastructure/bin/Debug/net5.0/Infrastructure.runtimeconfig.json
+/home/egregious/Документы/mandatum/Mandatum/Mandatum/Infrastructure/bin/Debug/net5.0/Infrastructure.runtimeconfig.dev.json
+/home/egregious/Документы/mandatum/Mandatum/Mandatum/Infrastructure/bin/Debug/net5.0/Infrastructure.dll
+/home/egregious/Документы/mandatum/Mandatum/Mandatum/Infrastructure/bin/Debug/net5.0/ref/Infrastructure.dll
+/home/egregious/Документы/mandatum/Mandatum/Mandatum/Infrastructure/bin/Debug/net5.0/Infrastructure.pdb
+/home/egregious/Документы/mandatum/Mandatum/Mandatum/Infrastructure/obj/Debug/net5.0/Infrastructure.csproj.AssemblyReference.cache
+/home/egregious/Документы/mandatum/Mandatum/Mandatum/Infrastructure/obj/Debug/net5.0/Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+/home/egregious/Документы/mandatum/Mandatum/Mandatum/Infrastructure/obj/Debug/net5.0/Infrastructure.AssemblyInfoInputs.cache
+/home/egregious/Документы/mandatum/Mandatum/Mandatum/Infrastructure/obj/Debug/net5.0/Infrastructure.AssemblyInfo.cs
+/home/egregious/Документы/mandatum/Mandatum/Mandatum/Infrastructure/obj/Debug/net5.0/Infrastructure.csproj.CoreCompileInputs.cache
+/home/egregious/Документы/mandatum/Mandatum/Mandatum/Infrastructure/obj/Debug/net5.0/Infrastructure.dll
+/home/egregious/Документы/mandatum/Mandatum/Mandatum/Infrastructure/obj/Debug/net5.0/ref/Infrastructure.dll
+/home/egregious/Документы/mandatum/Mandatum/Mandatum/Infrastructure/obj/Debug/net5.0/Infrastructure.pdb
+/home/egregious/Документы/mandatum/Mandatum/Mandatum/Infrastructure/obj/Debug/net5.0/Infrastructure.genruntimeconfig.cache
