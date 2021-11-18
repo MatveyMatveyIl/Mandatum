@@ -1,20 +1,79 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Администратор\\OneDrive\\Рабочий стол\\Mandatum\\Mandatum\\Application\\Application.csproj": {}
+    "/home/matvey/Desktop/Mandatum/Mandatum/Application/Application.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Администратор\\OneDrive\\Рабочий стол\\Mandatum\\Mandatum\\Application\\Application.csproj": {
+    "/home/matvey/Desktop/Mandatum/Mandatum/Application/Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Администратор\\OneDrive\\Рабочий стол\\Mandatum\\Mandatum\\Application\\Application.csproj",
+        "projectUniqueName": "/home/matvey/Desktop/Mandatum/Mandatum/Application/Application.csproj",
         "projectName": "Application",
-        "projectPath": "C:\\Users\\Администратор\\OneDrive\\Рабочий стол\\Mandatum\\Mandatum\\Application\\Application.csproj",
-        "packagesPath": "C:\\Users\\Администратор\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Администратор\\OneDrive\\Рабочий стол\\Mandatum\\Mandatum\\Application\\obj\\",
+        "projectPath": "/home/matvey/Desktop/Mandatum/Mandatum/Application/Application.csproj",
+        "packagesPath": "/home/matvey/.nuget/packages/",
+        "outputPath": "/home/matvey/Desktop/Mandatum/Mandatum/Application/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Администратор\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "/home/matvey/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {
+              "/home/matvey/Desktop/Mandatum/Mandatum/Domain/Domain.csproj": {
+                "projectPath": "/home/matvey/Desktop/Mandatum/Mandatum/Domain/Domain.csproj"
+              },
+              "/home/matvey/Desktop/Mandatum/Mandatum/Infrastucture/Infrastucture.csproj": {
+                "projectPath": "/home/matvey/Desktop/Mandatum/Mandatum/Infrastucture/Infrastucture.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/snap/dotnet-sdk/146/sdk/5.0.403/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/home/matvey/Desktop/Mandatum/Mandatum/Domain/Domain.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/matvey/Desktop/Mandatum/Mandatum/Domain/Domain.csproj",
+        "projectName": "Domain",
+        "projectPath": "/home/matvey/Desktop/Mandatum/Mandatum/Domain/Domain.csproj",
+        "packagesPath": "/home/matvey/.nuget/packages/",
+        "outputPath": "/home/matvey/Desktop/Mandatum/Mandatum/Domain/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/matvey/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net5.0"
@@ -52,7 +111,59 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.402\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/snap/dotnet-sdk/146/sdk/5.0.403/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/home/matvey/Desktop/Mandatum/Mandatum/Infrastucture/Infrastucture.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/matvey/Desktop/Mandatum/Mandatum/Infrastucture/Infrastucture.csproj",
+        "projectName": "Infrastucture",
+        "projectPath": "/home/matvey/Desktop/Mandatum/Mandatum/Infrastucture/Infrastucture.csproj",
+        "packagesPath": "/home/matvey/.nuget/packages/",
+        "outputPath": "/home/matvey/Desktop/Mandatum/Mandatum/Infrastucture/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/matvey/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/snap/dotnet-sdk/146/sdk/5.0.403/RuntimeIdentifierGraph.json"
         }
       }
     }

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/home/matvey/Desktop/Mandatum/Mandatum/Domain/Domain.csproj": {}
+    "/home/matvey/Desktop/Mandatum/Mandatum/Infrastucture/Infrastucture.csproj": {}
   },
   "projects": {
-    "/home/matvey/Desktop/Mandatum/Mandatum/Domain/Domain.csproj": {
+    "/home/matvey/Desktop/Mandatum/Mandatum/Infrastucture/Infrastucture.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/matvey/Desktop/Mandatum/Mandatum/Domain/Domain.csproj",
-        "projectName": "Domain",
-        "projectPath": "/home/matvey/Desktop/Mandatum/Mandatum/Domain/Domain.csproj",
+        "projectUniqueName": "/home/matvey/Desktop/Mandatum/Mandatum/Infrastucture/Infrastucture.csproj",
+        "projectName": "Infrastucture",
+        "projectPath": "/home/matvey/Desktop/Mandatum/Mandatum/Infrastucture/Infrastucture.csproj",
         "packagesPath": "/home/matvey/.nuget/packages/",
-        "outputPath": "/home/matvey/Desktop/Mandatum/Mandatum/Domain/obj/",
+        "outputPath": "/home/matvey/Desktop/Mandatum/Mandatum/Infrastucture/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/home/matvey/.nuget/NuGet/NuGet.Config"
