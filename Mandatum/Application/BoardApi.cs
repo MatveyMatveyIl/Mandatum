@@ -4,6 +4,13 @@ namespace Application
 {
     public class BoardApi
     {
+        private readonly BoardRepo boardRepo;
+
+        public BoardApi(BoardRepo boardRepo)
+        {
+            this.boardRepo = boardRepo;
+        }
+
         public void CreateTask(TaskRecord task, int idBoard)
         {
             var boardRecord = boardRepo.Get(idBoard);
@@ -19,7 +26,7 @@ namespace Application
 
         public void UpdateTask(TaskRecord task, int id)
         {
-            
+            throw new System.NotImplementedException();
         }
 
         private BoardRecord BoardConvertToBoardRecord(Board board)
