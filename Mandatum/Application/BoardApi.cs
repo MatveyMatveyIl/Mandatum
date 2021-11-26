@@ -4,12 +4,22 @@ namespace Application
 {
     public class BoardApi
     {
-        public void CreateTask(TaskRecord task, int id)
+        public void CreateTask(TaskRecord task, int idBoard)
         {
-            var boardRecord = boardRepo.Get(id);
+            var boardRecord = boardRepo.Get(idBoard);
             var board = BoardRecordConvertToDomainBoard(boardRecord);
-            board.AddTask(task);
+            board.AddTask(TaskRecordConvertToDomainTask(task));
             boardRepo.Save(BoardConvertToBoardRecord(board));
+        }
+
+        private Task TaskRecordConvertToDomainTask(TaskRecord task)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void UpdateTask(TaskRecord task, int id)
+        {
+            
         }
 
         private BoardRecord BoardConvertToBoardRecord(Board board)
