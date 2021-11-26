@@ -1,7 +1,9 @@
 namespace Domain
 {
-    public class TaskStatus
+    public enum TaskStatus
     {
-        
+        InProgress,
+        Done,
+        InWait
     }
 }
