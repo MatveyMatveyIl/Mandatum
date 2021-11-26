@@ -1,29 +1,23 @@
 ﻿<!DOCTYPE HTML>
 
 
-<label class="container">Личная
-  <input type="checkbox">
-  <span class="checkmark"></span>
-</label>
+<div>
+<input type="radio" name="type" id="private" checked> <label for="private">Приватная</label>
+</div>
 
-<label class="container">Публичная
-  <input type="checkbox">
-  <span class="checkmark"></span>
-</label>
+<div>
+<input type="radio" name="type" id="public"> <label for="public">Публичная</label>
+</div>
 
-<label class="container">---Формат---
+<label>Формат</label>
 
-</label>
+<div>
+  <input type="radio" name="format" id="kanban" checked> <label for="kanban">Канбан-доска</label>
+</div>
+<div>  
+  <input type="radio" name="format" id="graph"> <label for="graph">Граф</label>
+</div>
 
-<label class="container">Канбан-доска
-  <input type="checkbox">
-  <span class="checkmark"></span>
-</label>
-
-<label class="container">Граф
-  <input type="checkbox">
-  <span class="checkmark"></span>
-</label>
 
 <div id="main" class="wrapper style2">
   <div class="row aln-left">
