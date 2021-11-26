@@ -23,6 +23,16 @@ namespace Mandatum.Controllers
             return View();
         }
 
+        public IActionResult CreateBoard()
+        {
+            return View();
+        }
+
+        public IActionResult AllBoards()
+        {
+            return View();
+        }
+        
         // public IActionResult Privacy()
         // {
         //     return View();

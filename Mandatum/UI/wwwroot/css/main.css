@@ -176,6 +176,63 @@ input, select, textarea {
 
 /* Container */
 
+.container {
+	display: block;
+	position: relative;
+	padding-left: 35px;
+	margin-bottom: 12px;
+	cursor: pointer;
+	font-size: 22px;
+	user-select: none;
+}
+
+.container input {
+	position: absolute;
+	opacity: 0;
+	cursor: pointer;
+	height: 0;
+	width: 0;
+}
+
+.checkmark {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 25px;
+	width: 25px;
+	background-color: #eee;
+}
+
+.container:hover input ~ .checkmark {
+	background-color: #ccc;
+}
+
+.container input:checked ~ .checkmark {
+	background-color: #2196F3;
+}
+
+.checkmark:after {
+	content: "";
+	position: absolute;
+	display: none;
+}
+
+.container input:checked ~ .checkmark:after {
+	display: block;
+}
+
+.container .checkmark:after {
+	left: 9px;
+	top: 5px;
+	width: 5px;
+	height: 10px;
+	border: solid white;
+	border-width: 0 3px 3px 0;
+	-webkit-transform: rotate(45deg);
+	-ms-transform: rotate(45deg);
+	transform: rotate(45deg);
+}
+
 	.container {
 		margin: 0 auto;
 		max-width: 100%;
@@ -2060,7 +2117,7 @@ input, select, textarea {
 		-ms-justify-content: center;
 		justify-content: center;
 		position: relative;
-		height: 24em;
+		height: 7em;
 		background: url("images/banner.jpg") center center;
 		background-size: cover;
 		padding: 0;
@@ -2092,14 +2149,14 @@ input, select, textarea {
 		#logo h1 {
 			font-weight: 900;
 			text-transform: uppercase;
-			color: #fff;
+			color: #1f232b;
 			font-size: 2em;
 			letter-spacing: 0.25em;
 		}
 
 		#logo p {
-			color: #eee;
-			color: rgba(255, 255, 255, 0.5);
+			color: #1f232b;
+			color: rgba(0, 0, 0, 0.5);
 			text-transform: uppercase;
 			margin: 1.25em 0 0 0;
 			display: block;
@@ -2112,7 +2169,7 @@ input, select, textarea {
 	#nav {
 		position: absolute;
 		display: block;
-		top: 2.5em;
+		top: 1.5em;
 		left: 0;
 		width: 100%;
 		text-align: center;
@@ -2243,6 +2300,7 @@ input, select, textarea {
 			width: 48em;
 			margin: 0 auto;
 		}
+		
 
 /* Features */
 
