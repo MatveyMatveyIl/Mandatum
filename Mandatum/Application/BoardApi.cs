@@ -13,10 +13,10 @@ namespace Application
 
         public void CreateTask(TaskRecord task, int idBoard)
         {
-            var boardRecord = boardRepo.Get(idBoard);
+            var boardRecord = boardRepo.GetData(idBoard);
             var board = BoardRecordConvertToDomainBoard(boardRecord);
             board.AddTask(TaskRecordConvertToDomainTask(task));
-            boardRepo.Save(BoardConvertToBoardRecord(board));
+            boardRepo.SaveData(BoardConvertToBoardRecord(board));
         }
 
         private Task TaskRecordConvertToDomainTask(TaskRecord task)

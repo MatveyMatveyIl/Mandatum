@@ -1,13 +1,22 @@
+using Infrastructure;
+
 namespace Application
 {
     public class BoardRepo
     {
-        public BoardRecord Get(int idBoard)
+        private readonly AbstractRepo abstractRepo;
+
+        public BoardRepo(AbstractRepo abstractRepo)
+        {
+            this.abstractRepo = abstractRepo;
+        }
+
+        public BoardRecord GetData(int idBoard)
         {
             throw new System.NotImplementedException();
         }
 
-        public void Save(BoardRecord boardConvertToBoardRecord)
+        public void SaveData(BoardRecord boardConvertToBoardRecord)
         {
             throw new System.NotImplementedException();
         }
