@@ -10,5 +10,10 @@ namespace Domain
         {
             Id = id;
         }
+
+        public void AddTask(Task task)
+        {
+            
+        }
     }
 }
