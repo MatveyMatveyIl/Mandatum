@@ -15,5 +15,10 @@ namespace Domain
         {
             
         }
+
+        public void UpdateTask(Task task, int id)
+        {
+            
+        }
     }
 }

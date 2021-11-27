@@ -9,7 +9,7 @@ namespace Infrastructure
             throw new NotImplementedException();
         }
 
-        public void SaveData<T>(int id)
+        public void SaveData<T>(int id, T record)
         {
             throw new NotImplementedException();
         }

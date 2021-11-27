@@ -13,12 +13,13 @@ namespace Application
 
         public BoardRecord GetData(int idBoard)
         {
-            throw new System.NotImplementedException();
+            var data = abstractRepo.GetData<BoardRecord>(idBoard);
+            return data;
         }
 
-        public void SaveData(BoardRecord boardConvertToBoardRecord)
+        public void SaveData(int idBoard, BoardRecord record)
         {
-            throw new System.NotImplementedException();
+            abstractRepo.SaveData<BoardRecord>(idBoard, record);
         }
     }
 }

@@ -16,7 +16,7 @@ namespace Application
             var boardRecord = boardRepo.GetData(idBoard);
             var board = BoardRecordConvertToDomainBoard(boardRecord);
             board.AddTask(TaskRecordConvertToDomainTask(task));
-            boardRepo.SaveData(BoardConvertToBoardRecord(board));
+            boardRepo.SaveData(idBoard, BoardConvertToBoardRecord(board));
         }
 
         private Task TaskRecordConvertToDomainTask(TaskRecord task)
@@ -24,9 +24,12 @@ namespace Application
             throw new System.NotImplementedException();
         }
 
-        public void UpdateTask(TaskRecord task, int id)
+        public void UpdateTask(TaskRecord task, int idBoard, int idTask)
         {
-            throw new System.NotImplementedException();
+            var boardRecord = boardRepo.GetData(idBoard);
+            var board = BoardRecordConvertToDomainBoard(boardRecord);
+            board.UpdateTask(TaskRecordConvertToDomainTask(task), idTask);
+            boardRepo.SaveData(idBoard, BoardConvertToBoardRecord(board));
         }
 
         private BoardRecord BoardConvertToBoardRecord(Board board)
