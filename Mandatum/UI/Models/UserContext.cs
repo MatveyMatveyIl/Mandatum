@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Mandatum.Models
 {
-    public class UserContext: DbContext
+    public sealed class UserContext: DbContext
     {
         public DbSet<User> Users { get; set; }
            public UserContext(DbContextOptions<UserContext> options)
