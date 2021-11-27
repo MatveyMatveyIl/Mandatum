@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Mandatum.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Mandatum.Controllers
 {
@@ -22,16 +24,17 @@ namespace Mandatum.Controllers
         {
             return View();
         }
-
+        [Authorize]
         public IActionResult CreateBoard()
         {
-            return View();
+            return Content(User.Identity.Name);
         }
 
         public IActionResult AllBoards()
         {
             return View();
         }
+        
         
         // public IActionResult Privacy()
         // {
