@@ -13,7 +13,7 @@ pre, a, abbr, acronym, address, big, cite,
 code, del, dfn, em, img, ins, kbd, q, s, samp,
 small, strike, strong, sub, sup, tt, var, b,
 u, i, center, dl, dt, dd, ol, ul, li, fieldset,
-form, label, legend, table, caption, tbody,
+form, legend, table, caption, tbody,
 tfoot, thead, tr, th, td, article, aside,
 canvas, details, embed, figure, figcaption,
 footer, header, hgroup, menu, nav, output, ruby,
@@ -24,6 +24,15 @@ section, summary, time, mark, audio, video {
 	font-size: 100%;
 	font: inherit;
 	vertical-align: baseline;}
+
+label{
+	margin: 0;
+	padding: 5px;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
 
 article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
@@ -62,7 +71,7 @@ mark {
 
 input::-moz-focus-inner {
 	border: 0;
-	padding: 0;
+	padding: 5px;
 }
 
 input, select, textarea {
@@ -231,67 +240,6 @@ input[type="radio"]:not(:checked) + label:after {
 input[type="radio"]:checked + label:after {
 	opacity: 1;
 }
-
-
-
-input[type="radio"]:checked,
-input[type="radio"]:not(:checked)
-{
-	position: absolute;
-	left: -9999px;
-}
-input[type="radio"]:checked + label,
-input[type="radio"]:not(:checked) + label {
-	display: inline-block;
-	position: relative;
-	padding-left: 28px;
-	line-height: 20px;
-	cursor: pointer;
-}
-
-input[type="radio"]:checked + label:before,
-input[type="radio"]:not(:checked) + label:before {
-	content: "";
-	position: absolute;
-	left: 0px;
-	top: 0px;
-	width: 18px;
-	height: 18px;
-	border: 1px solid #dddddd;
-	background-color: #ffffff;
-}
-input[type="radio"]:checked + label:before,
-input[type="radio"]:not(:checked) + label:before {
-	border-radius: 100%;
-}
-
-input[type="radio"]:checked + label:after,
-input[type="radio"]:not(:checked) + label:after {
-	content: "";
-	position: absolute;
-	-webkit-transition: all 0.2s ease;
-	-moz-transition: all 0.2s ease;
-	-o-transition: all 0.2s ease;
-	transition: all 0.2s ease;
-}
-input[type="radio"]:checked + label:after,
-input[type="radio"]:not(:checked) + label:after {
-	left: 5px;
-	top: 5px;
-	width: 10px;
-	height: 10px;
-	border-radius: 100%;
-	background-color: #f98780;
-}
-
-input[type="radio"]:not(:checked) + label:after {
-	opacity: 0;
-}
-input[type="radio"]:checked + label:after {
-	opacity: 1;
-}
-
-
 
 	.container {
 		margin: 0 auto;
@@ -2177,7 +2125,7 @@ input[type="radio"]:checked + label:after {
 		-ms-justify-content: center;
 		justify-content: center;
 		position: relative;
-		height: 7em;
+		height: 14em;
 		background: url("images/banner.jpg") center center;
 		background-size: cover;
 		padding: 0;
@@ -2209,14 +2157,14 @@ input[type="radio"]:checked + label:after {
 		#logo h1 {
 			font-weight: 900;
 			text-transform: uppercase;
-			color: #1f232b;
+			color: #eee;
 			font-size: 2em;
 			letter-spacing: 0.25em;
 		}
 
 		#logo p {
-			color: #1f232b;
-			color: rgba(0, 0, 0, 0.5);
+			color: #eee;
+			color: rgba(255, 255, 255, 0.5);
 			text-transform: uppercase;
 			margin: 1.25em 0 0 0;
 			display: block;
@@ -3003,6 +2951,7 @@ input[type="radio"]:checked + label:after {
 			#logo {
 				text-align: center;
 				padding-left: 2em;
+
 				padding-right: 2em;
 			}
 

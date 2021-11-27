@@ -24,10 +24,10 @@ namespace Mandatum.Controllers
         {
             return View();
         }
-        [Authorize]
+        
         public IActionResult CreateBoard()
         {
-            return Content(User.Identity.Name);
+            return View();
         }
 
         public IActionResult AllBoards()
