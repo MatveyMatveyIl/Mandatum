@@ -1,26 +1,31 @@
 ﻿<!DOCTYPE html>
-    <html lang="en">
-    <head>
-        @await  Html.PartialAsync("MetaTagsPartial")
-        @await Html.PartialAsync("CssPartial")
-        <meta charset="utf-8"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <link rel="stylesheet" href="~/css/main.css" asp-append-version="true"/>
-    </head>
-    <body>
 
-    <header>
-        @await Html.PartialAsync("HeaderPartial")
-    </header>
+<html lang="en">
 
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
+<head>
+    @await Html.PartialAsync("MetaTagsPartial")
+    @await Html.PartialAsync("CssPartial")
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="~/css/main.css" asp-append-version="true"/>
+    <title>Mandatum</title>
+</head>
 
+<body>
 
-    @await Html.PartialAsync("ScriptPartial")
-    @await RenderSectionAsync("Scripts", required: false)
-    </body>
-    </html>
+<header>
+    @* @await Html.PartialAsync("HeaderPartial") *@
+</header>
+
+@* <div class="container"> *@
+    <main role="main" class="pb-3">
+        @RenderBody()
+    </main>
+@* </div> *@
+
+@await Html.PartialAsync("ScriptPartial")
+@await RenderSectionAsync("Scripts", required: false)
+
+</body>
+
+</html>
