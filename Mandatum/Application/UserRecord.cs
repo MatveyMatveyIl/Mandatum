@@ -1,4 +1,4 @@
-using System;
+/*using System;
 
 namespace Application
 {
@@ -8,4 +8,4 @@ namespace Application
         public string Email { get; set; }
         public string Password { get; set; }
     }
-}
+}*/

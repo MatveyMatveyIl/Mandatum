@@ -26,6 +26,7 @@ namespace Mandatum
  
         public void ConfigureServices(IServiceCollection services)
         {
+            /*services.AddTransient<UserRepo>();*/
             string connection = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<UserContext>(options => options.UseSqlServer(connection));
  
