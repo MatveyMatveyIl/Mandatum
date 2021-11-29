@@ -27,9 +27,9 @@ namespace Mandatum
  
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<TaskRecord>();
+            /*services.AddSingleton<TaskRecord>();
             services.AddSingleton<BoardRecord>();
-            services.AddSingleton<UserRecord>();
+            services.AddSingleton<UserRecord>();*/
             
             var connection = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connection));

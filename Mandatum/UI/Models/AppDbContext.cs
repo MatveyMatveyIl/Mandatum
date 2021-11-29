@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
+using Application;
 using Microsoft.EntityFrameworkCore;
 
-namespace Application
+namespace Mandatum.Models
 {
     public class AppDbContext: DbContext
     {
@@ -24,8 +25,8 @@ namespace Application
             modelBuilder.Entity<BoardRecord>().HasData(new BoardRecord()
             {
                 Id = new Guid("96CC1E82B59F43CFAB61244585F2C662"),
-                TaskIds = new List<Guid>(),
-                UserIds = new List<Guid>(),
+                TaskIds = new List<TaskRecord>(),
+                UserIds = new List<UserRecord>(),
             });
             modelBuilder.Entity<TaskRecord>().HasData(new TaskRecord()
             {

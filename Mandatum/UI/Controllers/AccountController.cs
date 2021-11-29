@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Application;
 using Mandatum.Models;
 using Mandatum.ViewModels;
 using Microsoft.AspNetCore.Authentication;
@@ -12,8 +13,8 @@ namespace Mandatum.Controllers
 {
     public class AccountController: Controller
     {
-         private UserContext db;
-        public AccountController(UserContext context)
+         private AppDbContext db;
+        public AccountController(AppDbContext context)
         {
             db = context;
         }
@@ -28,7 +29,7 @@ namespace Mandatum.Controllers
         {
             if (ModelState.IsValid)
             {
-                User user = await db.Users.FirstOrDefaultAsync(u => u.Email == model.Email && u.Password == model.Password);
+                var user = await db.Users.FirstOrDefaultAsync(u => u.Email == model.Email && u.Password == model.Password);
                 if (user != null)
                 {
                     await Authenticate(model.Email); // аутентификация
@@ -50,11 +51,11 @@ namespace Mandatum.Controllers
         {
             if (ModelState.IsValid)
             {
-                User user = await db.Users.FirstOrDefaultAsync(u => u.Email == model.Email);
+                var user = await db.Users.FirstOrDefaultAsync(u => u.Email == model.Email);
                 if (user == null)
                 {
                     // добавляем пользователя в бд
-                    db.Users.Add(new User { Email = model.Email, Password = model.Password });
+                    db.Users.Add(new UserRecord() { Email = model.Email, Password = model.Password });
                     await db.SaveChangesAsync();
  
                     await Authenticate(model.Email); // аутентификация
