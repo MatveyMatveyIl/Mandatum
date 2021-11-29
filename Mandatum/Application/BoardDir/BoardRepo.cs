@@ -2,11 +2,11 @@ using Infrastructure;
 
 namespace Application
 {
-    public class BoardRepo
+    public class BoardRepo: IBoardRepo
     {
-        private readonly AbstractRepo abstractRepo;
+        private readonly AbstractRepo<BoardRecord> abstractRepo;
 
-        public BoardRepo(AbstractRepo abstractRepo)
+        public BoardRepo(AbstractRepo<BoardRecord> abstractRepo)
         {
             this.abstractRepo = abstractRepo;
         }
