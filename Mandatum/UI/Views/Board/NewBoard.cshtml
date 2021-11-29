@@ -1,0 +1,64 @@
+﻿
+<div id="page-wrapper">
+	
+	<section id="header" class="wrapper">
+		@await Html.PartialAsync("NavBarPartial")
+	</section>
+	<div class="container">Новая доска
+		<div class="row">
+			<div class="col-1-large">
+				<h2>Задачи</h2>
+				<table class="fa-table">
+					<thead class="fa-table-tennis">
+					<tr>
+						<th scope="col">Название</th>
+						<th scope="col">Статус</th>
+						<th scope="col"></th>
+					</tr>
+					</thead>
+					@foreach (var item in _tasks)
+					{
+						<tbody>
+						<tr>
+							<td>
+								@item.Topic
+							</td>
+							<td>
+								@item.Status
+							</td>
+						</tr>
+						</tbody>
+					}
+
+				</table>
+			
+				<div class="row">
+					<div class="col">
+						<input class="form" placeholder="Введи что то" @bind="_newInput"/>
+					</div>
+					<div class="col">
+						<button class="button" @onclick="Add_Task">Добавить</button>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+@code
+{
+	private IList<Tasks> _tasks = new List<Tasks>();
+	private string _newInput;
+
+	private void Add_Task()
+	{
+		if (!string.IsNullOrWhiteSpace(_newInput))
+		{
+			_tasks.Add(new Tasks{Topic = _newInput});
+			_newInput = string.Empty;
+		}
+	}
+}
+
+		
