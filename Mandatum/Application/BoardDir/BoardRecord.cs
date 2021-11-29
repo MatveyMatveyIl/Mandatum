@@ -6,7 +6,7 @@ namespace Application
     public class BoardRecord
     {
         public Guid Id { get; set; }
-        public List<int> TaskIds { get; set; }
-        public List<int> UserIds { get; set; }
+        public List<Guid> TaskIds { get; set; }
+        public List<Guid> UserIds { get; set; }
     }
 }
