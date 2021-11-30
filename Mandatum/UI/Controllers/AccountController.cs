@@ -14,13 +14,17 @@ namespace Mandatum.Controllers
 {
     public class AccountController : Controller
     {
-        private AppDbContext db;
+        private readonly UserApi _userApi;
+        private readonly UserConvertorModel _convertorModel;
+        private readonly UserConvertorRegister _convertorRegister;
+        private readonly AppDbContext db;
 
-
-
-        public AccountController(AppDbContext context)
+        public AccountController(UserApi userApi, UserConvertorModel convertorModel, AppDbContext db, UserConvertorRegister convertorRegister)
         {
-            db = context;
+            _userApi = userApi;
+            this._convertorModel = convertorModel;
+            this.db = db;
+            _convertorRegister = convertorRegister;
         }
 
         [HttpGet]
@@ -35,8 +39,7 @@ namespace Mandatum.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = await db.Users.FirstOrDefaultAsync(u =>
-                  u.Email == model.Email && u.Password == model.Password);
+                var user = _userApi.CheckUser(_convertorModel.ConvertToUserRecord(model));
                 if (user != null)
                 {
                     await Authenticate(model.Email); // аутентификация
@@ -62,11 +65,11 @@ namespace Mandatum.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = await db.Users.FirstOrDefaultAsync(u => u.Email == model.Email);
+                var user = _userApi.CheckUser(_convertorRegister.ConvertToUserRecord(model));
                 if (user == null)
                 {
                     // добавляем пользователя в бд
-                    db.Users.Add(new UserRecord() {Email = model.Email, Password = model.Password});
+                    _userApi.RegisterUser(new UserRecord() {Email = model.Email, Password = model.Password});
                     await db.SaveChangesAsync();
 
                     await Authenticate(model.Email); // аутентификация

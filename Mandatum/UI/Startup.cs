@@ -40,6 +40,10 @@ namespace Mandatum
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connection));
             services.AddScoped<BoardApi>();
             services.AddScoped<BoardRepo>();
+            services.AddScoped<UserApi>();
+            services.AddScoped<UserRepo>();
+            services.AddScoped<UserConvertorModel>();
+            services.AddScoped<UserConvertorRegister>();
             // установка конфигурации подключения
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options => //CookieAuthenticationOptions

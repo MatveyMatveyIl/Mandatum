@@ -17,5 +17,11 @@ namespace Application
         {   
             return dbContext.Users.FirstOrDefault(u => u.Email == user.Email && u.Password == user.Password);
         }
+
+        public void SaveUser(UserRecord user)
+        {
+            dbContext.Entry(user);
+            dbContext.SaveChanges();
+        }
     }
 }
