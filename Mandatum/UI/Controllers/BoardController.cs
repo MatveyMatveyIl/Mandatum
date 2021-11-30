@@ -19,13 +19,15 @@ namespace Mandatum.Controllers
             _taskConverter = taskConverter;
         }
         
-        public IActionResult KanbanBoard()
+        public IActionResult KanbanBoard(Guid id = default)
         {
+            ViewBag.current_task_id = id;
             return View(_taskConverter.ConvertToTaskModels(_taskApi.GetTasks()));
         }
 
-        public IActionResult CreateTask()
+        public IActionResult CreateTask(Guid? id)
         {
+            ViewBag.id = id;
             ViewBag.Method = nameof(CreateTask);
             return View("CreateTask", new TaskModel());
         }
@@ -36,12 +38,12 @@ namespace Mandatum.Controllers
             return View("CreateTask", _taskConverter.ConvertToTaskModel(_taskApi.GetTask(id)));
         }
 
-        public IActionResult CreateBoard()
+        public IActionResult AllBoards()
         {
             return View();
         }
 
-        public IActionResult AllBoards()
+        public IActionResult CreateBoard()
         {
             return View();
         }
