@@ -1,0 +1,49 @@
+﻿
+@using TaskStatus = Mandatum.Models.TaskStatus
+
+
+@model TaskModel
+<div class="home-inner container">
+    <div class="row">
+        <div class="col-sm-7 bg-light mx-auto">
+            <form asp-action="EditTask" method="post" enctype="multipart/form-data" class="p-2">
+                <!-- TEXT FIELD GROUPS -->
+                @if (ViewBag.Method == "CreateTask")
+                {
+                    <input type="hidden" asp-for="Id" value="0" />
+                    <input type="hidden" asp-for="Status" value="@TaskStatus.InWait" />
+                }
+                else if (ViewBag.Method == "EditTask")
+                {
+                    <input type="hidden" asp-for="Id" value="@Model.Id" />
+                    <input type="hidden" asp-for="Status" value="@Model.Status" />
+                }
+
+                <div class="form-group">
+                    <label>Имя</label>
+                    <div><span asp-validation-for="Topic"></span></div>
+                    <input asp-for="Topic" class="form-control" type="text" placeholder="Задача">
+                </div>
+                <div class="form-group">
+                    <label>Статус</label>
+                    <div><span asp-validation-for="Status"></span></div>
+                    <input asp-for="Status" class="form-control" type="text" placeholder="Статус">
+                </div>
+
+
+                <!-- TEXTAREA -->
+                <div class="form-group">
+                    <label>Описание</label>
+                    <div><span asp-validation-for="Description"></span></div>
+                    <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+                </div>
+
+                <br>
+
+                <button class="btn btn-primary m-2 p-2" type="submit">Сохранить</button>
+                <a asp-action="KanbanBoard" class="btn btn-primary m-2 p-2">Отмена</a>
+            </form>
+        </div>
+    </div>
+</div>
+

@@ -44,6 +44,9 @@ namespace Mandatum
             services.AddScoped<UserRepo>();
             services.AddScoped<UserConvertorModel>();
             services.AddScoped<UserConvertorRegister>();
+            services.AddScoped<TaskRepo>();
+            services.AddScoped<TaskApi>();
+            services.AddScoped<TaskConverter>();
             // установка конфигурации подключения
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options => //CookieAuthenticationOptions

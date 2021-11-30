@@ -54,7 +54,7 @@ namespace Mandatum.Migrations
                     b.Property<DateTime>("Term")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Topic")
+                    b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");

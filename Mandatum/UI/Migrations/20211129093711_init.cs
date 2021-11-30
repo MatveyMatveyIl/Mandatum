@@ -67,7 +67,7 @@ namespace Mandatum.Migrations
 
             migrationBuilder.InsertData(
                 table: "Tasks",
-                columns: new[] { "Id", "BoardRecordId", "Description", "Status", "Term", "Topic" },
+                columns: new[] { "Id", "BoardRecordId", "Description", "Status", "Term", "Name" },
                 values: new object[] { new Guid("578181d8-e7bf-4a38-8cde-c9671e5efe58"), null, "1", 1, new DateTime(2021, 11, 29, 14, 37, 10, 870, DateTimeKind.Local).AddTicks(8915), "1" });
 
             migrationBuilder.InsertData(
