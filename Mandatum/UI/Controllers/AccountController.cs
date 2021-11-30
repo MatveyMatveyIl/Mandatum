@@ -17,13 +17,11 @@ namespace Mandatum.Controllers
         private readonly UserApi _userApi;
         private readonly UserConvertorModel _convertorModel;
         private readonly UserConvertorRegister _convertorRegister;
-        private readonly AppDbContext db;
 
-        public AccountController(UserApi userApi, UserConvertorModel convertorModel, AppDbContext db, UserConvertorRegister convertorRegister)
+        public AccountController(UserApi userApi, UserConvertorModel convertorModel, UserConvertorRegister convertorRegister)
         {
             _userApi = userApi;
             this._convertorModel = convertorModel;
-            this.db = db;
             _convertorRegister = convertorRegister;
         }
 
@@ -70,7 +68,7 @@ namespace Mandatum.Controllers
                 {
                     // добавляем пользователя в бд
                     _userApi.RegisterUser(new UserRecord() {Email = model.Email, Password = model.Password});
-                    await db.SaveChangesAsync();
+                    //await db.SaveChangesAsync();
 
                     await Authenticate(model.Email); // аутентификация
 
