@@ -18,7 +18,7 @@
                                           <i class="fa fa-suitcase" aria-hidden="true"></i>
                   
                                           @* <input type="button" value="@taskModel.Name" class="btn btn-sm btn-dark" onclick="getTaskInfoUsingAjax(@taskModel.Id)"> *@
-                                          <a asp-controller="Account">@taskModel.Name</a>  
+                                          <a asp-controller="Account">@taskModel.Topic</a>  
                                           @if (taskModel.Status != TaskStatus.Done)
                                           {
                                               <a asp-action="CreateTask" asp-route-id="@taskModel.Id">

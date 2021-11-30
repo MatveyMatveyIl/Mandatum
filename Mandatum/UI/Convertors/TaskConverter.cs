@@ -10,9 +10,8 @@ namespace Mandatum.Convertors
         {
             return new TaskModel()
             {
-                Name = taskRecord.Name, Status = ConvertToTaskStatus(taskRecord.Status),
-                Id = taskRecord.Id, Deadline = taskRecord.Deadline, Executors = taskRecord.Executors, 
-                Priority = taskRecord.Priority, Description = taskRecord.Description
+                Topic = taskRecord.Topic, Status = ConvertToTaskStatus(taskRecord.Status),
+                Id = taskRecord.Id, Term = taskRecord.Term, Description = taskRecord.Description
             };
         }
         
