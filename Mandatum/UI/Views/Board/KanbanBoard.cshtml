@@ -17,7 +17,7 @@
 			<div class="row aln-center">
 				<div class="col-4 col-12-medium">
 					<section class="highlight">
-						<a asp-action="CreateTask" class="button">Новая задача</a>
+						<h3>Не начато</h3>
 						<ul style="margin-left: 10px; padding: 0;">
 							@foreach (var taskModel in Model)
 							{
@@ -30,12 +30,14 @@
 								</li>
 							}
 						</ul>
+						<a asp-action="CreateTask" class="button">Новая задача</a>
 					</section>
 				</div>
 				<div class="col-4 col-12-medium">
 					<section class="highlight">
-						<a asp-action="CreateTask" class="button">Новая задача</a>
+						<h3>В процессе</h3>
 						<ul style="margin-left: 10px; padding: 0;">
+							
 							@foreach (var taskModel in Model)
 							{
 								<li>
@@ -47,26 +49,28 @@
 								</li>
 							}
 						</ul>
+						<a asp-action="CreateTask" class="button">Новая задача</a>
 					</section>
 				</div>
 				<div class="col-4 col-12-medium">
-                					<section class="highlight">
-                						<a asp-action="CreateTask" class="button">Новая задача</a>
-                						<ul style="margin-left: 10px; padding: 0;">
-                							@foreach (var taskModel in Model)
-                							{
-                								<li>
-                									@* <i class="fa fa-suitcase" aria-hidden="true"></i> *@
-                									
-                									@if (taskModel.Status == TaskStatus.Done)
-                									{
-										                <a asp-controller="Account">@taskModel.Topic</a>
-                										<i class="fa fa-check-square" aria-hidden="true"></i>
-                									}
-                								</li>
-                							}
-                						</ul>
-                					</section>
+					<section class="highlight">
+						<h3>Готово</h3>
+						<ul style="margin-left: 10px; padding: 0;">
+							@foreach (var taskModel in Model)
+							{
+								<li>
+									@* <i class="fa fa-suitcase" aria-hidden="true"></i> *@
+
+									@if (taskModel.Status == TaskStatus.Done)
+									{
+										<a asp-controller="Account">@taskModel.Topic</a>
+										<i class="fa fa-check-square" aria-hidden="true"></i>
+									}
+								</li>
+							}
+						</ul>
+						<a asp-action="CreateTask" class="button">Новая задача</a>
+					</section>
                 				</div>
 			</div>
 		</div>
