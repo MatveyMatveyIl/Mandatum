@@ -14,7 +14,7 @@ namespace Application
 
         public void Fuck()
         {
-            Console.WriteLine(boardRepo.GetData());
+            Console.WriteLine(boardRepo.GetData().Email);
         }
 
         /*public void CreateTask(TaskRecord task, int idBoard)

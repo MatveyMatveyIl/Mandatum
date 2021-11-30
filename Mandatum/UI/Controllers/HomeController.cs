@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Application;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Mandatum.Models;
@@ -19,9 +20,16 @@ namespace Mandatum.Controllers
         // {
         //     _logger = logger;
         // }
+        private readonly BoardApi _boardApi;
+
+        public HomeController(BoardApi boardApi)
+        {
+            _boardApi = boardApi;
+        }
 
         public IActionResult Index()
         {
+            _boardApi.Fuck();
             return View();
         }
         
