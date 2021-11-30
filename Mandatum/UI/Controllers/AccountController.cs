@@ -14,11 +14,16 @@ namespace Mandatum.Controllers
 {
     public class AccountController : Controller
     {
-        private UserRepo db;
+        private AppDbContext db;
+        private UserRepo userRepo;
+        private UserConvertor convertor;
 
-        public AccountController(UserRepo context)
+
+        public AccountController(AppDbContext context, UserRepo userRepo, UserConvertor convertor)
         {
             db = context;
+            this.userRepo = userRepo;
+            this.convertor = convertor;
         }
 
         [HttpGet]
@@ -33,10 +38,10 @@ namespace Mandatum.Controllers
         {
             if (ModelState.IsValid)
             {
-                var convertedUser = new UserConvertor().ConvertToUserRecord(model);
-                var user = db.GetUser(convertedUser);
-                /*var user = await db.Users.FirstOrDefaultAsync(u =>
-                    u.Email == model.Email && u.Password == model.Password);*/
+                var convertedUser = convertor.ConvertToUserRecord(model);
+                var user = userRepo.GetUser(convertedUser);
+                //var user = await db.Users.FirstOrDefaultAsync(u =>
+                //  u.Email == model.Email && u.Password == model.Password);
                 if (user != null)
                 {
                     await Authenticate(model.Email); // аутентификация
@@ -60,7 +65,7 @@ namespace Mandatum.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterModel model)
         {
-            /*if (ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 var user = await db.Users.FirstOrDefaultAsync(u => u.Email == model.Email);
                 if (user == null)
@@ -75,7 +80,7 @@ namespace Mandatum.Controllers
                 }
                 else
                     ModelState.AddModelError("", "Некорректные логин и(или) пароль");
-            }*/
+            }
 
             return View(model);
         }

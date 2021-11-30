@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Application;
+using Mandatum.Controllers;
+using Mandatum.Convertors;
 using Mandatum.Models;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
@@ -30,8 +32,10 @@ namespace Mandatum
             /*services.AddSingleton<TaskRecord>();
             services.AddSingleton<BoardRecord>();
             services.AddSingleton<UserRecord>();*/
-            services.AddSingleton<IUserRepo, UserRepo>();
-            services.AddSingleton<DataManager>();
+            services.AddScoped<IUserRepo, UserRepo>();
+            services.AddSingleton<UserConvertor>();
+            //services.AddSingleton<AccountController>();
+            //services.AddSingleton<DataManager>();
             var connection = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connection));
  
