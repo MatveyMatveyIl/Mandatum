@@ -1,0 +1,159 @@
+﻿
+@using TaskStatus = Mandatum.Models.TaskStatus
+@model IEnumerable<Mandatum.Models.Task>
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-4 bg-warning p-3 m-3" style="overflow-x: auto">
+            
+            <a asp-action="CreateTask" class="button">Новая задача</a>
+                   <ul style="margin-left: 10px; padding: 0;">
+                                  @foreach (var t in Model)
+                                  {
+                                      <li style="list-style-type: none; white-space: nowrap;" class="m-2">
+                                          <i class="fa fa-suitcase" aria-hidden="true"></i>
+                  
+                                          <input type="button" value="@t.Topic" class="btn btn-sm btn-dark" onclick="getTaskInfoUsingAjax(@t.Id)">
+                  
+                                          @if (t.Status != TaskStatus.Done)
+                                          {
+                                              <a asp-action="CreateTask" asp-route-id="@t.Id">
+                                                  <i class="fa fa-plus" aria-hidden="true"></i>
+                                              </a>
+                                          }
+                                          else
+                                          {
+                                              <i class="fa fa-check-square" aria-hidden="true"></i>
+                                          }
+                                      </li>
+                                  }
+                              </ul>
+            
+            
+        </div>
+
+        @* <div class="col-sm-7 bg-primary p-3 m-3"> *@
+        @*     @await Html.PartialAsync("AjaxPartitial") *@
+        @* </div> *@
+    </div>
+</div>
+
+@* @section scripts { *@
+@*     <script type="text/javascript"> *@
+@*         function getTaskInfoUsingAjax(taskid) { *@
+@*             $.ajax({ *@
+@*                 url: '@Url.Action("TaskToAjax")', *@
+@*                 type: "GET", *@
+@*                 data: { TaskId: taskid }, *@
+@*                 dataType: "json", *@
+@*                 success: function (response) { *@
+@* *@
+@*                     $('#content_place').empty(); *@
+@*                     $('#messages').remove(); *@
+@* *@
+@*                     $('#content_place').append('<h5 class="text-light">@Localizer["TaskInfoTitle"] <h5>'); *@
+@* *@
+@*                     $('<table>', { *@
+@*                         'class': 'table table-striped table-dark', *@
+@*                         'id' : 'atr_table' *@
+@*                     }).appendTo("#content_place"); *@
+@*                     $('#atr_table').append('<thead><tr><th scope="col">@Localizer["TaskAttribute"]</th><th scope="col">@Localizer["TaskValue"]</th></tr></thead>'); *@
+@*                     $('<tbody>', { *@
+@*                         'id': 'atr_table_body' *@
+@*                     }).appendTo("#atr_table"); *@
+@*                     addAtrTableRow("@Localizer["IdAttr"]", response.current_task.id, '#atr_table_body'); *@
+@*                     addAtrTableRow("@Localizer["NameAttr"]", response.current_task.name, '#atr_table_body'); *@
+@*                     addAtrTableRow("@Localizer["ExecAttr"]", response.current_task.executors, '#atr_table_body');                    *@
+@*                     addAtrTableRow("@Localizer["StatusAttr"]", response.current_task.status, '#atr_table_body'); *@
+@*                     addAtrTableRow("@Localizer["LaborAttr"]", response.current_task.total_labor, '#atr_table_body'); *@
+@*                     addAtrTableRow("@Localizer["InitDateAttr"]", response.current_task.initial_date, '#atr_table_body'); *@
+@*                     addAtrTableRow("@Localizer["CompDateAttr"]", response.current_task.completion_date, '#atr_table_body'); *@
+@*                     addAtrTableRow("@Localizer["FactTimeAttr"]", response.current_task.total_actual_time ?? "@Localizer["ActTimeNull"]", '#atr_table_body'); *@
+@* *@
+@*                     $('#content_place').append('<div class="bg-light p-2 my-3">'+response.current_task.desc+'</div>'); *@
+@* *@
+@*                     if (response.current_task.statusid !== 3) { *@
+@*                         $('#content_place').append('<div class="stat_elem d-inline m-2">@Localizer["ChangeStatusTitle"] </div>'); *@
+@* *@
+@*                         response["available"].forEach(function (data) { *@
+@*                             addStatusOption(data.title, data.statusId); *@
+@*                         }); *@
+@*                         $('.stat_opt').wrapAll('<select id="stat_select" style="width: 200px;" form-control-sm"></select>'); *@
+@*                         $('#stat_select').wrapAll('<div class="form-group stat_elem d-inline m-2"></div>'); *@
+@* *@
+@*                         $('<button>', { *@
+@*                             'class': 'stat_elem btn btn-sm btn-primary d-inline m-2', *@
+@*                             text: '@Localizer["StatusSaveButt"]', *@
+@*                             click: function () { *@
+@*                                 $.ajax({ *@
+@*                                     url: '@Url.Action("ChangeStatus")', *@
+@*                                     type: "POST", *@
+@*                                     data: { task_id: response.current_task.id, status: $('#stat_select').val() }, *@
+@*                                     dataType: "json", *@
+@*                                     success: function (data) { *@
+@*                                         if (data.new_status === 3) { *@
+@*                                             location.reload(); *@
+@*                                         } else { *@
+@*                                             getTaskInfoUsingAjax(data.changed_taskid); *@
+@*                                         } *@
+@*                                     }, *@
+@*                                     error: function () { *@
+@*                                         $('#err_msg').remove(); *@
+@*                                         $('#content_place').prepend('<div id="err_msg" class="alert alert-warning">@Localizer["ChangeStatusFail"]</div>'); *@
+@*                                     } *@
+@*                                 }); *@
+@*                             } *@
+@*                         }).appendTo("#content_place"); *@
+@*                         $('.stat_elem').wrapAll('<div class="bg-warning"></div>'); *@
+@*                     } else { *@
+@*                         $('#content_place').append('<div class="d-block my-2 p-2 bg-warning">@Localizer["TaskCompliedTitle"] </div>'); *@
+@*                     } *@
+@* *@
+@*                     if (response.sub_tasks.length > 0) { *@
+@*                         $('#content_place').append('<div class ="text-light my-3"><h5>@Localizer["SubTasksTitle"] </h5>'); *@
+@* *@
+@*                         $('<table>', { *@
+@*                             'class': 'table table-striped table-dark', *@
+@*                             'id': 'sbtsk_table' *@
+@*                         }).appendTo("#content_place"); *@
+@*                         $('#sbtsk_table').append('<thead><tr><th scope="col">@Localizer["ColSubTasksId"]</th><th scope="col">@Localizer["ColSubTasksName"]</th><th scope="col">@Localizer["ColSubTasksLabor"]</th><th scope="col">@Localizer["ColSubTasksActTime"]</th></tr></thead>'); *@
+@*                         $('<tbody>', { *@
+@*                             'id': 'atr_table_body' *@
+@*                         }).appendTo("#sbtsk_table"); *@
+@* *@
+@*                         response.sub_tasks.forEach(function (sbtsk) { *@
+@*                             addSubTasksTableRow(sbtsk.id, sbtsk.name, sbtsk.laboriousness, sbtsk.act_time ,'#sbtsk_table'); *@
+@*                         }); *@
+@* *@
+@*                         $('#content_place').append('</div'); *@
+@* *@
+@*                     } else { *@
+@*                         $('#content_place').append('<div class="py-3"><h5 class="text-light">@Localizer["NoSubTasksTitle"]</h5></div>'); *@
+@*                     } *@
+@*                 } *@
+@*             }); *@
+@* *@
+@*         } *@
+@* *@
+@*         function addAtrTableRow(atr, vl, place) { *@
+@*             $(place).append('<tr><td>' + atr + '</td><td>'+vl+'</td></tr>'); *@
+@*         } *@
+@*         function addSubTasksTableRow(t_id, t_name, t_labor,t_act_time,place) { *@
+@*             $(place).append('<tr><td>' + t_id + '</td><td>' + t_name + '</td><td>' + t_labor + '</td><td>' + (t_act_time ?? "@Localizer["ActTimeNull"]") + '</td></tr>'); *@
+@*         } *@
+@* *@
+@*         function addStatusOption(title, id) { *@
+@*             $('<option>', { *@
+@*                 'class': 'stat_opt', *@
+@*                 text: title, *@
+@*                 'value': id *@
+@*             }).appendTo("#content_place"); *@
+@*         } *@
+@* *@
+@* *@
+@*     </script> *@
+@* } *@
