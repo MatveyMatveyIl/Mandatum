@@ -1,14 +1,17 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Mandatum.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace Mandatum.Controllers
 {
     public class BoardController : Controller
     {
-        public IActionResult NewBoard()
+        /*public IActionResult NewBoard()
         {
+            var task = new Tasks();
+            ViewBag.task = task;
             return View();
-        }
+        }*/
         
         public IActionResult CreateBoard()
         {
@@ -16,6 +19,11 @@ namespace Mandatum.Controllers
         }
 
         public IActionResult AllBoards()
+        {
+            return View();
+        }
+
+        public IActionResult NewBoard()
         {
             return View();
         }

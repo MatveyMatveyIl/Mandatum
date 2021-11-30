@@ -1,64 +1,61 @@
 ﻿
-<div id="page-wrapper">
-	
-	<section id="header" class="wrapper">
-		@await Html.PartialAsync("NavBarPartial")
-	</section>
-	<div class="container">Новая доска
-		<div class="row">
-			<div class="col">
-				<h2>Задачи</h2>
-				<table class="table">
-					<thead class="table">
-					<tr>
-						<th scope="col">Название</th>
-						<th scope="col">Статус</th>
-						<th scope="col"></th>
-					</tr>
-					</thead>
-					@foreach (var item in _tasks)
-					{
-						<tbody>
-						<tr>
-							<td>
-								@item.Topic
-							</td>
-							<td>
-								@item.Status
-							</td>
-						</tr>
-						</tbody>
-					}
+@model Mandatum.Models.Tasks
 
-				</table>
+@{
+    ViewBag.Title = "DemoExpression";
+    Layout = "_Layout";
+}
+
+<div id="page-wrapper" xmlns="http://www.w3.org/1999/html">
+    <div class="container">Новая доска
+        <div class="row">
+            <div class="col">
+                <h2>Задачи</h2>
+                <table class="table">
+                    <thead class="table">
+                    <tr>
+                        <th scope="col">Название</th>
+                        <th scope="col">Статус</th>
+                        <th scope="col"></th>
+                    </tr>
+                    </thead>
+                    @foreach (var item in @ViewBag.task.tasks)
+                    {
+                        <tbody>
+                        <tr>
+                            <td>
+                                @item.Topic
+                            </td>
+                            <td>
+                                @item.Status
+                            </td>
+                        </tr>
+                        </tbody>
+                    }
+                </table>
 			
 				<div class="row">
 					<div class="col">
-						<input class="form" placeholder="Введи что то" @bind="_newInput"/>
+						<input class="form" placeholder="Введи что то" bind="@ViewBag.task.NewInput"/>
 					</div>
 					<div class="col">
-						<button class="button" @onclick="Add_Task">Добавить</button>
-					</div>
+                        <div class="button" onclick="Add_Task(@ViewBag.task)">Добавить</div>
+                        <script>
+                        function Add_Task(task) {
+                         if (task.NewInput != null)
+                             {
+                               task.tasks.add(new task{task.Topic = task.NewInput});
+                               task.NewInput = null;
+                             }
+                        }
+                        </script>
+                    </div>
 
-				</div>
-			</div>
-		</div>
-	</div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
-@code
-{
-	private IList<Tasks> _tasks = new List<Tasks>();
-	private string _newInput;
 
-	private void Add_Task()
-	{
-		if (!string.IsNullOrWhiteSpace(_newInput))
-		{
-			_tasks.Add(new Tasks{Topic = _newInput});
-			_newInput = string.Empty;
-		}
-	}
-}
 
-		

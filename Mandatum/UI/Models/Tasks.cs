@@ -1,4 +1,6 @@
-﻿namespace Mandatum.Models
+﻿using System.Collections.Generic;
+
+namespace Mandatum.Models
 {
     public class Tasks
     {
