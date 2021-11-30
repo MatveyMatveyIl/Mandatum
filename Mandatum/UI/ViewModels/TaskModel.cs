@@ -1,4 +1,4 @@
-using System;
+/*using System;
 
 namespace Mandatum.ViewModels
 {
@@ -18,4 +18,4 @@ namespace Mandatum.ViewModels
         Done,
         InWait
     }
-}
+}*/

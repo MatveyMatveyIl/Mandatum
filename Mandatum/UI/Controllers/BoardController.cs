@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Application;
 using Mandatum.Convertors;
 using Mandatum.Models;
@@ -11,9 +12,9 @@ namespace Mandatum.Controllers
     public class BoardController : Controller
     {
         private TaskApi _taskApi;
-        private TaskConverter _taskConverter;
+        private TaskModelConverter _taskConverter;
 
-        public BoardController(TaskApi taskApi, TaskConverter taskConverter)
+        public BoardController(TaskApi taskApi, TaskModelConverter taskConverter)
         {
             _taskApi = taskApi;
             _taskConverter = taskConverter;
@@ -22,20 +23,21 @@ namespace Mandatum.Controllers
         public IActionResult KanbanBoard(Guid id = default)
         {
             ViewBag.current_task_id = id;
-            return View(_taskConverter.ConvertToTaskModels(_taskApi.GetTasks()));
+            return View(_taskConverter.Convert(_taskApi.GetTasks()));
         }
 
-        public IActionResult CreateTask(Guid? id)
+        public IActionResult CreateTask(TaskModel task)
         {
-            ViewBag.id = id;
             ViewBag.Method = nameof(CreateTask);
             return View("CreateTask", new TaskModel());
         }
 
-        public IActionResult EditTask(Guid id)
+        public IActionResult EditTask(TaskModel task)
         {
+            _taskApi.AddTask(_taskConverter.Convert(task));
             ViewBag.Method = nameof(EditTask);
-            return View("CreateTask", _taskConverter.ConvertToTaskModel(_taskApi.GetTask(id)));
+            return View("KanbanBoard", _taskConverter.Convert(_taskApi.GetTasks()));
+            //return View("CreateTask", _taskConverter.Convert(_taskApi.GetTask(_taskConverter.Convert(task))));
         }
 
         public IActionResult AllBoards()

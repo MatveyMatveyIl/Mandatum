@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Mandatum.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application
 {
@@ -25,6 +26,11 @@ namespace Application
         public TaskRecord GetTask(Guid id)
         {
             return Tasks.FirstOrDefault(taskRecord => taskRecord.Id == id);
+        }
+
+        public TaskRecord GetTask(TaskRecord taskRecord)
+        {
+            return Tasks.FirstOrDefault(record => record.Equals(taskRecord));
         }
 
         public void DeleteTask(Guid id)

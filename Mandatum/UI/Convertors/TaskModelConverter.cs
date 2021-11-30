@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using Application;
+using Mandatum.Models;
 using Mandatum.ViewModels;
 
 namespace Mandatum.Convertors
@@ -16,23 +18,23 @@ namespace Mandatum.Convertors
             };
         }
 
-        private TaskStatusRecord ConvertToTaskRecordStatus(TaskStatusModel statusRecord)
+        private TaskStatusRecord ConvertToTaskRecordStatus(TaskStatus statusRecord)
         {
             return statusRecord switch
             {
-                TaskStatusModel.Done => TaskStatusRecord.Done,
-                TaskStatusModel.InProgress => TaskStatusRecord.InProgress,
-                TaskStatusModel.InWait => TaskStatusRecord.InWait
+                TaskStatus.Done => TaskStatusRecord.Done,
+                TaskStatus.InProgress => TaskStatusRecord.InProgress,
+                TaskStatus.InWait => TaskStatusRecord.InWait
             };
         }
         
-        private TaskStatusModel ConvertToTaskModelStatus(TaskStatusRecord statusRecord)
+        private TaskStatus ConvertToTaskModelStatus(TaskStatusRecord statusRecord)
         {
             return statusRecord switch
             {
-                TaskStatusRecord.Done => TaskStatusModel.Done,
-                TaskStatusRecord.InProgress => TaskStatusModel.InProgress,
-                TaskStatusRecord.InWait => TaskStatusModel.InWait
+                TaskStatusRecord.Done => TaskStatus.Done,
+                TaskStatusRecord.InProgress => TaskStatus.InProgress,
+                TaskStatusRecord.InWait => TaskStatus.InWait
             };
         }
 
@@ -45,6 +47,14 @@ namespace Mandatum.Convertors
                 Term = source.Term,
                 Topic = source.Topic,
             };
+        }
+
+        public IEnumerable<TaskModel> Convert(IEnumerable<TaskRecord> records)
+        {
+            foreach (var record in records)
+            {
+                yield return Convert(record);
+            }
         }
     }
 }

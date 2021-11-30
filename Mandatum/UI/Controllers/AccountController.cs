@@ -22,7 +22,7 @@ namespace Mandatum.Controllers
         public AccountController(UserApi userApi, UserConvertorModel convertorModel, UserConvertorRegister convertorRegister)
         {
             _userApi = userApi;
-            this._convertorModel = convertorModel;
+            _convertorModel = convertorModel;
             _convertorRegister = convertorRegister;
         }
 
