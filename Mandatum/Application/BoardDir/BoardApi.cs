@@ -1,3 +1,4 @@
+using System;
 using Domain;
 
 namespace Application
@@ -11,7 +12,12 @@ namespace Application
             this.boardRepo = boardRepo;
         }
 
-        public void CreateTask(TaskRecord task, int idBoard)
+        public void Fuck()
+        {
+            Console.WriteLine(boardRepo.GetData());
+        }
+
+        /*public void CreateTask(TaskRecord task, int idBoard)
         {
             var boardRecord = boardRepo.GetData(idBoard);
             var board = BoardRecordConvertToDomainBoard(boardRecord);
@@ -40,6 +46,6 @@ namespace Application
         private Board BoardRecordConvertToDomainBoard(BoardRecord boardRecord)
         {
             throw new System.NotImplementedException();
-        }
+        }*/
     }
 }

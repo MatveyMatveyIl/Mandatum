@@ -15,15 +15,12 @@ namespace Mandatum.Controllers
     public class AccountController : Controller
     {
         private AppDbContext db;
-        private UserRepo userRepo;
-        private UserConvertor convertor;
 
 
-        public AccountController(AppDbContext context, UserRepo userRepo, UserConvertor convertor)
+
+        public AccountController(AppDbContext context)
         {
             db = context;
-            this.userRepo = userRepo;
-            this.convertor = convertor;
         }
 
         [HttpGet]
@@ -38,10 +35,8 @@ namespace Mandatum.Controllers
         {
             if (ModelState.IsValid)
             {
-                var convertedUser = convertor.ConvertToUserRecord(model);
-                var user = userRepo.GetUser(convertedUser);
-                //var user = await db.Users.FirstOrDefaultAsync(u =>
-                //  u.Email == model.Email && u.Password == model.Password);
+                var user = await db.Users.FirstOrDefaultAsync(u =>
+                  u.Email == model.Email && u.Password == model.Password);
                 if (user != null)
                 {
                     await Authenticate(model.Email); // аутентификация

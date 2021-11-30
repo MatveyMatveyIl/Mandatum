@@ -2,7 +2,7 @@ namespace Application
 {
     public interface IBoardRepo
     {
-        public BoardRecord GetData(int idBoard);
+        public UserRecord GetData();
         public void SaveData(int idBoard, BoardRecord record);
     }
 }
