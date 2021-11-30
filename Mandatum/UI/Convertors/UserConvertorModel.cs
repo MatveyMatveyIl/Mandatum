@@ -3,11 +3,17 @@ using Mandatum.ViewModels;
 
 namespace Mandatum.Convertors
 {
-    public class UserConvertorModel
+    public class UserConvertorModel: IConvertor<UserRecord, LoginModel>
     {
-        public UserRecord ConvertToUserRecord(LoginModel model)
+
+        public UserRecord Convert(LoginModel source)
         {
-            return new UserRecord() {Email = model.Email, Password = model.Password};
+            return new UserRecord() {Email = source.Email, Password = source.Password};
+        }
+
+        public LoginModel Convert(UserRecord source)
+        {
+            return new LoginModel() {Email = source.Email, Password = source.Password};
         }
     }
 }

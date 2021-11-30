@@ -39,7 +39,7 @@ namespace Mandatum.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = _userApi.CheckUser(_convertorModel.ConvertToUserRecord(model));
+                var user = _userApi.CheckUser(_convertorModel.Convert(model));
                 if (user != null)
                 {
                     await Authenticate(model.Email); // аутентификация
@@ -65,7 +65,7 @@ namespace Mandatum.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = _userApi.CheckUser(_convertorRegister.ConvertToUserRecord(model));
+                var user = _userApi.CheckUser(_convertorRegister.Convert(model));
                 if (user == null)
                 {
                     // добавляем пользователя в бд
