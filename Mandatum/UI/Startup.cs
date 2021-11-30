@@ -30,7 +30,8 @@ namespace Mandatum
             /*services.AddSingleton<TaskRecord>();
             services.AddSingleton<BoardRecord>();
             services.AddSingleton<UserRecord>();*/
-            
+            services.AddSingleton<IUserRepo, UserRepo>();
+            services.AddSingleton<DataManager>();
             var connection = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connection));
  

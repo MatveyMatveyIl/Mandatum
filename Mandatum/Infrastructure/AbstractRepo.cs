@@ -1,24 +1,24 @@
 using System;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Internal;
 
 namespace Infrastructure
 {
-    public class AbstractRepo<T> where T:class
+    public class AbstractRepo
     {
-        private readonly T _context;
-        private readonly DbSet<T> field;
-        private DbSet<T> table { get; set; }
+        private readonly IRepoConfig config;
 
-        public AbstractRepo(T context)
+        public AbstractRepo(IRepoConfig config)
         {
-            _context = context;
+            this.config = config;
         }
 
-        public T GetData<T>(int id)
+        public T GetData<T>(Func<DbContext, T> f)
         {
-            table.FirstOrDefaultAsync(u => u)
             throw new NotImplementedException();
+            /*using (var db = AppDbContext())
+            {
+                
+            }*/
         }
 
         public void SaveData<T>(int id, T record)
