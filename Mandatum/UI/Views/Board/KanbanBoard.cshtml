@@ -1,46 +1,81 @@
-﻿
+﻿<!DOCTYPE HTML>
+
+
 @using TaskStatus = Mandatum.Models.TaskStatus
 @model IEnumerable<Mandatum.Models.TaskModel>
 
-@{
-    ViewData["Title"] = "Home Page";
-}
 
-<div class="container">
-    <div class="row">
-        <div class="col-sm-4 bg-warning p-3 m-3" style="overflow-x: auto">
-            
-            <a asp-action="CreateTask" class="button">Новая задача</a>
-                   <ul style="margin-left: 10px; padding: 0;">
-                                  @foreach (var taskModel in Model)
-                                  {
-                                      <li style="list-style-type: none; white-space: nowrap;" class="m-2">
-                                          <i class="fa fa-suitcase" aria-hidden="true"></i>
-                  
-                                          @* <input type="button" value="@taskModel.Name" class="btn btn-sm btn-dark" onclick="getTaskInfoUsingAjax(@taskModel.Id)"> *@
-                                          <a asp-controller="Account">@taskModel.Topic</a>  
-                                          @if (taskModel.Status != TaskStatus.Done)
-                                          {
-                                              <a asp-action="CreateTask" asp-route-id="@taskModel.Id">
-                                                  <i class="fa fa-plus" aria-hidden="true"></i>
-                                              </a>
-                                          }
-                                          else
-                                          {
-                                              <i class="fa fa-check-square" aria-hidden="true"></i>
-                                          }
-                                      </li>
-                                  }
-                              </ul>
-            
-            
-        </div>
+<div id="page-wrapper">
+<section id="header" class="wrapper">
+		@await Html.PartialAsync("NavBarPartial")
+	</section>
 
-        @* <div class="col-sm-7 bg-primary p-3 m-3"> *@
-        @*     @await Html.PartialAsync("AjaxPartitial") *@
-        @* </div> *@
-    </div>
+<section id="main" class="wrapper style2">
+	<div class="title">Имя доски</div>
+	<section id="highlights" class="wrapper style2">
+		<div class="container">
+			<div class="row aln-center">
+				<div class="col-4 col-12-medium">
+					<section class="highlight">
+						<a asp-action="CreateTask" class="button">Новая задача</a>
+						<ul style="margin-left: 10px; padding: 0;">
+							@foreach (var taskModel in Model)
+							{
+								<li>
+									@* <i class="fa fa-suitcase" aria-hidden="true"></i> *@
+									@if (taskModel.Status == TaskStatus.InWait)
+									{
+										<a asp-controller="Account">@taskModel.Topic</a>
+									}
+								</li>
+							}
+						</ul>
+					</section>
+				</div>
+				<div class="col-4 col-12-medium">
+					<section class="highlight">
+						<a asp-action="CreateTask" class="button">Новая задача</a>
+						<ul style="margin-left: 10px; padding: 0;">
+							@foreach (var taskModel in Model)
+							{
+								<li>
+									@* <i class="fa fa-suitcase" aria-hidden="true"></i> *@
+									@if (taskModel.Status == TaskStatus.InProgress)
+									{
+										<a asp-controller="Account">@taskModel.Topic</a>
+									}
+								</li>
+							}
+						</ul>
+					</section>
+				</div>
+				<div class="col-4 col-12-medium">
+                					<section class="highlight">
+                						<a asp-action="CreateTask" class="button">Новая задача</a>
+                						<ul style="margin-left: 10px; padding: 0;">
+                							@foreach (var taskModel in Model)
+                							{
+                								<li>
+                									@* <i class="fa fa-suitcase" aria-hidden="true"></i> *@
+                									
+                									@if (taskModel.Status == TaskStatus.Done)
+                									{
+										                <a asp-controller="Account">@taskModel.Topic</a>
+                										<i class="fa fa-check-square" aria-hidden="true"></i>
+                									}
+                								</li>
+                							}
+                						</ul>
+                					</section>
+                				</div>
+			</div>
+		</div>
+	</section>
+  
+</section>
 </div>
+
+
 
 @* @section scripts { *@
 @*     <script type="text/javascript"> *@
@@ -67,7 +102,7 @@
 @*                     }).appendTo("#atr_table"); *@
 @*                     addAtrTableRow("@Localizer["IdAttr"]", response.current_task.id, '#atr_table_body'); *@
 @*                     addAtrTableRow("@Localizer["NameAttr"]", response.current_task.name, '#atr_table_body'); *@
-@*                     addAtrTableRow("@Localizer["ExecAttr"]", response.current_task.executors, '#atr_table_body');                    *@
+@*                     addAtrTableRow("@Localizer["ExecAttr"]", response.current_task.executors, '#atr_table_body'); *@
 @*                     addAtrTableRow("@Localizer["StatusAttr"]", response.current_task.status, '#atr_table_body'); *@
 @*                     addAtrTableRow("@Localizer["LaborAttr"]", response.current_task.total_labor, '#atr_table_body'); *@
 @*                     addAtrTableRow("@Localizer["InitDateAttr"]", response.current_task.initial_date, '#atr_table_body'); *@
