@@ -25,7 +25,7 @@
 									@* <i class="fa fa-suitcase" aria-hidden="true"></i> *@
 									@if (taskModel.Status == TaskStatus.InWait)
 									{
-										<a asp-controller="Account">@taskModel.Topic</a>
+										<a asp-controller="Board" asp-action="EditTask">@taskModel.Topic</a>
 									}
 								</li>
 							}
@@ -44,7 +44,7 @@
 									@* <i class="fa fa-suitcase" aria-hidden="true"></i> *@
 									@if (taskModel.Status == TaskStatus.InProgress)
 									{
-										<a asp-controller="Account">@taskModel.Topic</a>
+										<a asp-controller="Board" asp-action="EditTask">@taskModel.Topic</a>
 									}
 								</li>
 							}
@@ -63,7 +63,7 @@
 
 									@if (taskModel.Status == TaskStatus.Done)
 									{
-										<a asp-controller="Account">@taskModel.Topic</a>
+										<a asp-action="EditTask" asp-route-id="@taskModel">@taskModel.Topic</a>
 										<i class="fa fa-check-square" aria-hidden="true"></i>
 									}
 								</li>

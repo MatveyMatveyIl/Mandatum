@@ -26,18 +26,27 @@ namespace Mandatum.Controllers
             return View(_taskConverter.Convert(_taskApi.GetTasks()));
         }
 
-        public IActionResult CreateTask(TaskModel task)
+        public IActionResult CreateTask(TaskModel task = null)
         {
             ViewBag.Method = nameof(CreateTask);
-            return View("CreateTask", new TaskModel());
+            if (task is null)
+                return View("CreateTask", new TaskModel());
+            return View("CreateTask", task);
         }
 
         public IActionResult EditTask(TaskModel task)
         {
             _taskApi.AddTask(_taskConverter.Convert(task));
             ViewBag.Method = nameof(EditTask);
+            return View("CreateTask", task);
+            // return View("KanbanBoard", _taskConverter.Convert(_taskApi.GetTasks()));
+            // return View("CreateTask", _taskConverter.Convert(_taskApi.GetTask(_taskConverter.Convert(task))));
+        }
+
+        public IActionResult SaveTask(TaskModel task)
+        {
+            _taskApi.AddTask(_taskConverter.Convert(task));
             return View("KanbanBoard", _taskConverter.Convert(_taskApi.GetTasks()));
-            //return View("CreateTask", _taskConverter.Convert(_taskApi.GetTask(_taskConverter.Convert(task))));
         }
 
         public IActionResult AllBoards()
