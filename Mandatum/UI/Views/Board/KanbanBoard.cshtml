@@ -21,13 +21,12 @@
 						<ul style="margin-left: 10px; padding: 0;">
 							@foreach (var taskModel in Model)
 							{
-								<li>
 									@* <i class="fa fa-suitcase" aria-hidden="true"></i> *@
-									@if (taskModel.Status == TaskStatus.InWait)
-									{
-										<a asp-controller="Board" asp-action="EditTask">@taskModel.Topic</a>
-									}
-								</li>
+								@if (taskModel.Status == TaskStatus.InWait)
+								{
+									<li><a asp-controller="Board" asp-action="EditTask">@taskModel.Topic</a></li>
+									
+								}
 							}
 						</ul>
 						<a asp-action="CreateTask" class="button">Новая задача</a>
@@ -36,17 +35,15 @@
 				<div class="col-4 col-12-medium">
 					<section class="highlight">
 						<h3>В процессе</h3>
-						<ul style="margin-left: 10px; padding: 0;">
-							
+						<ul>
 							@foreach (var taskModel in Model)
 							{
-								<li>
-									@* <i class="fa fa-suitcase" aria-hidden="true"></i> *@
-									@if (taskModel.Status == TaskStatus.InProgress)
-									{
-										<a asp-controller="Board" asp-action="EditTask">@taskModel.Topic</a>
-									}
-								</li>
+							
+								@* <i class="fa fa-suitcase" aria-hidden="true"></i> *@
+								@if (taskModel.Status == TaskStatus.InProgress)
+								{
+									<li><a asp-controller="Board" asp-action="EditTask">@taskModel.Topic</a></li>
+								}
 							}
 						</ul>
 						<a asp-action="CreateTask" class="button">Новая задача</a>
@@ -58,15 +55,17 @@
 						<ul style="margin-left: 10px; padding: 0;">
 							@foreach (var taskModel in Model)
 							{
-								<li>
+								
 									@* <i class="fa fa-suitcase" aria-hidden="true"></i> *@
 
 									@if (taskModel.Status == TaskStatus.Done)
 									{
+										<li>
 										<a asp-action="EditTask" asp-route-id="@taskModel">@taskModel.Topic</a>
-										<i class="fa fa-check-square" aria-hidden="true"></i>
+							<i class="fa fa-check-square" aria-hidden="true"></i>
+							</li>
 									}
-								</li>
+								
 							}
 						</ul>
 						<a asp-action="CreateTask" class="button">Новая задача</a>
