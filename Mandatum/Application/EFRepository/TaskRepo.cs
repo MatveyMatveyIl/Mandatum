@@ -19,7 +19,10 @@ namespace Application
         
         public void AddTask(TaskRecord task)
         {
-            db.Add(task);
+            if (Tasks.Any(taskRecord => taskRecord.Id == task.Id))
+                db.Update(task);
+            else
+                db.Add(task);
             db.SaveChanges();
         }
 

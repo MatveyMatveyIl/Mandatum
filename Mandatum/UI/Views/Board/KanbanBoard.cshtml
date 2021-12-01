@@ -21,11 +21,9 @@
 						<ul style="margin-left: 10px; padding: 0;">
 							@foreach (var taskModel in Model)
 							{
-									@* <i class="fa fa-suitcase" aria-hidden="true"></i> *@
 								@if (taskModel.Status == TaskStatus.InWait)
 								{
-									<li><a asp-controller="Board" asp-action="EditTask">@taskModel.Topic</a></li>
-									
+									<li><a asp-controller="Board" asp-action="EditTask" asp-route-id="@taskModel" class="button">@taskModel.Topic</a></li>
 								}
 							}
 						</ul>
@@ -39,10 +37,9 @@
 							@foreach (var taskModel in Model)
 							{
 							
-								@* <i class="fa fa-suitcase" aria-hidden="true"></i> *@
 								@if (taskModel.Status == TaskStatus.InProgress)
 								{
-									<li><a asp-controller="Board" asp-action="EditTask">@taskModel.Topic</a></li>
+									<li><a asp-controller="Board" asp-action="EditTask" asp-route-id="@taskModel" class="button">@taskModel.Topic</a></li>
 								}
 							}
 						</ul>
@@ -55,15 +52,12 @@
 						<ul style="margin-left: 10px; padding: 0;">
 							@foreach (var taskModel in Model)
 							{
-								
-									@* <i class="fa fa-suitcase" aria-hidden="true"></i> *@
-
 									@if (taskModel.Status == TaskStatus.Done)
 									{
 										<li>
-										<a asp-action="EditTask" asp-route-id="@taskModel">@taskModel.Topic</a>
-							<i class="fa fa-check-square" aria-hidden="true"></i>
-							</li>
+											<a asp-controller="Board" asp-action="EditTask" asp-route-id="@taskModel" class="button">@taskModel.Topic</a>
+											<i class="fa fa-check-square" aria-hidden="true"></i>
+										</li>
 									}
 								
 							}

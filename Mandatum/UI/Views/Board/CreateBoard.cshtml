@@ -28,30 +28,32 @@
 					<div class="col-4 col-12-medium">
 						<section class="highlight">
 							<a class="image featured"><img src="/images/kanban.png" alt="Канбан доска"/></a>
-                            	<div>
-                            		<input type="radio" name="format" id="kanban" checked>
-                            		<label for="kanban">Канбан доска</label>
-                            	</div>
+							<div>
+								<input type="radio" name="format" id="kanban" checked>
+								<label for="kanban">Канбан доска</label>
+							</div>
 						</section>
 					</div>
 					<div class="col-4 col-12-medium">
 						<section class="highlight">
 							<a class="image featured"><img src="/images/graph.png" alt="Граф"/></a>
-                            	<div>
-                            		<input type="radio" name="format" id="graph">
-                            		<label for="graph">Граф</label>
-                            	</div>
+							<div>
+								<input type="radio" name="format" id="graph">
+								<label for="graph">Граф</label>
+							</div>
 						</section>
 					</div>
 				</div>
 			</div>
+			<br>
+			<div class="row aln-center">
+                <div class="actions">
+                    <a href="@Url.Action("KanbanBoard", "Board")" class="button style1">Создать доску</a>
+                </div>
+            </div>
 		</section>
 		
-		<div class="row aln-center">
-        	<div class="actions">
-        		<a href="@Url.Action("KanbanBoard", "Board")" class="button style1">Создать доску</a>
-        	</div>
-        </div>
+	
 	</section>
 	
 	
