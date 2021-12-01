@@ -13,8 +13,8 @@ namespace Mandatum.Convertors
             {
                 Description = source.Description,
                 Status = ConvertToTaskRecordStatus(source.Status),
-                Term = source.Term,
-                Topic = source.Topic,
+                Deadline = source.Term,
+                Name = source.Topic,
             };
         }
 
@@ -44,8 +44,8 @@ namespace Mandatum.Convertors
             {
                 Description = source.Description,
                 Status = ConvertToTaskModelStatus(source.Status),
-                Term = source.Term,
-                Topic = source.Topic,
+                Term = source.Deadline,
+                Topic = source.Name,
             };
         }
 
