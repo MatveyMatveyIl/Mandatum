@@ -32,15 +32,15 @@
                     <div class="form-group">
 	                    <label>Статус</label>
 	                    <div>
-		                    <input asp-for="Status" type="radio" name="status" id="inWait" checked>
+		                    <input asp-for="Status" value="2" type="radio" name="status" id="inWait" checked>
 		                    <label for="inWait">Не начато</label>
 	                    </div>
 	                    <div>
-		                    <input asp-for="Status" type="radio" name="status" id="inProgress">
+		                    <input asp-for="Status" value="0" type="radio" name="status" id="inProgress">
 		                    <label for="inProgress">В процессе</label>
 	                    </div>
 	                     <div>
-                            <input asp-for="Status" type="radio" name="status" id="done">
+                            <input asp-for="Status" value="1" type="radio" name="status" id="done">
                             <label for="done">Готово</label>
                         </div>
 	                    
