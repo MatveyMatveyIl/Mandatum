@@ -12,19 +12,43 @@ namespace Mandatum.Controllers
     public class BoardController : Controller
     {
         private TaskApi _taskApi;
+        private BoardApi _boardApi;
         private TaskModelConverter _taskConverter;
 
-        public BoardController(TaskApi taskApi, TaskModelConverter taskConverter)
+        public BoardController(TaskApi taskApi, BoardApi boardApi, TaskModelConverter taskConverter)
         {
             _taskApi = taskApi;
             _taskConverter = taskConverter;
         }
-        
+
+        #region Boards
+
         public IActionResult KanbanBoard(Guid id = default)
         {
             ViewBag.current_task_id = id;
             return View(_taskConverter.Convert(_taskApi.GetTasks()));
         }
+
+        public IActionResult AllBoards()
+        {
+            return View();
+        }
+
+        public IActionResult CreateBoard()
+        {
+            return View();
+        }
+        
+        public IActionResult SaveBoard(BoardModel board)
+        {
+            throw new NotImplementedException();
+            // _taskApi.AddTask(_taskConverter.Convert(task));
+            // return View("KanbanBoard", _taskConverter.Convert(_taskApi.GetTasks()));
+        } 
+
+        #endregion
+
+        #region Tasks
 
         public IActionResult CreateTask()
         {
@@ -46,14 +70,6 @@ namespace Mandatum.Controllers
             return View("KanbanBoard", _taskConverter.Convert(_taskApi.GetTasks()));
         }
 
-        public IActionResult AllBoards()
-        {
-            return View();
-        }
-
-        public IActionResult CreateBoard()
-        {
-            return View();
-        }
+        #endregion
     }
 }
