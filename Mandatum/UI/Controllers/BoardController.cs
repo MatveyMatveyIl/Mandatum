@@ -41,9 +41,10 @@ namespace Mandatum.Controllers
         
         public IActionResult SaveBoard(BoardModel board)
         {
-            throw new NotImplementedException();
+            
+            // throw new NotImplementedException();
             // _taskApi.AddTask(_taskConverter.Convert(task));
-            // return View("KanbanBoard", _taskConverter.Convert(_taskApi.GetTasks()));
+            return View("KanbanBoard", _taskConverter.Convert(_taskApi.GetTasks()));
         } 
 
         #endregion
