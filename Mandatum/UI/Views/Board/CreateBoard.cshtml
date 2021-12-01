@@ -15,13 +15,19 @@
 					
 					<div class="form-group">
 						<div class="row aln-center">
+							<div>
 							@* <input asp-for="Privacy" value="1" type="radio" name="privacy" id="private" checked> *@
-							<input value="1" type="radio" name="privacy" id="private" checked><label for="private">Приватная</label>
+							<input value="1" type="radio" name="privacy" id="private" checked>
+							<label for="private">Приватная</label>
+							</div>
 						</div>
 						<div class="row aln-center">
-                        	@* <input asp-for="Privacy" value="0" type="radio" name="privacy" id="public"> *@
-                            <input value="0" type="radio" name="privacy" id="public"><label for="public">Публичная</label>
-                        </div>
+							<div>
+							@* <input asp-for="Privacy" value="0" type="radio" name="privacy" id="public"> *@
+							<input value="0" type="radio" name="privacy" id="public" checked>
+							<label for="public">Публичная</label>
+							</div>
+						</div>
 					</div>
 					<div class="form-group">
 						<section id="highlights" class="wrapper style2">
