@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace Application
 {
@@ -7,5 +8,6 @@ namespace Application
         public Guid Id { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
+        public virtual List<BoardRecord> Boards { get; set; }
     }
 }

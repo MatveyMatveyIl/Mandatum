@@ -37,8 +37,8 @@ namespace Mandatum
             /*services.AddSingleton<BoardApi>();
             services.AddSingleton<BoardRepo>();*/
             var connection = Configuration.GetConnectionString("DefaultConnection");
-            services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connection));
-            services.AddScoped<BoardApi>();
+            services.AddDbContext<Context>(options => options.UseSqlServer(connection));
+            /*services.AddScoped<BoardApi>();
             services.AddScoped<BoardRepo>();
             services.AddScoped<UserApi>();
             services.AddScoped<UserRepo>();
@@ -46,7 +46,7 @@ namespace Mandatum
             services.AddScoped<UserConvertorRegister>();
             services.AddScoped<TaskRepo>();
             services.AddScoped<TaskApi>();
-            services.AddScoped<TaskModelConverter>();
+            services.AddScoped<TaskModelConverter>();*/
             // установка конфигурации подключения
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options => //CookieAuthenticationOptions
