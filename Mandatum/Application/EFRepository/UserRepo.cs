@@ -20,7 +20,7 @@ namespace Application
 
         public void SaveUser(UserRecord user)
         {
-            dbContext.Entry(user);
+            dbContext.Add(user);
             dbContext.SaveChanges();
         }
     }

@@ -23,7 +23,7 @@ namespace Mandatum.Controllers
 
         public IActionResult Index()
         {
-            _boardApi.Fuck();
+            //_boardApi.Fuck();
             return View();
         }
     }

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Mandatum.ViewModels
 {
@@ -14,5 +15,6 @@ namespace Mandatum.ViewModels
         [DataType(DataType.Password)]
         [Compare("Password", ErrorMessage = "Пароль введен неверно")]
         public string ConfirmPassword { get; set; }
+        public Guid Id { get; set; }
     }
 }

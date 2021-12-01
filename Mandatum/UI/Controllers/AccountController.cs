@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Application;
@@ -41,8 +42,8 @@ namespace Mandatum.Controllers
                 var user = _userApi.CheckUser(_convertorModel.Convert(model));
                 if (user != null)
                 {
-                    await Authenticate(model.Email); // аутентификация
-
+                    await Authenticate(user.Id); // аутентификация
+                    Console.WriteLine(user.Id);
                     return RedirectToAction("Index", "Home");
                 }
 
@@ -68,32 +69,35 @@ namespace Mandatum.Controllers
                 if (user == null)
                 {
                     // добавляем пользователя в бд
-                    _userApi.RegisterUser(new UserRecord() {Email = model.Email, Password = model.Password});
+                    var id = new Guid();
+                    _userApi.RegisterUser(new UserRecord() {Id = id, Email = model.Email, Password = model.Password});
                     //await db.SaveChangesAsync();
 
-                    await Authenticate(model.Email); // аутентификация
-
+                    await Authenticate(model.Id); // аутентификация
                     return RedirectToAction("Index", "Home");
                 }
                 else
                     ModelState.AddModelError("", "Некорректные логин и(или) пароль");
+                
             }
 
             return View(model);
         }
 
-        private async Task Authenticate(string userName)
+        private async Task Authenticate(Guid userName)
         {
             // создаем один claim
             var claims = new List<Claim>
             {
-                new Claim(ClaimsIdentity.DefaultNameClaimType, userName)
+                new Claim(ClaimsIdentity.DefaultNameClaimType, userName.ToString())
             };
             // создаем объект ClaimsIdentity
             ClaimsIdentity id = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType,
                 ClaimsIdentity.DefaultRoleClaimType);
             // установка аутентификационных куки
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
+            //Console.WriteLine(id);
+            Console.WriteLine(userName);
         }
 
         public async Task<IActionResult> Logout()
