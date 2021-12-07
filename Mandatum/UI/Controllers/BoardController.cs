@@ -46,7 +46,8 @@ namespace Mandatum.Controllers
         public IActionResult SaveBoard(BoardModel board)
         {
             board.Id = Guid.NewGuid();
-            _boardApi.CreateBoard(_boardModelConvertor.Convert(board), User.Identity.Name);
+            var boardRecord = _boardModelConvertor.Convert(board);
+            _boardApi.CreateBoard(boardRecord, User.Identity.Name);
             ViewBag.boardId = board.Id;
             return View("KanbanBoard", GetTasks(board.Id));
         } 

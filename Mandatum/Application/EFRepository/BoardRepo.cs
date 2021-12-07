@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using Infrastructure;
 using Mandatum.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application
 {
@@ -23,7 +24,7 @@ namespace Application
 
         public BoardRecord GetBoard(Guid boardId)
         {
-            return db.Boards.FirstOrDefault(u => u.Id == boardId);
+            return db.Boards.Include(x => x.TaskIds).FirstOrDefault(u => u.Id == boardId);
         }
 
         public void UpdateBoard(BoardRecord board)
