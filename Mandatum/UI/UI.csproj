@@ -6,6 +6,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <Folder Include="Migrations" />
       <Folder Include="Views\Task" />
       <Folder Include="wwwroot\images" />
     </ItemGroup>
