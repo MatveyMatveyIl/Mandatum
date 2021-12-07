@@ -14,11 +14,15 @@ namespace Mandatum.Controllers
         private TaskApi _taskApi;
         private BoardApi _boardApi;
         private TaskModelConverter _taskConverter;
+        private BoardModelConvertor _boardModelConvertor;
 
-        public BoardController(TaskApi taskApi, BoardApi boardApi, TaskModelConverter taskConverter)
+        public BoardController(TaskApi taskApi, BoardApi boardApi, TaskModelConverter taskConverter, 
+            BoardModelConvertor boardModelConvertor)
         {
             _taskApi = taskApi;
             _taskConverter = taskConverter;
+            _boardApi = boardApi;
+            _boardModelConvertor = boardModelConvertor;
         }
 
         #region Boards
@@ -42,9 +46,7 @@ namespace Mandatum.Controllers
         public IActionResult SaveBoard(BoardModel board)
         {
             board.Id = new Guid();
-            
-            // throw new NotImplementedException();
-            // _taskApi.AddTask(_taskConverter.Convert(task));
+            _boardApi.CreateBoard(_boardModelConvertor.Convert(board), User.Identity.Name);
             return View("KanbanBoard", _taskConverter.Convert(_taskApi.GetTasks()));
         } 
 
@@ -55,20 +57,19 @@ namespace Mandatum.Controllers
         public IActionResult CreateTask()
         {
             ViewBag.Method = nameof(CreateTask);
-            return View("CreateTask", new TaskModel());
+            return View("EditTask", new TaskModel());
         }
 
         public IActionResult EditTask(TaskModel task)
         {
             ViewBag.Method = nameof(EditTask);
             return View("EditTask", task);
-            // return View("KanbanBoard", _taskConverter.Convert(_taskApi.GetTasks()));
-            // return View("CreateTask", _taskConverter.Convert(_taskApi.GetTask(_taskConverter.Convert(task))));
         }
 
         public IActionResult SaveTask(TaskModel task)
         {
             _taskApi.SaveTask(_taskConverter.Convert(task));
+            
             return View("KanbanBoard", _taskConverter.Convert(_taskApi.GetTasks()));
         }
 

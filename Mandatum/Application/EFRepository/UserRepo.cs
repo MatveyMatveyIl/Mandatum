@@ -18,6 +18,11 @@ namespace Application
         {   
             return dbContext.Users.FirstOrDefault(u => u.Email == user.Email );
         }
+
+        public UserRecord GetUser(string email)
+        {
+            return dbContext.Users.FirstOrDefault(u => u.Email == email);
+        }
         
         public UserRecord GetUser(Guid userid)
         {   

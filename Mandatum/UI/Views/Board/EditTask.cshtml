@@ -15,9 +15,7 @@
         <div class="row aln-center">
             
                 <form asp-action="SaveTask" method="post" enctype="multipart/form-data" class="p-2">
-                   
-                    <input type="hidden" asp-for="Id" value="@Model.Id" />
-                    
+          
                      <div class="form-group">
                         <label>Имя</label>
                         <div><span asp-validation-for="Topic"></span></div>

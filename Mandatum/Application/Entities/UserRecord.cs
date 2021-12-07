@@ -6,6 +6,6 @@ namespace Application
 {
     public class UserRecord: IdentityUser
     {
-        public virtual List<BoardRecord> Boards { get; set; }
+        public virtual List<BoardRecord> Boards { get; set; } = new List<BoardRecord>();
     }
 }

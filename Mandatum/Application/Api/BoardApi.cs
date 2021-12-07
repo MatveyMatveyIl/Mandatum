@@ -16,10 +16,10 @@ namespace Application
             this.taskApi = taskApi;
         }
 
-        public void CreateBoard(BoardRecord board, Guid userId)
+        public void CreateBoard(BoardRecord board, string email)
         {
             boardRepo.SaveBoard(board);
-            userApi.AddBoard(board, userId);
+            userApi.AddBoard(board, email);
         }
 
         public void DeleteBoard(Guid boardId)

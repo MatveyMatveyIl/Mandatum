@@ -21,9 +21,11 @@ namespace Application
             _userRepo.SaveUser(user);
         }
 
-        public void AddBoard(BoardRecord board, Guid userId)
+        public void AddBoard(BoardRecord board, string email)
         {
-            var user = _userRepo.GetUser(userId);
+            var user = _userRepo.GetUser(email);
+            if (user is null)
+                Console.WriteLine("user is null");
             user.Boards.Add(board);
             _userRepo.UpdateUser(user);
         }
