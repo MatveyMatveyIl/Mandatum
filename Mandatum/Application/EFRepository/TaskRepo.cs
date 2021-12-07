@@ -26,6 +26,12 @@ namespace Application
             db.SaveChanges();
         }
 
+        public IEnumerable<TaskRecord> GetTasks(Guid boardId)
+        {
+            var board = db.Boards.First(b => b.Id == boardId);
+            return board.TaskIds;
+        }
+
         public TaskRecord GetTask(Guid id)
         {
             return Tasks.FirstOrDefault(taskRecord => taskRecord.Id == id);
@@ -36,6 +42,12 @@ namespace Application
             return Tasks.FirstOrDefault(record => record.Equals(taskRecord));
         }
 
+        public void UpdateTask(TaskRecord newTask)
+        {
+            db.Update(newTask);
+            db.SaveChanges();
+        }
+        
         public void DeleteTask(Guid id)
         {
             throw new System.NotImplementedException();

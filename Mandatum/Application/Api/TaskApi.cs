@@ -15,7 +15,12 @@ namespace Application
 
         public IEnumerable<TaskRecord> GetTasks()
         {
-            return _taskRepo.Tasks.ToList();
+            return _taskRepo.Tasks;
+        }
+
+        public IEnumerable<TaskRecord> GetBoardTasks(Guid boardId)
+        {
+            return _taskRepo.GetTasks(boardId);
         }
 
         public TaskRecord GetTask(Guid id)
@@ -31,6 +36,11 @@ namespace Application
         public void SaveTask(TaskRecord task)
         {
             _taskRepo.AddTask(task);
+        }
+
+        public void UpdateTask(TaskRecord newTask)
+        {
+            
         }
     }
 }
