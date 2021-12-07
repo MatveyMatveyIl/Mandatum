@@ -28,7 +28,7 @@ namespace Application
             return _taskRepo.GetTask(taskRecord);
         }
 
-        public void AddTask(TaskRecord task)
+        public void SaveTask(TaskRecord task)
         {
             _taskRepo.AddTask(task);
         }

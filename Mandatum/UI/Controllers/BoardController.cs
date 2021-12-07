@@ -67,7 +67,7 @@ namespace Mandatum.Controllers
 
         public IActionResult SaveTask(TaskModel task)
         {
-            _taskApi.AddTask(_taskConverter.Convert(task));
+            _taskApi.SaveTask(_taskConverter.Convert(task));
             return View("KanbanBoard", _taskConverter.Convert(_taskApi.GetTasks()));
         }
 

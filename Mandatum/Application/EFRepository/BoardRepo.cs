@@ -13,15 +13,23 @@ namespace Application
         {
             this.db = db;
         }
+        
 
-        public UserRecord GetData()
+        public void SaveBoard(BoardRecord board)
         {
-            return db.Users.ToList().First();
+            db.Boards.Add(board);
+            db.SaveChanges();
         }
 
-        public void SaveData(int idBoard, BoardRecord record)
+        public BoardRecord GetBoard(Guid boardId)
         {
-            //abstractRepo.SaveData<BoardRecord>(idBoard, record);
+            return db.Boards.FirstOrDefault(u => u.Id == boardId);
+        }
+
+        public void UpdateBoard(BoardRecord board)
+        {
+            db.Update(board);
+            db.SaveChanges();
         }
     }
 }

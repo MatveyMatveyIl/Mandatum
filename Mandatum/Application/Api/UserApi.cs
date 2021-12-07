@@ -1,3 +1,5 @@
+using System;
+
 namespace Application
 {
     public class UserApi
@@ -17,6 +19,13 @@ namespace Application
         public void RegisterUser(UserRecord user)
         {
             _userRepo.SaveUser(user);
+        }
+
+        public void AddBoard(BoardRecord board, Guid userId)
+        {
+            var user = _userRepo.GetUser(userId);
+            user.Boards.Add(board);
+            _userRepo.UpdateUser(user);
         }
     }
 }

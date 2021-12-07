@@ -6,46 +6,33 @@ namespace Application
     public class BoardApi
     {
         private readonly BoardRepo boardRepo;
+        private readonly UserApi userApi;
+        private readonly TaskApi taskApi;
 
-        public BoardApi(BoardRepo boardRepo)
+        public BoardApi(BoardRepo boardRepo, UserApi userApi, TaskApi taskApi)
         {
             this.boardRepo = boardRepo;
+            this.userApi = userApi;
+            this.taskApi = taskApi;
         }
 
-        public void Fuck()
+        public void CreateBoard(BoardRecord board, Guid userId)
         {
-            Console.WriteLine(boardRepo.GetData().Email);
+            boardRepo.SaveBoard(board);
+            userApi.AddBoard(board, userId);
         }
 
-        /*public void CreateTask(TaskRecord task, int idBoard)
+        public void DeleteBoard(Guid boardId)
         {
-            var boardRecord = boardRepo.GetData(idBoard);
-            var board = BoardRecordConvertToDomainBoard(boardRecord);
-            board.AddTask(TaskRecordConvertToDomainTask(task));
-            boardRepo.SaveData(idBoard, BoardConvertToBoardRecord(board));
+            
         }
-
-        private Task TaskRecordConvertToDomainTask(TaskRecord task)
+        
+        public void AddTask(Guid boardId, TaskRecord task)
         {
-            throw new System.NotImplementedException();
+            taskApi.SaveTask(task);
+            var board = boardRepo.GetBoard(boardId);
+            board.TaskIds.Add(task);
+            boardRepo.UpdateBoard(board);
         }
-
-        public void UpdateTask(TaskRecord task, int idBoard, int idTask)
-        {
-            var boardRecord = boardRepo.GetData(idBoard);
-            var board = BoardRecordConvertToDomainBoard(boardRecord);
-            board.UpdateTask(TaskRecordConvertToDomainTask(task), idTask);
-            boardRepo.SaveData(idBoard, BoardConvertToBoardRecord(board));
-        }
-
-        private BoardRecord BoardConvertToBoardRecord(Board board)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        private Board BoardRecordConvertToDomainBoard(BoardRecord boardRecord)
-        {
-            throw new System.NotImplementedException();
-        }*/
     }
 }

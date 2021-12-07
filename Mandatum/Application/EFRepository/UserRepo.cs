@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using Mandatum.Models;
 using Microsoft.EntityFrameworkCore;
@@ -17,10 +18,21 @@ namespace Application
         {   
             return dbContext.Users.FirstOrDefault(u => u.Email == user.Email );
         }
+        
+        public UserRecord GetUser(Guid userid)
+        {   
+            return dbContext.Users.FirstOrDefault(u => u.Id == userid.ToString());
+        }
 
         public void SaveUser(UserRecord user)
         {
             dbContext.Add(user);
+            dbContext.SaveChanges();
+        }
+
+        public void UpdateUser(UserRecord user)
+        {
+            dbContext.Update(user);
             dbContext.SaveChanges();
         }
     }
