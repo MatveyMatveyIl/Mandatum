@@ -28,7 +28,7 @@ namespace Application
 
         public IEnumerable<TaskRecord> GetTasks(Guid boardId)
         {
-            var board = db.Boards.First(b => b.Id == boardId);
+            var board = db.Boards.FirstOrDefault(b => b.Id == boardId);
             return board.TaskIds;
         }
 

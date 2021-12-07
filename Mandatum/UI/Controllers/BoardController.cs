@@ -27,10 +27,10 @@ namespace Mandatum.Controllers
 
         #region Boards
 
-        public IActionResult KanbanBoard(Guid id = default)
+        public IActionResult KanbanBoard(BoardModel board)
         {
-            ViewBag.current_task_id = id;
-            return View(_taskConverter.Convert(_taskApi.GetTasks()));
+            ViewBag.boardId = board.Id;
+            return View(GetTasks(board.Id));
         }
 
         public IActionResult AllBoards()
@@ -45,32 +45,42 @@ namespace Mandatum.Controllers
         
         public IActionResult SaveBoard(BoardModel board)
         {
-            board.Id = new Guid();
+            board.Id = Guid.NewGuid();
             _boardApi.CreateBoard(_boardModelConvertor.Convert(board), User.Identity.Name);
-            return View("KanbanBoard", _taskConverter.Convert(_taskApi.GetTasks()));
+            ViewBag.boardId = board.Id;
+            return View("KanbanBoard", GetTasks(board.Id));
         } 
 
         #endregion
 
         #region Tasks
 
-        public IActionResult CreateTask()
+        public IActionResult CreateTask(Guid boardId)
         {
+            Console.WriteLine(boardId.ToString());
             ViewBag.Method = nameof(CreateTask);
+            ViewBag.boardId = boardId;
             return View("EditTask", new TaskModel());
         }
 
-        public IActionResult EditTask(TaskModel task)
+        public IActionResult EditTask(TaskModel task, Guid boardId)
         {
             ViewBag.Method = nameof(EditTask);
+            ViewBag.boardId = boardId;
             return View("EditTask", task);
         }
 
-        public IActionResult SaveTask(TaskModel task)
+        public IActionResult SaveTask(TaskModel task, Guid boardId)
         {
-            _taskApi.SaveTask(_taskConverter.Convert(task));
-            
-            return View("KanbanBoard", _taskConverter.Convert(_taskApi.GetTasks()));
+            Console.WriteLine(boardId);
+            _boardApi.AddTask(boardId, _taskConverter.Convert(task));
+            ViewBag.boardId = boardId;
+            return View("KanbanBoard", GetTasks(boardId));
+        }
+
+        private IEnumerable<TaskModel> GetTasks(Guid boardId)
+        {
+            return _taskConverter.Convert(_taskApi.GetBoardTasks(boardId));
         }
 
         #endregion

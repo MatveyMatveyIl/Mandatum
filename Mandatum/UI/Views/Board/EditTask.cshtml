@@ -14,7 +14,7 @@
 	<div class="container">
         <div class="row aln-center">
             
-                <form asp-action="SaveTask" method="post" enctype="multipart/form-data" class="p-2">
+                <form asp-action="SaveTask" asp-route-boardId="@ViewBag.boardId" method="post" enctype="multipart/form-data" class="p-2">
           
                      <div class="form-group">
                         <label>Имя</label>
@@ -48,7 +48,7 @@
                     <br>
     
                     <button class="btn btn-primary m-2 p-2" type="submit">Сохранить</button>
-                    <a asp-action="KanbanBoard" class="btn btn-primary m-2 p-2">Отмена</a>
+                    <a asp-action="SaveTask" asp-route-boardId="@ViewBag.boardId" class="btn btn-primary m-2 p-2">Отмена</a>
                 </form>
         </div>
     </div>
