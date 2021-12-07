@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -37,7 +38,7 @@ namespace Mandatum
             /*services.AddSingleton<BoardApi>();
             services.AddSingleton<BoardRepo>();*/
             var connection = Configuration.GetConnectionString("DefaultConnection");
-            services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connection));
+            services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connection, b => b.MigrationsAssembly("UI")));
             services.AddScoped<BoardApi>();
             services.AddScoped<BoardRepo>();
             services.AddScoped<UserApi>();
@@ -53,6 +54,8 @@ namespace Mandatum
                 {
                     options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");
                 });
+            services.AddIdentity<UserRecord, IdentityRole>()
+                .AddEntityFrameworkStores<AppDbContext>();
             services.AddControllersWithViews();
         }
  

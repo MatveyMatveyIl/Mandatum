@@ -15,7 +15,7 @@ namespace Application
 
         public UserRecord GetUser(UserRecord user)
         {   
-            return dbContext.Users.FirstOrDefault(u => u.Email == user.Email && u.Password == user.Password);
+            return dbContext.Users.FirstOrDefault(u => u.Email == user.Email);
         }
 
         public void SaveUser(UserRecord user)

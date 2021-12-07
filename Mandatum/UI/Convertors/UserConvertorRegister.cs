@@ -7,12 +7,12 @@ namespace Mandatum.Convertors
     {
         public UserRecord Convert(RegisterModel source)
         {
-            return new UserRecord() {Email = source.Email, Password = source.Password};
+            return new UserRecord() {Email = source.Email};
         }
 
         public RegisterModel Convert(UserRecord source)
         {
-            return new RegisterModel() {Email = source.Email, Password = source.Password};
+            return new RegisterModel() {Email = source.Email};
         }
     }
 }

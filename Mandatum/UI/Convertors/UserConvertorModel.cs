@@ -8,12 +8,12 @@ namespace Mandatum.Convertors
 
         public UserRecord Convert(LoginModel source)
         {
-            return new UserRecord() {Email = source.Email, Password = source.Password};
+            return new UserRecord() {Email = source.Email};
         }
 
         public LoginModel Convert(UserRecord source)
         {
-            return new LoginModel() {Email = source.Email, Password = source.Password};
+            return new LoginModel() {Email = source.Email};
         }
     }
 }
