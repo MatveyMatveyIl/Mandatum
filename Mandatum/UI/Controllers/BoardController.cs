@@ -36,11 +36,12 @@ namespace Mandatum.Controllers
 
         public IActionResult CreateBoard()
         {
-            return View();
+            return View("CreateBoard", new BoardModel());
         }
         
         public IActionResult SaveBoard(BoardModel board)
         {
+            board.Id = new Guid();
             
             // throw new NotImplementedException();
             // _taskApi.AddTask(_taskConverter.Convert(task));
