@@ -53,6 +53,7 @@ namespace Application
             board.TaskIds.Add(task);
             _boardRepo.UpdateBoard(board);
         }
+        
         public void UpdateTaskOnBoard(Guid boardId, TaskRecord task)
         {
             _taskApi.UpdateTask(task);

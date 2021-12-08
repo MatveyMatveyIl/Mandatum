@@ -24,6 +24,7 @@ namespace Application
 
         public void UpdateTask(TaskRecord updTask)
         {
+            _taskRepo.UpdateTask(updTask);
         }
 
         public void DeleteTask(Guid taskId)
