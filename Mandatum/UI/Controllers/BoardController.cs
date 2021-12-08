@@ -4,11 +4,13 @@ using System.Linq;
 using Application;
 using Mandatum.Convertors;
 using Mandatum.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace Mandatum.Controllers
 {
+    [Authorize]
     public class BoardController : Controller
     {
         private TaskApi _taskApi;

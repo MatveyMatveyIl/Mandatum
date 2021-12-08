@@ -1,12 +1,27 @@
 ﻿<!DOCTYPE HTML>
+<ul>
+
+    @{
+        string name = "";
+        if (Context.User.Identity.IsAuthenticated)
+        {
+            name = User.Identity.Name;
+        }
+    }
+   
+    
+</ul>
 
 <div id="page-wrapper">
     <section id="header" class="wrapper">
-        <div id="logo">
-                <h1>Mandatum</h1>
-                <p>Сделайте командную работу удобной</p>
-        </div>
         
+            
+        <div id="logo">
+            <h1>Mandatum</h1>
+            <p>Сделайте командную работу удобной</p>
+            <p>Привет, @name </p>
+        </div>
+
         @await Html.PartialAsync("NavBarPartial")
     </section>
 
@@ -15,6 +30,7 @@
         <div class="row aln-center">
             <div class="actions">
                 <a href="@Url.Action("Register", "Account")" class="button style1">Начать</a>
+                <a href="@Url.Action("Logout", "Account")" class="button style1">Выйти</a>
             </div>
         </div>
     </div>

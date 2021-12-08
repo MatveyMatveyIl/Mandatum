@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Mandatum.Controllers
 {
+    
     public class HomeController : Controller
     {
         private readonly BoardApi _boardApi;
@@ -20,6 +21,7 @@ namespace Mandatum.Controllers
         {
             _boardApi = boardApi;
         }
+    
 
         public IActionResult Index()
         {

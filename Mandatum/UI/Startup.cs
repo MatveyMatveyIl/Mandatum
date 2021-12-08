@@ -1,12 +1,15 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Application;
 using Mandatum.Controllers;
 using Mandatum.Convertors;
 using Mandatum.Models;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -50,10 +53,14 @@ namespace Mandatum
             services.AddScoped<TaskModelConverter>();
             services.AddScoped<BoardModelConvertor>();
             // установка конфигурации подключения
-            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-                .AddCookie(options => //CookieAuthenticationOptions
+
+            services.AddAuthentication()
+                .AddGoogle(options =>
                 {
-                    options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");
+                    IConfigurationSection googleAuthNSection =
+                        Configuration.GetSection("Authentication:Google");
+                    options.ClientId = "137321901177-9lsr1i1no0cui21t65pbej3jldqcb2cs.apps.googleusercontent.com";
+                    options.ClientSecret = "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";
                 });
             services.AddIdentity<UserRecord, IdentityRole>()
                 .AddEntityFrameworkStores<AppDbContext>();
