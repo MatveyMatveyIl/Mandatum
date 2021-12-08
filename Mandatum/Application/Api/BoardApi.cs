@@ -58,6 +58,7 @@ namespace Application
         {
             _taskApi.UpdateTask(task);
             var board = _boardRepo.GetBoard(boardId);
+            board.TaskIds.Add(task);
             _boardRepo.UpdateBoard(board);
         }
     }
