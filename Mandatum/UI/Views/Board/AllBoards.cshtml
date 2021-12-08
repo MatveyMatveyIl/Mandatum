@@ -13,14 +13,12 @@
         <div class="row aln-center">
             @foreach (var boardModel in Model)
             {
-                
-                    <div class="col-4 col-12-medium">
-                        <section class="highlight">
-                            <a asp-action="OpenBoard" asp-route-boardId="@boardModel.Id" asp-route-boardFormat="@boardModel.Format" class="image featured"><img src="/images/kanban.png" alt="@boardModel.Name"/></a>
-                            <a asp-action="OpenBoard" asp-route-boardId="@boardModel.Id" asp-route-boardFormat="@boardModel.Format" class="button style1">@boardModel.Name</a>
-                            </section>
-                    </div>
-                    
+                <div class="col-4 col-12-medium">
+                    <section class="highlight">
+                        <a asp-action="OpenBoard" asp-route-boardId="@boardModel.Id" asp-route-boardFormat="@boardModel.Format" class="image featured"><img src="/images/kanban.png" alt="@boardModel.Name"/></a>
+                        <a asp-action="OpenBoard" asp-route-boardId="@boardModel.Id" asp-route-boardFormat="@boardModel.Format" class="button style1">@boardModel.Name</a>
+                    </section>
+                </div>
             }
         </div>
         </div>
