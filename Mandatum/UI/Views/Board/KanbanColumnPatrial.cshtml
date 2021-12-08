@@ -21,6 +21,6 @@
             <br>
         }
 
-        <a asp-action="CreateTask" asp-route-boardId="@ViewBag.boardId" class="button">Новая задача</a>
+        <a asp-action="CreateTask" asp-route-boardId="@ViewBag.boardId" asp-route-taskStatus="@Model.Item1" class="button">Новая задача</a>
     </section>
 </div>

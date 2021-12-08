@@ -59,12 +59,13 @@ namespace Mandatum.Controllers
 
         #region Tasks
 
-        public IActionResult CreateTask(Guid boardId)
+        public IActionResult CreateTask(Guid boardId, TaskStatus taskStatus)
         {
             Console.WriteLine(boardId.ToString());
             ViewBag.Method = nameof(CreateTask);
             ViewBag.boardId = boardId;
-            return View("EditTask", new TaskModel());
+            var task = new TaskModel {Status = taskStatus};
+            return View("EditTask", task);
         }
 
         public IActionResult EditTask(TaskModel task, Guid boardId)
@@ -76,8 +77,8 @@ namespace Mandatum.Controllers
 
         public IActionResult SaveTask(TaskModel task, Guid boardId)
         {
-            Console.WriteLine(boardId);
-            _boardApi.AddTask(boardId, _taskConverter.Convert(task));
+            if (task != null)
+                _boardApi.AddTask(boardId, _taskConverter.Convert(task));
             ViewBag.boardId = boardId;
             return View("KanbanBoard", GetTasks(boardId));
         }
