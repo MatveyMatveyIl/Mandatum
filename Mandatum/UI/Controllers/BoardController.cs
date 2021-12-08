@@ -33,7 +33,7 @@ namespace Mandatum.Controllers
         
         public IActionResult AllBoards()
         {
-            //Console.WriteLine(User.Identity.Name);
+            Console.WriteLine(User.Identity.Name);
             return View(_boardModelConvertor.Convert(_userApi.GetBoards(User.Identity.Name)));
         }
 
@@ -46,6 +46,7 @@ namespace Mandatum.Controllers
 
         public IActionResult CreateBoard()
         {
+           // ViewBag.BoardPrivacy = false;
             return View("CreateBoard", new BoardModel());
         }
         
@@ -84,6 +85,7 @@ namespace Mandatum.Controllers
             _boardApi.AddTaskToBoard(boardId, _taskConverter.Convert(taskModel));
             ViewBag.boardId = boardId;
             ViewBag.boardName = _boardApi.GetBoardName(boardId);
+            //ViewBag.BoardPrivacy = false;
             return View("KanbanBoard", GetTasks(boardId));
         }
         
@@ -105,6 +107,14 @@ namespace Mandatum.Controllers
         private IEnumerable<TaskModel> GetTasks(Guid boardId)
         {
             return _taskConverter.Convert(_boardApi.GetBoardTasks(boardId));
+        }
+
+        public IActionResult GiveBoard(String emailUser, Guid boardId)
+        {
+            ViewBag.boardId = boardId;
+            Console.WriteLine(emailUser);
+            ViewBag.boardName = _boardApi.GetBoardName(boardId);
+            return View("KanbanBoard", GetTasks(boardId));
         }
 
         #endregion
