@@ -14,7 +14,6 @@ namespace Application
             _dbContext = dbContext;
         }
 
-
         public void SaveBoard(BoardRecord board)
         {
             _dbContext.Boards.Add(board);
@@ -29,6 +28,12 @@ namespace Application
         public void UpdateBoard(BoardRecord updBoard)
         {
             _dbContext.Boards.Update(updBoard);
+            _dbContext.SaveChanges();
+        }
+
+        public void DeleteBoard(BoardRecord board)
+        {
+            _dbContext.Boards.Remove(board);
             _dbContext.SaveChanges();
         }
     }

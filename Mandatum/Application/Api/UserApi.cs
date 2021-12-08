@@ -6,9 +6,9 @@ namespace Application
 {
     public class UserApi : IUserApi
     {
-        private readonly UserRepo _userRepo;
+        private readonly IUserRepo _userRepo;
 
-        public UserApi(UserRepo userRepo)
+        public UserApi(IUserRepo userRepo)
         {
             _userRepo = userRepo;
         }

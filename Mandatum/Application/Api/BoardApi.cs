@@ -25,6 +25,8 @@ namespace Application
 
         public void DeleteBoard(Guid boardId)
         {
+            var board = _boardRepo.GetBoard(boardId);
+            _boardRepo.DeleteBoard(board);
         }
 
         public string GetBoardName(Guid boardId)
