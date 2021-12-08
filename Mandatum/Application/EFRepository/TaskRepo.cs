@@ -34,7 +34,8 @@ namespace Application
 
         public TaskRecord GetTask(Guid id)
         {
-            return Tasks.FirstOrDefault(taskRecord => taskRecord.Id == id);
+            var task =  Tasks.FirstOrDefault(taskRecord => taskRecord.Id == id);
+            return task;
         }
 
         public TaskRecord GetTask(TaskRecord taskRecord)

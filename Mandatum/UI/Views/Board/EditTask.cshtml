@@ -15,11 +15,11 @@
         <div class="row aln-center">
             
                 <form asp-action="SaveTask" asp-route-boardId="@ViewBag.boardId" method="post" enctype="multipart/form-data" class="p-2">
-          
+					  
                      <div class="form-group">
                         <label>Имя</label>
                         <div><span asp-validation-for="Topic"></span></div>
-                        <input asp-for="Topic" class="form-control" type="text" value="@Model.Topic">
+                        <input asp-for="Topic" class="form-control" type="text">
                     </div>
                 
                     <div class="form-group">
@@ -63,7 +63,7 @@
                     <div class="form-group">
                         <label>Описание</label>
                         <div><span asp-validation-for="Description"></span></div>
-                        <textarea asp-for="Description" class="form-control" rows="3" value="@Model.Topic"></textarea>
+                        <textarea asp-for="Description" class="form-control" rows="3"></textarea>
                     </div>
         
                 
