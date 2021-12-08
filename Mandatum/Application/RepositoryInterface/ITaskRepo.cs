@@ -9,5 +9,6 @@ namespace Application
         public void AddTask(TaskRecord task);
         public void DeleteTask(Guid taskId);
         public void UpdateTask(TaskRecord updTask);
+        public TaskRecord GetTask(Guid id);
     }
 }

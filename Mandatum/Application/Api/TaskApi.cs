@@ -17,6 +17,11 @@ namespace Application
             _taskRepo.AddTask(task);
         }
 
+        public TaskRecord GetTask(Guid id)
+        {
+           return _taskRepo.GetTask(id);
+        }
+
         public void UpdateTask(TaskRecord updTask)
         {
         }

@@ -32,5 +32,10 @@ namespace Application
         {
             throw new NotImplementedException();
         }
+
+        public TaskRecord GetTask(Guid id)
+        {
+            return _dbContext.Tasks.FirstOrDefault(task => task.Id == id);
+        }
     }
 }

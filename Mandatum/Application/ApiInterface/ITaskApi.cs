@@ -7,6 +7,6 @@ namespace Application.ApiInterface
         public void SaveTask(TaskRecord task);
         public void UpdateTask(TaskRecord updTask);
         public void DeleteTask(Guid taskId);
-
+        public TaskRecord GetTask(Guid id);
     }
 }
