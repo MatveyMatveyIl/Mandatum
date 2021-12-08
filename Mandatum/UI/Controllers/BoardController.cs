@@ -87,10 +87,10 @@ namespace Mandatum.Controllers
             return View("KanbanBoard", GetTasks(boardId));
         }
         
-        public IActionResult UpdateTask(Guid taskId, TaskModel taskModel, Guid boardId)
+        public IActionResult UpdateTask(TaskModel taskModel, Guid boardId)
         {
-            var task = _taskApi.GetTask(taskId);
-            _boardApi.UpdateTaskOnBoard(boardId, task);
+            //var task = _taskApi.GetTask(taskId);
+            //_boardApi.UpdateTaskOnBoard(boardId, task);
             ViewBag.boardId = boardId;
             ViewBag.boardName = _boardApi.GetBoardName(boardId);
             return View("KanbanBoard", GetTasks(boardId));
