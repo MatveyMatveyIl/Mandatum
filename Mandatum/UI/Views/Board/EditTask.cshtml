@@ -21,7 +21,7 @@
 	            }
 	             @if (ViewBag.Method == "EditTask")
                 {
-	                <form asp-action="UpdateTask" asp-route-taskId="@Model.Id" asp-route-boardId="@ViewBag.boardId" method="post" enctype="multipart/form-data" class="p-2">
+	                <form asp-action="UpdateTask" asp-route-taskId="@Model.Id" asp-route-taskModel="@Model" asp-route-boardId="@ViewBag.boardId" method="post" enctype="multipart/form-data" class="p-2">
 		                 @await  Html.PartialAsync("TaskFormRartial")
 		                <button class="button" type="submit">Редактировать</button>
 		                <a asp-action="CancelTask" asp-route-boardId="@ViewBag.boardId" class="btn btn-primary m-2 p-2">Отмена</a>
