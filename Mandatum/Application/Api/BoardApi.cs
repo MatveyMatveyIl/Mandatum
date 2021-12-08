@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Domain;
 
 namespace Application
@@ -30,6 +31,12 @@ namespace Application
         public void DeleteBoard(Guid boardId)
         {
             
+        }
+        
+        public IEnumerable<TaskRecord> GetTasks(Guid boardId)
+        {
+            var board = boardRepo.GetBoard(boardId);
+            return board.TaskIds;
         }
         
         public void AddTask(Guid boardId, TaskRecord task)

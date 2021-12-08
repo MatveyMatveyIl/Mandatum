@@ -12,8 +12,7 @@
         <div class="container">
             @foreach (var boardModel in Model)
             {
-                <a asp-action="OpenBoard" asp-route-boardId="@boardModel.Id" class="image featured"><img src="/images/kanban.png" alt="@boardModel.Id"/></a>
-                <a asp-action="OpenBoard" asp-route-boardId="@boardModel.Id" class="button style1">Перейти</a>
+                <a asp-action="OpenBoard" asp-route-boardId="@boardModel.Id" asp-route-boardFormat="@boardModel.Format" class="image featured"><img src="/images/kanban.png" alt="@boardModel.Id"/></a>
             }
         
         </div>
