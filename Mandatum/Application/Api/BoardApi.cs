@@ -37,7 +37,8 @@ namespace Application
 
         public void AddNewUserToBoard(string email, Guid boardId)
         {
-            throw new NotImplementedException();
+            var board = _boardRepo.GetBoard(boardId);
+            _userApi.AddBoard(board, email);
         }
 
         public IEnumerable<TaskRecord> GetBoardTasks(Guid boardId)
