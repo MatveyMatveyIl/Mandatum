@@ -9,9 +9,9 @@ namespace Application
     {
         private readonly BoardRepo boardRepo;
         private readonly UserApi userApi;
-        private readonly TaskApi taskApi;
+        private readonly ITaskApi taskApi;
 
-        public BoardApi(BoardRepo boardRepo, UserApi userApi, TaskApi taskApi)
+        public BoardApi(BoardRepo boardRepo, UserApi userApi, ITaskApi taskApi)
         {
             this.boardRepo = boardRepo;
             this.userApi = userApi;

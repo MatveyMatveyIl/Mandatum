@@ -41,15 +41,13 @@ namespace Mandatum
             var connection = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connection, b => b.MigrationsAssembly("UI")));
             services.AddScoped<IBoardApi, BoardApi>();
-            /*services.AddScoped<BoardApi>();
-            services.AddScoped<IBoardApi>();*/
             services.AddScoped<BoardRepo>();
             services.AddScoped<UserApi>();
             services.AddScoped<UserRepo>();
             services.AddScoped<UserConvertorModel>();
             services.AddScoped<UserConvertorRegister>();
             services.AddScoped<TaskRepo>();
-            services.AddScoped<TaskApi>();
+            services.AddScoped<ITaskApi, TaskApi>();
             services.AddScoped<TaskModelConverter>();
             services.AddScoped<BoardModelConvertor>();
             // установка конфигурации подключения
