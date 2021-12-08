@@ -41,7 +41,7 @@ namespace Mandatum
             services.AddScoped<IUserApi, UserApi>();
             // << api
             // >> repo
-            services.AddScoped<TaskRepo>();
+            services.AddScoped<ITaskRepo, TaskRepo>();
             services.AddScoped<IBoardRepo, BoardRepo>();
             services.AddScoped<UserRepo>();
             // << repo

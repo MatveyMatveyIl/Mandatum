@@ -5,9 +5,9 @@ namespace Application
 {
     public class TaskApi : ITaskApi
     {
-        private readonly TaskRepo _taskRepo;
+        private readonly ITaskRepo _taskRepo;
 
-        public TaskApi(TaskRepo taskRepo)
+        public TaskApi(ITaskRepo taskRepo)
         {
             _taskRepo = taskRepo;
         }
