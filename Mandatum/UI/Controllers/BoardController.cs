@@ -77,9 +77,16 @@ namespace Mandatum.Controllers
 
         public IActionResult SaveTask(TaskModel task, Guid boardId)
         {
-            if (task != null)
-                _boardApi.AddTask(boardId, _taskConverter.Convert(task));
+            _boardApi.AddTask(boardId, _taskConverter.Convert(task));
             ViewBag.boardId = boardId;
+            return View("KanbanBoard", GetTasks(boardId));
+        }
+
+        public IActionResult CancelTask(Guid boardId)
+        {
+            var board = _boardModelConvertor.Convert(_boardApi.GetBoard(boardId));
+            ViewBag.boardId = board.Id;
+            
             return View("KanbanBoard", GetTasks(boardId));
         }
 

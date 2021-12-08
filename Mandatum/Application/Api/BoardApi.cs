@@ -22,6 +22,11 @@ namespace Application
             userApi.AddBoard(board, email);
         }
 
+        public BoardRecord GetBoard(Guid boardId)
+        {
+            return boardRepo.GetBoard(boardId);
+        }
+
         public void DeleteBoard(Guid boardId)
         {
             
