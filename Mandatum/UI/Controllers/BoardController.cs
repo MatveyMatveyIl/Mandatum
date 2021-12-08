@@ -67,8 +67,8 @@ namespace Mandatum.Controllers
         {
             ViewBag.Method = nameof(CreateTask);
             ViewBag.boardId = boardId;
-            var task = new TaskModel {Status = taskStatus};
-            return View("EditTask", task);
+            var taskModel = new TaskModel {Status = taskStatus};
+            return View("EditTask", taskModel);
         }
 
         public IActionResult EditTask(Guid taskId, Guid boardId)
