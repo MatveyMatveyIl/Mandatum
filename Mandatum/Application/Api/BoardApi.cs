@@ -32,6 +32,12 @@ namespace Application
         {
             
         }
+
+        public string GetBoardName(Guid boardId)
+        {
+            var board = boardRepo.GetBoard(boardId);
+            return board.Name;
+        }   
         
         public IEnumerable<TaskRecord> GetTasks(Guid boardId)
         {

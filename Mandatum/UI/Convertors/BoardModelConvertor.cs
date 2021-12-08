@@ -15,6 +15,7 @@ namespace Mandatum.Convertors
                 Id = source.Id,
                 Format = ConvertRecordFormat(source.Format),
                 Privacy = source.Privacy,
+                Name = source.Name
             };
         }
 
@@ -25,6 +26,7 @@ namespace Mandatum.Convertors
                 Id = source.Id,
                 Format = ConvertModelFormat(source.Format),
                 Privacy = source.Privacy,
+                Name = source.Name
             };
         }
         

@@ -32,12 +32,14 @@ namespace Mandatum.Controllers
         
         public IActionResult AllBoards()
         {
+            Console.WriteLine(User.Identity.Name);
             return View(_boardModelConvertor.Convert(_userApi.GetBoards(User.Identity.Name)));
         }
 
         public IActionResult OpenBoard(Guid boardId, BoardFormat boardFormat)
         {
             ViewBag.boardId = boardId;
+            ViewBag.boardName = _boardApi.GetBoardName(boardId);
             return View(boardFormat.ToString(), GetTasks(boardId));
         }
 
@@ -52,6 +54,7 @@ namespace Mandatum.Controllers
             var boardRecord = _boardModelConvertor.Convert(board);
             _boardApi.CreateBoard(boardRecord, User.Identity.Name);
             ViewBag.boardId = board.Id;
+            ViewBag.boardName = _boardApi.GetBoardName(board.Id);
             return View("KanbanBoard", GetTasks(board.Id));
         } 
 
@@ -79,12 +82,14 @@ namespace Mandatum.Controllers
         {
             _boardApi.AddTask(boardId, _taskConverter.Convert(task));
             ViewBag.boardId = boardId;
+            ViewBag.boardName = _boardApi.GetBoardName(boardId);
             return View("KanbanBoard", GetTasks(boardId));
         }
 
         public IActionResult CancelTask(Guid boardId)
         {
             ViewBag.boardId = boardId;
+            ViewBag.boardName = _boardApi.GetBoardName(boardId);
             return View("KanbanBoard", GetTasks(boardId));
         }
 
