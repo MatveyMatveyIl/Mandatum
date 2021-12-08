@@ -23,12 +23,12 @@ namespace Application
 
         public BoardRecord GetBoard(Guid boardId)
         {
-            return _dbContext.Boards.Include(x => x.TaskIds).FirstOrDefault(u => u.Id == boardId);
+            return _dbContext.Boards.Include(prop => prop.TaskIds).FirstOrDefault(board => board.Id == boardId);
         }
 
-        public void UpdateBoard(BoardRecord board)
+        public void UpdateBoard(BoardRecord updBoard)
         {
-            _dbContext.Update(board);
+            _dbContext.Update(updBoard);
             _dbContext.SaveChanges();
         }
     }

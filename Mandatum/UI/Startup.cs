@@ -42,7 +42,7 @@ namespace Mandatum
             // << api
             // >> repo
             services.AddScoped<TaskRepo>();
-            services.AddScoped<BoardRepo>();
+            services.AddScoped<IBoardRepo, BoardRepo>();
             services.AddScoped<UserRepo>();
             // << repo
             // >> convertors

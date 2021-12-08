@@ -6,11 +6,11 @@ namespace Application
 {
     public class BoardApi : IBoardApi
     {
-        private readonly BoardRepo _boardRepo;
+        private readonly IBoardRepo _boardRepo;
         private readonly IUserApi _userApi;
         private readonly ITaskApi _taskApi;
 
-        public BoardApi(BoardRepo boardRepo, IUserApi userApi, ITaskApi taskApi)
+        public BoardApi(IBoardRepo boardRepo, IUserApi userApi, ITaskApi taskApi)
         {
             _boardRepo = boardRepo;
             _userApi = userApi;
@@ -33,13 +33,18 @@ namespace Application
             return board.Name;
         }
 
-        public IEnumerable<TaskRecord> GetTasks(Guid boardId)
+        public void AddNewUserToBoard(string email, Guid boardId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<TaskRecord> GetBoardTasks(Guid boardId)
         {
             var board = _boardRepo.GetBoard(boardId);
             return board.TaskIds;
         }
 
-        public void AddTask(Guid boardId, TaskRecord task)
+        public void AddTaskToBoard(Guid boardId, TaskRecord task)
         {
             _taskApi.SaveTask(task);
             var board = _boardRepo.GetBoard(boardId);

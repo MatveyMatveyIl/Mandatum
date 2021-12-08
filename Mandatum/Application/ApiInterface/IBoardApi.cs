@@ -7,8 +7,9 @@ namespace Application.ApiInterface
     {
         public void CreateBoard(BoardRecord board, string email);
         public void DeleteBoard(Guid boardId);
-        public void AddTask(Guid boardId, TaskRecord task);
-        public IEnumerable<TaskRecord> GetTasks(Guid boardId);
+        public void AddTaskToBoard(Guid boardId, TaskRecord task);
+        public IEnumerable<TaskRecord> GetBoardTasks(Guid boardId);
         public string GetBoardName(Guid boardId);
+        public void AddNewUserToBoard(string email, Guid boardId);
     }
 }

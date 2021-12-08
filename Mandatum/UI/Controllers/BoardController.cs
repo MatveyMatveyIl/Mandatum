@@ -81,7 +81,7 @@ namespace Mandatum.Controllers
 
         public IActionResult SaveTask(TaskModel task, Guid boardId)
         {
-            _boardApi.AddTask(boardId, _taskConverter.Convert(task));
+            _boardApi.AddTaskToBoard(boardId, _taskConverter.Convert(task));
             ViewBag.boardId = boardId;
             ViewBag.boardName = _boardApi.GetBoardName(boardId);
             return View("KanbanBoard", GetTasks(boardId));
@@ -96,7 +96,7 @@ namespace Mandatum.Controllers
 
         private IEnumerable<TaskModel> GetTasks(Guid boardId)
         {
-            return _taskConverter.Convert(_boardApi.GetTasks(boardId));
+            return _taskConverter.Convert(_boardApi.GetBoardTasks(boardId));
         }
 
         #endregion
