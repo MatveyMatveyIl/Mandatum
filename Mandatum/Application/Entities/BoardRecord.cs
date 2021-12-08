@@ -9,6 +9,7 @@ namespace Application
         public virtual List<TaskRecord> TaskIds { get; set; } = new List<TaskRecord>();
         public bool Privacy { get; set; }
         public BoardFormat Format { get; set; }
+        public string Name { get; set; }
     }
 
     public enum BoardFormat
