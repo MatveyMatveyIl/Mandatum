@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Application;
 using Mandatum.Models;
 using BoardFormatRecord = Application.BoardFormat;
@@ -25,6 +26,14 @@ namespace Mandatum.Convertors
                 Format = ConvertModelFormat(source.Format),
                 Privacy = source.Privacy,
             };
+        }
+        
+        public IEnumerable<BoardModel> Convert(IEnumerable<BoardRecord> records)
+        {
+            foreach (var record in records)
+            {
+                yield return Convert(record);
+            }
         }
 
         private BoardFormatModel ConvertModelFormat(BoardFormatRecord format)

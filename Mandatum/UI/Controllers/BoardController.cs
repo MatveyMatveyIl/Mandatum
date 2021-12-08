@@ -6,6 +6,7 @@ using Mandatum.Convertors;
 using Mandatum.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using BoardFormat = Mandatum.Models.BoardFormat;
 
 namespace Mandatum.Controllers
 {
@@ -28,17 +29,19 @@ namespace Mandatum.Controllers
         }
 
         #region Boards
-
-        public IActionResult KanbanBoard(BoardModel board)
-        {
-            ViewBag.boardId = board.Id;
-            return View(GetTasks(board.Id));
-        }
-
+        
         public IActionResult AllBoards()
         {
-            // var boards = _boardModelConvertor.Convert(_userApi.GetBoards(User.Identity.Name));
-            return View();
+            var boards = _boardModelConvertor.Convert(_userApi.GetBoards(User.Identity.Name));
+            return View(boards);
+        }
+
+        public IActionResult OpenBoard(Guid boardId)
+        {
+
+            var board = _boardModelConvertor.Convert(_boardApi.GetBoard(boardId));
+            ViewBag.boardId = board.Id;
+            return View(board.Format.ToString(), GetTasks(board.Id));
         }
 
         public IActionResult CreateBoard()

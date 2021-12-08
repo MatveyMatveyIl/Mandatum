@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace Application
 {
@@ -26,6 +27,12 @@ namespace Application
             var user = _userRepo.GetUser(email);
             user.Boards.Add(board);
             _userRepo.UpdateUser(user);
+        }
+
+        public IEnumerable<BoardRecord> GetBoards(string email)
+        {
+            var user = _userRepo.GetUser(email);
+            return user.Boards;
         }
     }
 }

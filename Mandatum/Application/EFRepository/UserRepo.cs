@@ -21,7 +21,7 @@ namespace Application
 
         public UserRecord GetUser(string email)
         {
-            return dbContext.Users.FirstOrDefault(u => u.Email == email);
+            return dbContext.Users.Include(x => x.Boards).FirstOrDefault(u => u.Email == email);
         }
         
         public UserRecord GetUser(Guid userid)
