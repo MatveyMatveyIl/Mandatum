@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Application;
+using Application.ApiInterface;
 using Mandatum.Convertors;
 using Mandatum.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -13,12 +14,12 @@ namespace Mandatum.Controllers
     public class BoardController : Controller
     {
         private TaskApi _taskApi;
-        private BoardApi _boardApi;
+        private IBoardApi _boardApi;
         private TaskModelConverter _taskConverter;
         private BoardModelConvertor _boardModelConvertor;
         private UserApi _userApi;
 
-        public BoardController(TaskApi taskApi, BoardApi boardApi, UserApi userApi, TaskModelConverter taskConverter, 
+        public BoardController(TaskApi taskApi, IBoardApi boardApi, UserApi userApi, TaskModelConverter taskConverter, 
             BoardModelConvertor boardModelConvertor)
         {
             _taskApi = taskApi;
@@ -32,7 +33,7 @@ namespace Mandatum.Controllers
         
         public IActionResult AllBoards()
         {
-            Console.WriteLine(User.Identity.Name);
+            //Console.WriteLine(User.Identity.Name);
             return View(_boardModelConvertor.Convert(_userApi.GetBoards(User.Identity.Name)));
         }
 

@@ -1,10 +1,11 @@
 using System;
 using System.Collections.Generic;
+using Application.ApiInterface;
 using Domain;
 
 namespace Application
 {
-    public class BoardApi
+    public class BoardApi: IBoardApi
     {
         private readonly BoardRepo boardRepo;
         private readonly UserApi userApi;
@@ -21,11 +22,6 @@ namespace Application
         {
             boardRepo.SaveBoard(board);
             userApi.AddBoard(board, email);
-        }
-
-        public BoardRecord GetBoard(Guid boardId)
-        {
-            return boardRepo.GetBoard(boardId);
         }
 
         public void DeleteBoard(Guid boardId)

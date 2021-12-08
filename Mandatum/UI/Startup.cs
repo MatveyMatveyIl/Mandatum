@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Application;
+using Application.ApiInterface;
 using Mandatum.Controllers;
 using Mandatum.Convertors;
 using Mandatum.Models;
@@ -39,7 +40,9 @@ namespace Mandatum
             services.AddSingleton<BoardRepo>();*/
             var connection = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connection, b => b.MigrationsAssembly("UI")));
-            services.AddScoped<BoardApi>();
+            services.AddScoped<IBoardApi, BoardApi>();
+            /*services.AddScoped<BoardApi>();
+            services.AddScoped<IBoardApi>();*/
             services.AddScoped<BoardRepo>();
             services.AddScoped<UserApi>();
             services.AddScoped<UserRepo>();
