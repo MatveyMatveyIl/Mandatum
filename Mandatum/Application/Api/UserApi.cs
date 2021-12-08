@@ -4,7 +4,7 @@ using Application.ApiInterface;
 
 namespace Application
 {
-    public class UserApi: IUserApi
+    public class UserApi : IUserApi
     {
         private readonly UserRepo _userRepo;
 

@@ -2,33 +2,32 @@
 using System.Collections.Generic;
 using System.Linq;
 using Mandatum.Models;
-using Microsoft.EntityFrameworkCore;
 
 namespace Application
 {
     public class TaskRepo : ITaskRepo
     {
-        private readonly AppDbContext db;
+        private readonly AppDbContext _dbContext;
 
-        public TaskRepo(AppDbContext db)
+        public TaskRepo(AppDbContext dbContext)
         {
-            this.db = db;
+            _dbContext = dbContext;
         }
 
-        public IQueryable<TaskRecord> Tasks => db.Tasks;
-        
+        public IQueryable<TaskRecord> Tasks => _dbContext.Tasks;
+
         public void AddTask(TaskRecord task)
         {
             if (Tasks.Any(taskRecord => taskRecord.Id == task.Id))
-                db.Update(task);
+                _dbContext.Update(task);
             else
-                db.Add(task);
-            db.SaveChanges();
+                _dbContext.Add(task);
+            _dbContext.SaveChanges();
         }
 
         public IEnumerable<TaskRecord> GetTasks(Guid boardId)
         {
-            var board = db.Boards.FirstOrDefault(b => b.Id == boardId);
+            var board = _dbContext.Boards.FirstOrDefault(b => b.Id == boardId);
             return board.TaskIds;
         }
 
@@ -44,18 +43,18 @@ namespace Application
 
         public void UpdateTask(TaskRecord newTask)
         {
-            db.Update(newTask);
-            db.SaveChanges();
+            _dbContext.Update(newTask);
+            _dbContext.SaveChanges();
         }
-        
+
         public void DeleteTask(Guid id)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public IEnumerable<TaskRecord> GetAll()
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public IEnumerable<TaskRecord> GetInitialElements()
@@ -65,12 +64,12 @@ namespace Application
 
         public IEnumerable<TaskRecord> GetAllSubTasks(int id)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public void ChangeStatus(int taskId, TaskStatusRecord status)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
     }
 }

@@ -1,11 +1,9 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using Application.ApiInterface;
 
 namespace Application
 {
-    public class TaskApi: ITaskApi
+    public class TaskApi : ITaskApi
     {
         private readonly TaskRepo _taskRepo;
 
@@ -21,7 +19,6 @@ namespace Application
 
         public void UpdateTask(TaskRecord updTask)
         {
-            
         }
 
         public void DeleteTask(Guid taskId)
