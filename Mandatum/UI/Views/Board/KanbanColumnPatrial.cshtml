@@ -1,0 +1,26 @@
+﻿@using TaskStatus = Mandatum.Models.TaskStatus
+@model Tuple<TaskStatus, IEnumerable<TaskModel>>
+
+<div class="col-4 col-12-medium">
+    <section class="highlight">
+        @if (Model.Item1 == TaskStatus.InWait)
+        {
+            <h3>Не начато</h3>
+        }
+        @if (Model.Item1 == TaskStatus.InProgress)
+        {
+            <h3>В процессе</h3>
+        }
+        @if (Model.Item1 == TaskStatus.Done)
+        {
+            <h3>Готово</h3>
+        }
+        @foreach (var taskModel in Model.Item2)
+        {
+            <div><a asp-action="EditTask" asp-route-task="@taskModel" asp-route-boardId="@ViewBag.boardId" class="button">@taskModel.Topic</a></div>
+            <br>
+        }
+
+        <a asp-action="CreateTask" asp-route-boardId="@ViewBag.boardId" class="button">Новая задача</a>
+    </section>
+</div>

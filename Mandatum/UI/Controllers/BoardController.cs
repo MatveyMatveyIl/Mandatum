@@ -15,14 +15,16 @@ namespace Mandatum.Controllers
         private BoardApi _boardApi;
         private TaskModelConverter _taskConverter;
         private BoardModelConvertor _boardModelConvertor;
+        private UserApi _userApi;
 
-        public BoardController(TaskApi taskApi, BoardApi boardApi, TaskModelConverter taskConverter, 
+        public BoardController(TaskApi taskApi, BoardApi boardApi, UserApi userApi, TaskModelConverter taskConverter, 
             BoardModelConvertor boardModelConvertor)
         {
             _taskApi = taskApi;
             _taskConverter = taskConverter;
             _boardApi = boardApi;
             _boardModelConvertor = boardModelConvertor;
+            _userApi = userApi;
         }
 
         #region Boards
@@ -35,6 +37,7 @@ namespace Mandatum.Controllers
 
         public IActionResult AllBoards()
         {
+            // var boards = _boardModelConvertor.Convert(_userApi.GetBoards(User.Identity.Name));
             return View();
         }
 

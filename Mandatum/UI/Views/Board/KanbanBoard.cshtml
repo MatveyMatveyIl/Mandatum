@@ -12,60 +12,13 @@
 	</section>
 
 <section id="main" class="wrapper style2">
-	<div class="title">@ViewBag.boardId.ToString()</div>
+	<div class="title">Имя доски</div>
 	<section id="highlights" class="wrapper style2">
 		<div class="container">
 			<div class="row aln-center">
-				<div class="col-4 col-12-medium">
-					<section class="highlight">
-						<h3>Не начато</h3>
-						<ul style="margin-left: 10px; padding: 0;">
-							@foreach (var taskModel in Model)
-							{
-								@if (taskModel.Status == TaskStatus.InWait)
-								{
-									<li><a asp-action="EditTask" asp-route-task="@taskModel" asp-route-boardId="@ViewBag.boardId" class="button">@taskModel.Topic</a></li>
-								}
-							}
-						</ul>
-						<a asp-action="CreateTask" asp-route-boardId="@ViewBag.boardId" class="button">Новая задача</a>
-					</section>
-				</div>
-				<div class="col-4 col-12-medium">
-					<section class="highlight">
-						<h3>В процессе</h3>
-						<ul>
-							@foreach (var taskModel in Model)
-							{
-							
-								@if (taskModel.Status == TaskStatus.InProgress)
-								{
-									<li><a asp-action="EditTask" asp-route-task="@taskModel" asp-route-boardId="@ViewBag.boardId" class="button">@taskModel.Topic</a></li>
-								}
-							}
-						</ul>
-						<a asp-action="CreateTask" asp-route-boardId="@ViewBag.boardId" class="button">Новая задача</a>
-					</section>
-				</div>
-				<div class="col-4 col-12-medium">
-					<section class="highlight">
-						<h3>Готово</h3>
-						<ul style="margin-left: 10px; padding: 0;">
-							@foreach (var taskModel in Model)
-							{
-									@if (taskModel.Status == TaskStatus.Done)
-									{
-										<li>
-											<a asp-action="EditTask" asp-route-task="@taskModel" asp-route-boardId="@ViewBag.boardId" class="button">@taskModel.Topic</a>
-											<i class="fa fa-check-square" aria-hidden="true"></i>
-										</li>
-									}
-								
-							}
-						</ul>
-						<a asp-action="CreateTask" asp-route-boardId="@ViewBag.boardId" class="button">Новая задача</a>
-					</section>
-                				</div>
+				@await  Html.PartialAsync("KanbanColumnPatrial", Tuple.Create(TaskStatus.InWait, Model.Where(taskModel => taskModel.Status == TaskStatus.InWait)))
+				@await  Html.PartialAsync("KanbanColumnPatrial", Tuple.Create(TaskStatus.InProgress, Model.Where(taskModel => taskModel.Status == TaskStatus.InProgress)))
+				@await  Html.PartialAsync("KanbanColumnPatrial", Tuple.Create(TaskStatus.Done, Model.Where(taskModel => taskModel.Status == TaskStatus.Done)))
 			</div>
 		</div>
 	</section>
