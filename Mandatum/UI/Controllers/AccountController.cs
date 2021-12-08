@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Application;
+using Application.ApiInterface;
 using Mandatum.Convertors;
 using Mandatum.Models;
 using Mandatum.ViewModels;
@@ -17,13 +18,14 @@ namespace Mandatum.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly UserApi _userApi;
+        private readonly IUserApi _userApi;
         private readonly UserConvertorModel _convertorModel;
         private readonly UserConvertorRegister _convertorRegister;
         private readonly UserManager<UserRecord> _userManager;
         private readonly SignInManager<UserRecord> _signInManager;
 
-        public AccountController(UserManager<UserRecord> userManager, SignInManager<UserRecord> signInManager, UserApi userApi, UserConvertorModel convertorModel, UserConvertorRegister convertorRegister)
+        public AccountController(UserManager<UserRecord> userManager, SignInManager<UserRecord> signInManager,
+            IUserApi userApi, UserConvertorModel convertorModel, UserConvertorRegister convertorRegister)
         {
             _userApi = userApi;
             _convertorModel = convertorModel;
@@ -75,6 +77,7 @@ namespace Mandatum.Controllers
                     }
                 }
             }
+
             return View(model);
         }
 
@@ -93,6 +96,5 @@ namespace Mandatum.Controllers
         //     //Console.WriteLine(id);
         //     Console.WriteLine(userName);
         // }
-        
     }
 }

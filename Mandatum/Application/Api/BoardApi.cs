@@ -8,10 +8,10 @@ namespace Application
     public class BoardApi: IBoardApi
     {
         private readonly BoardRepo boardRepo;
-        private readonly UserApi userApi;
+        private readonly IUserApi userApi;
         private readonly ITaskApi taskApi;
 
-        public BoardApi(BoardRepo boardRepo, UserApi userApi, ITaskApi taskApi)
+        public BoardApi(BoardRepo boardRepo, IUserApi userApi, ITaskApi taskApi)
         {
             this.boardRepo = boardRepo;
             this.userApi = userApi;

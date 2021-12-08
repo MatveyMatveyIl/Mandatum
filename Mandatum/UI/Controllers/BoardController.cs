@@ -17,9 +17,9 @@ namespace Mandatum.Controllers
         private IBoardApi _boardApi;
         private TaskModelConverter _taskConverter;
         private BoardModelConvertor _boardModelConvertor;
-        private UserApi _userApi;
+        private IUserApi _userApi;
 
-        public BoardController(ITaskApi taskApi, IBoardApi boardApi, UserApi userApi, TaskModelConverter taskConverter, 
+        public BoardController(ITaskApi taskApi, IBoardApi boardApi, IUserApi userApi, TaskModelConverter taskConverter, 
             BoardModelConvertor boardModelConvertor)
         {
             _taskApi = taskApi;
@@ -65,7 +65,7 @@ namespace Mandatum.Controllers
 
         public IActionResult CreateTask(Guid boardId, TaskStatus taskStatus)
         {
-            Console.WriteLine(boardId.ToString());
+            //Console.WriteLine(boardId.ToString());
             ViewBag.Method = nameof(CreateTask);
             ViewBag.boardId = boardId;
             var task = new TaskModel {Status = taskStatus};
