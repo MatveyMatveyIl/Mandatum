@@ -16,10 +16,8 @@ namespace Application
         
         public void AddTask(TaskRecord task)
         {
-            if (_dbContext.Tasks.Any(taskRecord => taskRecord.Id == task.Id))
-                _dbContext.Update(task);
-            else
-                _dbContext.Add(task);
+
+            _dbContext.Add(task);
             _dbContext.SaveChanges();
         }
 
@@ -30,7 +28,8 @@ namespace Application
 
         public void UpdateTask(TaskRecord updTask)
         {
-            throw new NotImplementedException();
+            _dbContext.Update(updTask);
+            _dbContext.SaveChanges();
         }
     }
 }
