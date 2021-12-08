@@ -10,11 +10,18 @@
     <section id="highlights" class="wrapper style2">
         <div class="title">Все доски</div>
         <div class="container">
+        <div class="row aln-center">
             @foreach (var boardModel in Model)
             {
-                <a asp-action="OpenBoard" asp-route-boardId="@boardModel.Id" asp-route-boardFormat="@boardModel.Format" class="image featured"><img src="/images/kanban.png" alt="@boardModel.Id"/></a>
+                
+                    <div class="col-4 col-12-medium">
+                        <section class="highlight">
+                            <a asp-action="OpenBoard" asp-route-boardId="@boardModel.Id" asp-route-boardFormat="@boardModel.Format" class="image featured"><img src="/images/kanban.png" alt="@boardModel.Id"/></a>
+                        </section>
+                    </div>
+                    
             }
-        
+        </div>
         </div>
     </section>
 </div>

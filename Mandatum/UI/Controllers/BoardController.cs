@@ -32,12 +32,12 @@ namespace Mandatum.Controllers
         
         public IActionResult AllBoards()
         {
-            var boards = _boardModelConvertor.Convert(_userApi.GetBoards(User.Identity.Name));
-            return View(boards);
+            return View(_boardModelConvertor.Convert(_userApi.GetBoards(User.Identity.Name)));
         }
 
         public IActionResult OpenBoard(Guid boardId, BoardFormat boardFormat)
         {
+            ViewBag.boardId = boardId;
             return View(boardFormat.ToString(), GetTasks(boardId));
         }
 
