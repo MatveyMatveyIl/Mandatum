@@ -11,6 +11,7 @@ namespace Mandatum.Convertors
         {
             return new TaskRecord()
             {
+                Id = source.Id,
                 Description = source.Description,
                 Status = ConvertToTaskRecordStatus(source.Status),
                 Deadline = source.Term,

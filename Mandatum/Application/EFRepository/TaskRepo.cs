@@ -27,7 +27,7 @@ namespace Application
 
         public void UpdateTask(TaskRecord updTask)
         {
-            _dbContext.Update(updTask);
+            _dbContext.Tasks.Update(updTask);
             _dbContext.SaveChanges();
         }
 
