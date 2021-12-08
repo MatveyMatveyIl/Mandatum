@@ -28,7 +28,7 @@ namespace Application
 
         public void UpdateBoard(BoardRecord updBoard)
         {
-            _dbContext.Update(updBoard);
+            _dbContext.Boards.Update(updBoard);
             _dbContext.SaveChanges();
         }
     }

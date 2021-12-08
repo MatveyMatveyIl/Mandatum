@@ -16,7 +16,6 @@ namespace Application
         
         public void AddTask(TaskRecord task)
         {
-
             _dbContext.Add(task);
             _dbContext.SaveChanges();
         }

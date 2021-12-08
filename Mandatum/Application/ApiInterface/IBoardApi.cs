@@ -11,5 +11,6 @@ namespace Application.ApiInterface
         public IEnumerable<TaskRecord> GetBoardTasks(Guid boardId);
         public string GetBoardName(Guid boardId);
         public void AddNewUserToBoard(string email, Guid boardId);
+        public void UpdateTaskOnBoard(Guid boardId, TaskRecord task);
     }
 }
