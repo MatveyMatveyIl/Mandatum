@@ -1,81 +1,35 @@
 ﻿
-@using TaskStatus = Mandatum.Models.TaskStatus
-
-
 @model TaskModel
 
 <div id="page-wrapper">
 <section id="header" class="wrapper">
 		@await Html.PartialAsync("NavBarPartial")
-	</section>
+</section>
 
 <section id="main" class="wrapper style2">
 	<div class="title">Задача</div>
 	<div class="container">
         <div class="row aln-center">
-            
-                <form asp-action="SaveTask" asp-route-boardId="@ViewBag.boardId" method="post" enctype="multipart/form-data" class="p-2">
-          
-                     <div class="form-group">
-                        <label>Имя</label>
-                        <div><span asp-validation-for="Topic"></span></div>
-                        <input asp-for="Topic" class="form-control" type="text" value="@Model.Topic">
-                    </div>
-                
-                    <div class="form-group">
-	                    <label>Статус</label>
-	                    <div>
-		                    @if (Model.Status == TaskStatus.InWait)
-		                    {
-			                    <input asp-for="Status" value="2" type="radio" name="status" id="inWait" checked>
-		                    }
-		                    @if (Model.Status != TaskStatus.InWait)
-		                    {
-			                    <input asp-for="Status" value="2" type="radio" name="status" id="inWait">
-		                    }
-		                    
-		                    <label for="inWait">Не начато</label>
-	                    </div>
-	                    <div>
-		                    @if (Model.Status == TaskStatus.InProgress)
-		                    {
-			                    <input asp-for="Status" value="0" type="radio" name="status" id="inProgress" checked>
-		                    }
-		                    @if (Model.Status != TaskStatus.InProgress)
-		                    {
-			                    <input asp-for="Status" value="0" type="radio" name="status" id="inProgress">
-		                    }		                    
-		                    <label for="inProgress">В процессе</label>
-	                    </div>
-	                    <div>
-		                    @if (Model.Status == TaskStatus.Done)
-		                    {
-			                    <input asp-for="Status" value="1" type="radio" name="status" id="done" checked>
-		                    }
-		                    @if (Model.Status != TaskStatus.Done)
-		                    {
-			                    <input asp-for="Status" value="1" type="radio" name="status" id="done">
-		                    }
-		                    <label for="done">Готово</label>
-	                    </div>
-                    </div>
-                 
-                    <div class="form-group">
-                        <label>Описание</label>
-                        <div><span asp-validation-for="Description"></span></div>
-                        <textarea asp-for="Description" class="form-control" rows="3" value="@Model.Topic"></textarea>
-                    </div>
-        
-                
-                    <br>
-    
-                    <button class="button" type="submit">Сохранить</button>
-                    <a asp-action="CancelTask" asp-route-boardId="@ViewBag.boardId" class="btn btn-primary m-2 p-2">Отмена</a>
-                </form>
+	            @if (ViewBag.Method == "CreateTask")
+	            {
+		            <form asp-action="SaveTask" asp-route-boardId="@ViewBag.boardId" method="post" enctype="multipart/form-data" class="p-2">
+			            @await  Html.PartialAsync("TaskFormRartial")
+			            <button class="button" type="submit">Сохранить</button>
+        	            <a asp-action="CancelTask" asp-route-boardId="@ViewBag.boardId" class="btn btn-primary m-2 p-2">Отмена</a>
+        	        </form>
+		            
+	            }
+	             @if (ViewBag.Method == "EditTask")
+                {
+	                <form asp-action="UpdateTask" asp-route-boardId="@ViewBag.boardId" method="post" enctype="multipart/form-data" class="p-2">
+		                 @await  Html.PartialAsync("TaskFormRartial")
+		                <button class="button" type="submit">Редактировать</button>
+		                <a asp-action="CancelTask" asp-route-boardId="@ViewBag.boardId" class="btn btn-primary m-2 p-2">Отмена</a>
+	                </form>
+	            }
         </div>
     </div>
 </section>
-
 </div>
 
 

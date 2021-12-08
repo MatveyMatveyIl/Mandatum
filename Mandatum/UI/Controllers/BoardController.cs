@@ -2,24 +2,26 @@
 using System.Collections.Generic;
 using System.Linq;
 using Application;
+using Application.ApiInterface;
 using Mandatum.Convertors;
 using Mandatum.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using BoardFormat = Mandatum.Models.BoardFormat;
 
 namespace Mandatum.Controllers
 {
     [Authorize]
     public class BoardController : Controller
     {
-        private TaskApi _taskApi;
-        private BoardApi _boardApi;
+        private ITaskApi _taskApi;
+        private IBoardApi _boardApi;
         private TaskModelConverter _taskConverter;
         private BoardModelConvertor _boardModelConvertor;
-        private UserApi _userApi;
+        private IUserApi _userApi;
 
-        public BoardController(TaskApi taskApi, BoardApi boardApi, UserApi userApi, TaskModelConverter taskConverter, 
+        public BoardController(ITaskApi taskApi, IBoardApi boardApi, IUserApi userApi, TaskModelConverter taskConverter, 
             BoardModelConvertor boardModelConvertor)
         {
             _taskApi = taskApi;
@@ -30,21 +32,23 @@ namespace Mandatum.Controllers
         }
 
         #region Boards
-
-        public IActionResult KanbanBoard(BoardModel board)
-        {
-            ViewBag.boardId = board.Id;
-            return View(GetTasks(board.Id));
-        }
-
+        
         public IActionResult AllBoards()
         {
-            // var boards = _boardModelConvertor.Convert(_userApi.GetBoards(User.Identity.Name));
-            return View();
+            Console.WriteLine(User.Identity.Name);
+            return View(_boardModelConvertor.Convert(_userApi.GetBoards(User.Identity.Name)));
+        }
+
+        public IActionResult OpenBoard(Guid boardId, BoardFormat boardFormat)
+        {
+            ViewBag.boardId = boardId;
+            ViewBag.boardName = _boardApi.GetBoardName(boardId);
+            return View(boardFormat.ToString(), GetTasks(boardId));
         }
 
         public IActionResult CreateBoard()
         {
+           // ViewBag.BoardPrivacy = false;
             return View("CreateBoard", new BoardModel());
         }
         
@@ -54,6 +58,7 @@ namespace Mandatum.Controllers
             var boardRecord = _boardModelConvertor.Convert(board);
             _boardApi.CreateBoard(boardRecord, User.Identity.Name);
             ViewBag.boardId = board.Id;
+            ViewBag.boardName = _boardApi.GetBoardName(board.Id);
             return View("KanbanBoard", GetTasks(board.Id));
         } 
 
@@ -63,38 +68,55 @@ namespace Mandatum.Controllers
 
         public IActionResult CreateTask(Guid boardId, TaskStatus taskStatus)
         {
-            Console.WriteLine(boardId.ToString());
             ViewBag.Method = nameof(CreateTask);
             ViewBag.boardId = boardId;
-            var task = new TaskModel {Status = taskStatus};
-            return View("EditTask", task);
+            var taskModel = new TaskModel {Status = taskStatus};
+            return View("EditTask", taskModel);
         }
 
-        public IActionResult EditTask(TaskModel task, Guid boardId)
+        public IActionResult EditTask(Guid taskId, Guid boardId)
         {
             ViewBag.Method = nameof(EditTask);
             ViewBag.boardId = boardId;
-            return View("EditTask", task);
+            var task = _taskApi.GetTask(taskId);
+            return View(_taskConverter.Convert(_taskApi.GetTask(taskId)));
         }
 
-        public IActionResult SaveTask(TaskModel task, Guid boardId)
+        public IActionResult SaveTask(TaskModel taskModel, Guid boardId)
         {
-            _boardApi.AddTask(boardId, _taskConverter.Convert(task));
+            _boardApi.AddTaskToBoard(boardId, _taskConverter.Convert(taskModel));
             ViewBag.boardId = boardId;
+            ViewBag.boardName = _boardApi.GetBoardName(boardId);
+            //ViewBag.BoardPrivacy = false;
+            return View("KanbanBoard", GetTasks(boardId));
+        }
+        
+        public IActionResult UpdateTask(TaskModel taskModel, Guid boardId)
+        {
+            _boardApi.UpdateTaskOnBoard(boardId, _taskConverter.Convert(taskModel));
+            ViewBag.boardId = boardId;
+            ViewBag.boardName = _boardApi.GetBoardName(boardId);
             return View("KanbanBoard", GetTasks(boardId));
         }
 
         public IActionResult CancelTask(Guid boardId)
         {
-            var board = _boardModelConvertor.Convert(_boardApi.GetBoard(boardId));
-            ViewBag.boardId = board.Id;
-            
+            ViewBag.boardId = boardId;
+            ViewBag.boardName = _boardApi.GetBoardName(boardId);
             return View("KanbanBoard", GetTasks(boardId));
         }
 
         private IEnumerable<TaskModel> GetTasks(Guid boardId)
         {
-            return _taskConverter.Convert(_taskApi.GetBoardTasks(boardId));
+            return _taskConverter.Convert(_boardApi.GetBoardTasks(boardId));
+        }
+
+        public IActionResult GiveBoard(String emailUser, Guid boardId)
+        {
+            ViewBag.boardId = boardId;
+            Console.WriteLine(emailUser);
+            ViewBag.boardName = _boardApi.GetBoardName(boardId);
+            return View("KanbanBoard", GetTasks(boardId));
         }
 
         #endregion

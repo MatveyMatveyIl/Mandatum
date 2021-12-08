@@ -5,40 +5,24 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Application
 {
-    public class UserRepo: IUserRepo
+    public class UserRepo : IUserRepo
     {
-        private readonly AppDbContext dbContext;
+        private readonly AppDbContext _dbContext;
 
         public UserRepo(AppDbContext dbContext)
         {
-            this.dbContext = dbContext;
-        }
-
-        public UserRecord GetUser(UserRecord user)
-        {   
-            return dbContext.Users.FirstOrDefault(u => u.Email == user.Email );
+            _dbContext = dbContext;
         }
 
         public UserRecord GetUser(string email)
         {
-            return dbContext.Users.FirstOrDefault(u => u.Email == email);
-        }
-        
-        public UserRecord GetUser(Guid userid)
-        {   
-            return dbContext.Users.FirstOrDefault(u => u.Id == userid.ToString());
-        }
-
-        public void SaveUser(UserRecord user)
-        {
-            dbContext.Add(user);
-            dbContext.SaveChanges();
+            return _dbContext.Users.Include(x => x.Boards).FirstOrDefault(u => u.Email == email);
         }
 
         public void UpdateUser(UserRecord user)
         {
-            dbContext.Update(user);
-            dbContext.SaveChanges();
+            _dbContext.Update(user);
+            _dbContext.SaveChanges();
         }
     }
 }

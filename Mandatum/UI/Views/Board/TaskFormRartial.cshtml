@@ -1,0 +1,55 @@
+﻿@using TaskStatus = Mandatum.Models.TaskStatus
+
+@model TaskModel
+
+<input type="hidden" asp-for="Id" value="@Model.Id" />
+<div class="form-group">
+    <label>Имя</label>
+    <div><span asp-validation-for="Topic"></span></div>
+    <input asp-for="Topic" class="form-control" type="text">
+</div>
+
+<div class="form-group">
+    <label>Статус</label>
+    <div>
+        @if (Model.Status == TaskStatus.InWait)
+        {
+        	<input asp-for="Status" value="2" type="radio" name="status" id="inWait" checked>
+        }
+        @if (Model.Status != TaskStatus.InWait)
+        {
+        	<input asp-for="Status" value="2" type="radio" name="status" id="inWait">
+        }
+
+        <label for="inWait">Не начато</label>
+    </div>
+    <div>
+        @if (Model.Status == TaskStatus.InProgress)
+        {
+        	<input asp-for="Status" value="0" type="radio" name="status" id="inProgress" checked>
+        }
+        @if (Model.Status != TaskStatus.InProgress)
+        {
+        	<input asp-for="Status" value="0" type="radio" name="status" id="inProgress">
+        }
+        <label for="inProgress">В процессе</label>
+    </div>
+    <div>
+        @if (Model.Status == TaskStatus.Done)
+        {
+        	<input asp-for="Status" value="1" type="radio" name="status" id="done" checked>
+        }
+        @if (Model.Status != TaskStatus.Done)
+        {
+        	<input asp-for="Status" value="1" type="radio" name="status" id="done">
+        }
+        <label for="done">Готово</label>
+    </div>
+</div>
+
+<div class="form-group">
+    <label>Описание</label>
+    <div><span asp-validation-for="Description"></span></div>
+    <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+</div>
+<br>

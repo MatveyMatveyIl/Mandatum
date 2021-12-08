@@ -7,6 +7,7 @@ namespace Mandatum.Models
         public Guid Id { get; set; }
         public bool Privacy { get; set; }
         public BoardFormat Format { get; set; }
+        public string Name { get; set; }
     }
 
     public enum BoardFormat

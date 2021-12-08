@@ -1,24 +1,16 @@
 using System;
+using System.Collections.Generic;
+using Application.ApiInterface;
 
 namespace Application
 {
-    public class UserApi
+    public class UserApi : IUserApi
     {
-        private readonly UserRepo _userRepo;
+        private readonly IUserRepo _userRepo;
 
-        public UserApi(UserRepo userRepo)
+        public UserApi(IUserRepo userRepo)
         {
             _userRepo = userRepo;
-        }
-
-        public UserRecord CheckUser(UserRecord user)
-        {
-            return _userRepo.GetUser(user);
-        }
-
-        public void RegisterUser(UserRecord user)
-        {
-            _userRepo.SaveUser(user);
         }
 
         public void AddBoard(BoardRecord board, string email)
@@ -26,6 +18,17 @@ namespace Application
             var user = _userRepo.GetUser(email);
             user.Boards.Add(board);
             _userRepo.UpdateUser(user);
+        }
+
+        public IEnumerable<BoardRecord> GetBoards(string email)
+        {
+            var user = _userRepo.GetUser(email);
+            return user.Boards;
+        }
+
+        public void AddNewUserToBoard(string email)
+        {
+            throw new NotImplementedException();
         }
     }
 }

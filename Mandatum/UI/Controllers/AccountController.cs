@@ -5,6 +5,7 @@ using System.Text.Json;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Application;
+using Application.ApiInterface;
 using Mandatum.Convertors;
 using Mandatum.Models;
 using Mandatum.ViewModels;
@@ -21,13 +22,14 @@ namespace Mandatum.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly UserApi _userApi;
+        private readonly IUserApi _userApi;
         private readonly UserConvertorModel _convertorModel;
         private readonly UserConvertorRegister _convertorRegister;
         private readonly UserManager<UserRecord> _userManager;
         private readonly SignInManager<UserRecord> _signInManager;
 
-        public AccountController(UserManager<UserRecord> userManager, SignInManager<UserRecord> signInManager, UserApi userApi, UserConvertorModel convertorModel, UserConvertorRegister convertorRegister)
+        public AccountController(UserManager<UserRecord> userManager, SignInManager<UserRecord> signInManager,
+            IUserApi userApi, UserConvertorModel convertorModel, UserConvertorRegister convertorRegister)
         {
             _userApi = userApi;
             _convertorModel = convertorModel;
@@ -57,13 +59,13 @@ namespace Mandatum.Controllers
                 .FirstOrDefault();
             
             var user = new UserRecord() {Email = email, UserName = username};
-            //тут надо сделать штуку, чтобы спрашивать у юзеров пароль, пока все хранятся с одинаковым
-            var result = await _userManager.CreateAsync(user, "Qwer1%");
-            if (result.Succeeded)
+            if (await _userManager.GetUserAsync(response.Principal) is null)
             {
-                await _signInManager.SignInAsync(user, false);
+                var result = await _userManager.CreateAsync(user, "Qwer1%");
+
             }
-            
+
+            await _signInManager.SignInAsync(user, false);
             return RedirectToAction("Index", "Home");
             
         }
@@ -138,7 +140,9 @@ namespace Mandatum.Controllers
                     }
                 }
             }
+
             return View(model);
         }
+
     }
 }
