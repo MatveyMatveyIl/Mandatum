@@ -1,36 +1,15 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
+using Application.ApiInterface;
 
 namespace Application
 {
-    public class TaskApi
+    public class TaskApi : ITaskApi
     {
-        private readonly TaskRepo _taskRepo;
+        private readonly ITaskRepo _taskRepo;
 
-        public TaskApi(TaskRepo taskRepo)
+        public TaskApi(ITaskRepo taskRepo)
         {
             _taskRepo = taskRepo;
-        }
-
-        public IEnumerable<TaskRecord> GetTasks()
-        {
-            return _taskRepo.Tasks;
-        }
-
-        public IEnumerable<TaskRecord> GetBoardTasks(Guid boardId)
-        {
-            return _taskRepo.GetTasks(boardId);
-        }
-
-        public TaskRecord GetTask(Guid id)
-        {
-            return _taskRepo.GetTask(id);
-        }
-
-        public TaskRecord GetTask(TaskRecord taskRecord)
-        {
-            return _taskRepo.GetTask(taskRecord);
         }
 
         public void SaveTask(TaskRecord task)
@@ -38,9 +17,13 @@ namespace Application
             _taskRepo.AddTask(task);
         }
 
-        public void UpdateTask(TaskRecord newTask)
+        public void UpdateTask(TaskRecord updTask)
         {
-            
+        }
+
+        public void DeleteTask(Guid taskId)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -2,76 +2,35 @@
 using System.Collections.Generic;
 using System.Linq;
 using Mandatum.Models;
-using Microsoft.EntityFrameworkCore;
 
 namespace Application
 {
     public class TaskRepo : ITaskRepo
     {
-        private readonly AppDbContext db;
+        private readonly AppDbContext _dbContext;
 
-        public TaskRepo(AppDbContext db)
+        public TaskRepo(AppDbContext dbContext)
         {
-            this.db = db;
+            _dbContext = dbContext;
         }
-
-        public IQueryable<TaskRecord> Tasks => db.Tasks;
         
         public void AddTask(TaskRecord task)
         {
-            if (Tasks.Any(taskRecord => taskRecord.Id == task.Id))
-                db.Update(task);
+            if (_dbContext.Tasks.Any(taskRecord => taskRecord.Id == task.Id))
+                _dbContext.Update(task);
             else
-                db.Add(task);
-            db.SaveChanges();
+                _dbContext.Add(task);
+            _dbContext.SaveChanges();
         }
 
-        public IEnumerable<TaskRecord> GetTasks(Guid boardId)
+        public void DeleteTask(Guid taskId)
         {
-            var board = db.Boards.FirstOrDefault(b => b.Id == boardId);
-            return board.TaskIds;
+            throw new NotImplementedException();
         }
 
-        public TaskRecord GetTask(Guid id)
+        public void UpdateTask(TaskRecord updTask)
         {
-            var task =  Tasks.FirstOrDefault(taskRecord => taskRecord.Id == id);
-            return task;
-        }
-
-        public TaskRecord GetTask(TaskRecord taskRecord)
-        {
-            return Tasks.FirstOrDefault(record => record.Equals(taskRecord));
-        }
-
-        public void UpdateTask(TaskRecord newTask)
-        {
-            db.Update(newTask);
-            db.SaveChanges();
-        }
-        
-        public void DeleteTask(Guid id)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public IEnumerable<TaskRecord> GetAll()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public IEnumerable<TaskRecord> GetInitialElements()
-        {
-            return Tasks;
-        }
-
-        public IEnumerable<TaskRecord> GetAllSubTasks(int id)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void ChangeStatus(int taskId, TaskStatusRecord status)
-        {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
     }
 }

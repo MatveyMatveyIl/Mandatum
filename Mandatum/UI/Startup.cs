@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Application;
+using Application.ApiInterface;
 using Mandatum.Controllers;
 using Mandatum.Convertors;
 using Mandatum.Models;
@@ -30,25 +31,26 @@ namespace Mandatum
  
         public void ConfigureServices(IServiceCollection services)
         {
-            /*services.AddSingleton<TaskRecord>();
-            services.AddSingleton<BoardRecord>();
-            services.AddSingleton<UserRecord>();*/
-            //services.AddScoped<IUserRepo, UserRepo>();
-            //services.AddSingleton<UserConvertor>();
-            /*services.AddSingleton<BoardApi>();
-            services.AddSingleton<BoardRepo>();*/
+            // >> db connect 
             var connection = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connection, b => b.MigrationsAssembly("UI")));
-            services.AddScoped<BoardApi>();
-            services.AddScoped<BoardRepo>();
-            services.AddScoped<UserApi>();
+            // << db connect 
+            // >> api
+            services.AddScoped<IBoardApi, BoardApi>();
+            services.AddScoped<ITaskApi, TaskApi>();
+            services.AddScoped<IUserApi, UserApi>();
+            // << api
+            // >> repo
+            services.AddScoped<ITaskRepo, TaskRepo>();
+            services.AddScoped<IBoardRepo, BoardRepo>();
             services.AddScoped<UserRepo>();
+            // << repo
+            // >> convertors
             services.AddScoped<UserConvertorModel>();
             services.AddScoped<UserConvertorRegister>();
-            services.AddScoped<TaskRepo>();
-            services.AddScoped<TaskApi>();
             services.AddScoped<TaskModelConverter>();
             services.AddScoped<BoardModelConvertor>();
+            // << convertors
             // установка конфигурации подключения
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options => //CookieAuthenticationOptions
