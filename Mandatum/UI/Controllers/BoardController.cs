@@ -71,9 +71,10 @@ namespace Mandatum.Controllers
             return View("EditTask", task);
         }
 
-        public IActionResult EditTask(Guid taskId)
+        public IActionResult EditTask(Guid taskId, Guid boardId)
         {
             ViewBag.Method = nameof(EditTask);
+            ViewBag.boardId = boardId;
             var task = _taskApi.GetTask(taskId);
             return View(_taskConverter.Convert(_taskApi.GetTask(taskId)));
         }
