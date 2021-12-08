@@ -7,7 +7,7 @@ namespace Application
     public interface ITaskRepo
     {
         public void AddTask(TaskRecord task);
-        public void DeleteTask(Guid taskId);
+        public void DeleteTask(TaskRecord task);
         public void UpdateTask(TaskRecord updTask);
         public TaskRecord GetTask(Guid id);
     }

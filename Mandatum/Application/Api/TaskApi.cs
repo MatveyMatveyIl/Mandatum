@@ -29,7 +29,8 @@ namespace Application
 
         public void DeleteTask(Guid taskId)
         {
-            throw new NotImplementedException();
+            var task = _taskRepo.GetTask(taskId);
+            _taskRepo.DeleteTask(task);
         }
     }
 }

@@ -20,9 +20,10 @@ namespace Application
             _dbContext.SaveChanges();
         }
 
-        public void DeleteTask(Guid taskId)
+        public void DeleteTask(TaskRecord task)
         {
-            throw new NotImplementedException();
+            _dbContext.Tasks.Remove(task);
+            _dbContext.SaveChanges();
         }
 
         public void UpdateTask(TaskRecord updTask)
