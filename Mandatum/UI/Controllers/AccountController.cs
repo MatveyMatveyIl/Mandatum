@@ -53,12 +53,9 @@ namespace Mandatum.Controllers
                 .Where(claim => (claim.Type.Split("/").Last() =="emailaddress" ))
                 .Select(claim => claim.Value.Split("/").Last())
                 .FirstOrDefault();
-            var username = response.Principal.Identities.FirstOrDefault()?
-                .Claims.Where(claim => (claim.Type.Split("/").Last() =="givenname" ))
-                .Select(claim => claim.Value.Split("/").Last())
-                .FirstOrDefault();
+          
             
-            var user = new UserRecord() {Email = email, UserName = username};
+            var user = new UserRecord() {Email = email, UserName = email};
             if (await _userManager.GetUserAsync(response.Principal) is null)
             {
                 var result = await _userManager.CreateAsync(user, "Qwer1%");
