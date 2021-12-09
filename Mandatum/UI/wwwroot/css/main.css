@@ -1700,19 +1700,19 @@ input[type="radio"]:checked + label:after {
 		display: inline-block;
 		background: #444;
 		text-align: center;
-		text-transform: uppercase;
+		/*text-transform: uppercase;*/
 		font-weight: 700;
-		letter-spacing: 0.25em;
+		/*letter-spacing: 0.25em;*/
 		text-decoration: none;
 		border-radius: 0.35em;
 		border: 0;
 		outline: 0;
 		cursor: pointer;
-		padding: 0 2.25em 0 2.25em;
+		padding: 1em 1em 1em 1em;
 		font-size: 0.9em;
 		min-width: 12em;
-		height: 4em;
-		line-height: 4em;
+		min-height: 4em;
+		/*line-height: 4em;*/
 	}
 
 		input[type="button"]:hover,

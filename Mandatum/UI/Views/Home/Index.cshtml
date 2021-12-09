@@ -1,16 +1,4 @@
 ﻿<!DOCTYPE HTML>
-<ul>
-
-    @{
-        string name = "";
-        if (Context.User.Identity.IsAuthenticated)
-        {
-            name = User.Identity.Name;
-        }
-    }
-   
-    
-</ul>
 
 <div id="page-wrapper">
     <section id="header" class="wrapper">
@@ -18,8 +6,15 @@
             
         <div id="logo">
             <h1>Mandatum</h1>
-            <p>Сделайте командную работу удобной</p>
-            <p>Привет, @name </p>
+           
+             @if (Context.User.Identity.IsAuthenticated)
+             {
+                 <p>Привет, @User.Identity.Name !</p>
+             }
+              @if (!Context.User.Identity.IsAuthenticated)
+              {
+                  <p>Сделайте командную работу удобной</p>
+              }
         </div>
 
         @await Html.PartialAsync("NavBarPartial")
@@ -29,8 +24,14 @@
     <div id="main" class="wrapper style2">
         <div class="row aln-center">
             <div class="actions">
-                <a href="@Url.Action("Register", "Account")" class="button style1">Начать</a>
-                <a href="@Url.Action("Logout", "Account")" class="button style1">Выйти</a>
+                @if (Context.User.Identity.IsAuthenticated)
+                {
+                    <a href="@Url.Action("CreateBoard", "Board")" class="button style1">Создать доску</a>
+                }
+                @if (!Context.User.Identity.IsAuthenticated)
+                {
+                    <a href="@Url.Action("Login", "Account")" class="button style1">Начать</a>
+                }
             </div>
         </div>
     </div>
