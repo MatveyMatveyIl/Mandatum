@@ -43,12 +43,12 @@ namespace Mandatum.Controllers
         {
             ViewBag.boardId = boardId;
             ViewBag.boardName = _boardApi.GetBoardName(boardId);
+            ViewBag.boardPrivacy = _boardApi.GetBoardPrivacy(boardId);
             return View(boardFormat.ToString(), GetTasks(boardId));
         }
 
         public IActionResult CreateBoard()
         {
-           // ViewBag.BoardPrivacy = false;
             return View("CreateBoard", new BoardModel());
         }
         
@@ -59,6 +59,7 @@ namespace Mandatum.Controllers
             _boardApi.CreateBoard(boardRecord, User.Identity.Name);
             ViewBag.boardId = board.Id;
             ViewBag.boardName = _boardApi.GetBoardName(board.Id);
+            ViewBag.boardPrivacy = _boardApi.GetBoardPrivacy(board.Id);
             return View("KanbanBoard", GetTasks(board.Id));
         } 
 
@@ -87,7 +88,7 @@ namespace Mandatum.Controllers
             _boardApi.AddTaskToBoard(boardId, _taskConverter.Convert(taskModel));
             ViewBag.boardId = boardId;
             ViewBag.boardName = _boardApi.GetBoardName(boardId);
-            //ViewBag.BoardPrivacy = false;
+            ViewBag.boardPrivacy = _boardApi.GetBoardPrivacy(boardId);
             return View("KanbanBoard", GetTasks(boardId));
         }
         
@@ -96,6 +97,7 @@ namespace Mandatum.Controllers
             _boardApi.UpdateTaskOnBoard(boardId, _taskConverter.Convert(taskModel));
             ViewBag.boardId = boardId;
             ViewBag.boardName = _boardApi.GetBoardName(boardId);
+            ViewBag.boardPrivacy = _boardApi.GetBoardPrivacy(boardId);
             return View("KanbanBoard", GetTasks(boardId));
         }
 
@@ -103,6 +105,7 @@ namespace Mandatum.Controllers
         {
             ViewBag.boardId = boardId;
             ViewBag.boardName = _boardApi.GetBoardName(boardId);
+            ViewBag.boardPrivacy = _boardApi.GetBoardPrivacy(boardId);
             return View("KanbanBoard", GetTasks(boardId));
         }
 
@@ -116,6 +119,7 @@ namespace Mandatum.Controllers
             ViewBag.boardId = boardId;
             Console.WriteLine(emailUser);
             ViewBag.boardName = _boardApi.GetBoardName(boardId);
+            ViewBag.boardPrivacy = _boardApi.GetBoardPrivacy(boardId);
             return View("KanbanBoard", GetTasks(boardId));
         }
 

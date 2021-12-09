@@ -11,15 +11,17 @@
 		@await Html.PartialAsync("NavBarPartial")
 	</section>
 	<section id="main" class="wrapper style2">
-		<div>
-        	<form asp-action="GiveBoard" asp-controller="Board" asp-route-boardId="@ViewBag.boardId" method="post">
-        		<label>Отправьте доску по почте:</label>
-        		<input type="text" name="emailUser"/>
-        		<input type="submit" value="Отправить"/>
-        	</form>
-        </div>
-		<div class="title">@ViewBag.boardName
-		</div>
+		<div class="title">@ViewBag.boardName</div>
+		@if (!ViewBag.boardPrivacy)
+        {
+        	<div>
+        		<form asp-action="GiveBoard" asp-controller="Board" asp-route-boardId="@ViewBag.boardId" method="post">
+        			<label>Отправьте доску по почте:</label>
+        			<input type="text" name="emailUser"/>
+        			<input type="submit" value="Отправить"/>
+        		</form>
+        	</div>
+        }
 		<section id="highlights" class="wrapper style2">
 			<div class="container">
 				<div class="row aln-center">
