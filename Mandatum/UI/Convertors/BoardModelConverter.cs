@@ -6,7 +6,7 @@ using BoardFormatModel = Mandatum.Models.BoardFormat;
 
 namespace Mandatum.Convertors
 {
-    public class BoardModelConvertor: IConvertor<BoardRecord, BoardModel>
+    public class BoardModelConverter: IConverter<BoardRecord, BoardModel>
     {
         public BoardRecord Convert(BoardModel source)
         {

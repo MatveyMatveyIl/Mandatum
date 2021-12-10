@@ -4,7 +4,7 @@ using Mandatum.ViewModels;
 
 namespace Mandatum.Convertors
 {
-    public class UserConvertorRegister:IConvertor<UserRecord, RegisterModel>
+    public class UserConverterRegister:IConverter<UserRecord, RegisterModel>
     {
         public UserRecord Convert(RegisterModel source)
         {

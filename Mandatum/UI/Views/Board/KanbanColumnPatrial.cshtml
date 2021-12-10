@@ -1,5 +1,5 @@
 ﻿@using TaskStatus = Mandatum.Models.TaskStatus
-@model Tuple<TaskStatus, IEnumerable<TaskModel>>
+@model Tuple<TaskStatus, BoardViewModel>
 
 <div class="col-4 col-12-medium">
     <section class="highlight">
@@ -16,12 +16,12 @@
         {
             <h3>Готово</h3>
         }
-        @foreach (var taskModel in Model.Item2)
+        @foreach (var taskModel in Model.Item2.Tasks.Where(task => task.Status == Model.Item1))
         {
-            <div><a asp-action="EditTask" asp-route-taskModel="@taskModel" asp-route-taskId="@taskModel.Id" asp-route-boardId="@ViewBag.boardId" class="button style2">@taskModel.Topic</a></div>
+            <div><a asp-action="EditTask" asp-controller="Task" asp-route-taskId="@taskModel.Id" asp-route-boardId="@Model.Item2.Board.Id" class="button style2">@taskModel.Topic</a></div>
             <br>
         }
 
-        <a asp-action="CreateTask" asp-route-boardId="@ViewBag.boardId" asp-route-taskStatus="@Model.Item1" class="button">Новая задача</a>
+        <a asp-action="CreateTask" asp-controller="Task" asp-route-boardId="@Model.Item2.Board.Id" asp-route-taskStatus="@Model.Item1" class="button">Новая задача</a>
     </section>
 </div>

@@ -41,6 +41,11 @@ namespace Application
             return board.Privacy;
         }
 
+        public BoardRecord GetBoard(Guid boardId)
+        {
+            return _boardRepo.GetBoard(boardId);
+        }
+
         public void AddNewUserToBoard(string email, Guid boardId)
         {
             var board = _boardRepo.GetBoard(boardId);
