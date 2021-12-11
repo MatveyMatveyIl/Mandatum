@@ -13,8 +13,12 @@ namespace Mandatum.Models
         public TaskStatus Status { get; set; }
         [Required(ErrorMessage = "Напишите описание")]
         public string Description { get; set; }
+        
+        public string Executors { get; set; }
 
-        public DateTime Term { get; set; }
+        
+        [DataType(DataType.DateTime )]
+        public DateTime Deadline { get; set; }
     }
     
     public enum TaskStatus

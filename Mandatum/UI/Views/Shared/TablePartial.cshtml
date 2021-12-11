@@ -19,7 +19,7 @@
     @foreach (var taskModel in Model.Tasks)
     {
         <tr><td><a asp-action="EditTask" asp-controller="Task" asp-route-taskId="@taskModel.Id" asp-route-boardId="@Model.Board.Id" class="actions">@taskModel.Topic</a>
-                    </td><td>@taskModel.Status</td><td>@taskModel.Description</td><td>@taskModel.Term</td></tr>
+                    </td><td>@taskModel.Status</td><td>@taskModel.Description</td><td>@taskModel.Deadline</td></tr>
     }
 </table>
 
