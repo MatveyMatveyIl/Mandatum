@@ -14,9 +14,8 @@ namespace Mandatum.Models
         [Required(ErrorMessage = "Напишите описание")]
         public string Description { get; set; }
         
+        [Required(ErrorMessage = "Укажите заголовок")]
         public string Executors { get; set; }
-
-        
         [DataType(DataType.DateTime )]
         public DateTime Deadline { get; set; }
     }

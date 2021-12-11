@@ -6,7 +6,6 @@ namespace Mandatum.Models
     {
         public Guid BoardId { get; }
         public TaskModel TaskModel { get; }
-        
         public string Method { get; }
 
         public TaskViewModel(Guid boardId, TaskModel taskModel, string method)

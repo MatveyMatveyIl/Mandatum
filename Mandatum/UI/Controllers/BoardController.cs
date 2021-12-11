@@ -49,10 +49,14 @@ namespace Mandatum.Controllers
         
         public IActionResult SaveBoard(BoardModel board)
         {
-            board.Id = Guid.NewGuid();
-            _boardApi.CreateBoard(_boardConverter.Convert(board), User.Identity.Name);
-            var boardView = new BoardViewModel(board, GetTasks(board.Id));
-            return View("BoardView", boardView);
+            if (ModelState.IsValid)
+            {
+                board.Id = Guid.NewGuid();
+                _boardApi.CreateBoard(_boardConverter.Convert(board), User.Identity.Name);
+                var boardView = new BoardViewModel(board, GetTasks(board.Id));
+                return View("BoardView", boardView);
+            }
+            return View("CreateBoard");
         }
         
         private IEnumerable<TaskModel> GetTasks(Guid boardId)
