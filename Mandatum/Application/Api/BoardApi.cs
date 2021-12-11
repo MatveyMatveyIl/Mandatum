@@ -28,6 +28,14 @@ namespace Application
             var board = _boardRepo.GetBoard(boardId);
             _boardRepo.DeleteBoard(board);
         }
+        public void DeleteTaskOnBoard(Guid boardId, Guid idTask)
+        {
+            var task = _taskApi.GetTask(idTask);
+            _taskApi.DeleteTask(idTask);
+            var board = _boardRepo.GetBoard(boardId);
+            board.TaskIds.Remove(task);
+            _boardRepo.UpdateBoard(board);
+        }
 
         public string GetBoardName(Guid boardId)
         {

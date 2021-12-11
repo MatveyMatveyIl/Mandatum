@@ -14,5 +14,6 @@ namespace Application.ApiInterface
         public BoardRecord GetBoard(Guid boardId);
         public void AddNewUserToBoard(string email, Guid boardId);
         public void UpdateTaskOnBoard(Guid boardId, TaskRecord task);
+        public void DeleteTaskOnBoard(Guid boardId, Guid idTask);
     }
 }
