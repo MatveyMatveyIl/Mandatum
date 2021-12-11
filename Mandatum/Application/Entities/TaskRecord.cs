@@ -12,6 +12,5 @@ namespace Application
         public DateTime Deadline { get; set; }
         public int Priority { get; set; }
         public string Executors { get; set; }
-        
     }
 }
