@@ -58,6 +58,13 @@ namespace Mandatum.Controllers
             }
             return View("CreateBoard");
         }
+        public IActionResult DeleteBoard(Guid boardId)
+        {
+            _boardApi.DeleteBoard(boardId);
+            var boards = _boardConverter.Convert(_userApi.GetBoards(User.Identity.Name));
+            return View("AllBoards", boards);
+        }
+        
         
         private IEnumerable<TaskModel> GetTasks(Guid boardId)
         {

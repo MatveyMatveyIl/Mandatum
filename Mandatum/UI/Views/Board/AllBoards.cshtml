@@ -17,6 +17,7 @@
                     <section class="highlight">
                         <a asp-action="OpenBoard" asp-route-boardId="@boardModel.Id" class="image featured"><img src=@($"/images/{boardModel.Format}.png") alt="@boardModel.Name"/></a>
                         <a asp-action="OpenBoard" asp-route-boardId="@boardModel.Id" class="button style1">@boardModel.Name</a>
+                        <a asp-action="DeleteBoard" asp-controller="Board" asp-route-boardId="@boardModel.Id" class="fa fa-minus-square" aria-hidden="true" style="cursor:pointer;color: #f98780"></a>
                     </section>
                 </div>
             }

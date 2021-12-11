@@ -78,9 +78,7 @@ namespace Mandatum.Controllers
         public IActionResult DeleteTask(Guid taskId, Guid boardId)
         {
             _boardApi.DeleteTaskOnBoard(boardId, taskId);
-            
             var boardView = new BoardViewModel(_boardConverter.Convert(_boardApi.GetBoard(boardId)), GetTasks(boardId));
-            
             return View("BoardView", boardView);
         }
     }
