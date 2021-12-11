@@ -7,7 +7,9 @@
 </head>
 <body>
 <table>
-    <caption>Ваши таски</caption>
+   	<header class="style1">
+    <h2>Ваши задачи</h2>
+    </header>
     <tr>
         <th>Название</th>
         <th>Статус</th>
@@ -19,7 +21,7 @@
         <tr><td><a asp-action="EditTask" asp-controller="Task" asp-route-taskId="@taskModel.Id" asp-route-boardId="@Model.Board.Id" class="actions">@taskModel.Topic</a>
                     </td><td>@taskModel.Status</td><td>@taskModel.Description</td><td>@taskModel.Term</td></tr>
     }
+</table>
 
     <a asp-action="CreateTask" asp-controller="Task" asp-route-boardId="@Model.Board.Id"  class="button">Новая задача</a>
-</table>
 </body>

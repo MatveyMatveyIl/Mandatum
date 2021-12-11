@@ -13,7 +13,6 @@ namespace Mandatum.Models
     public enum BoardFormat
     {
         KanbanBoard,
-        Graph,
         Table
     }
 }

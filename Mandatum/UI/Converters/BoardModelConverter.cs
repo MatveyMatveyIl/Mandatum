@@ -43,7 +43,7 @@ namespace Mandatum.Convertors
             return format switch
             {
                 BoardFormatRecord.KanbanBoard => BoardFormatModel.KanbanBoard,
-                BoardFormatRecord.Graph => BoardFormatModel.Graph,
+                BoardFormatRecord.Table => BoardFormatModel.Table,
             };
         }
         
@@ -52,7 +52,7 @@ namespace Mandatum.Convertors
             return format switch
             {
                 BoardFormatModel.KanbanBoard => BoardFormatRecord.KanbanBoard,
-                BoardFormatModel.Graph => BoardFormatRecord.Graph,
+                BoardFormatModel.Table => BoardFormatRecord.Table,
             };
         }
     }
