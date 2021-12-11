@@ -15,7 +15,6 @@ namespace Mandatum.Controllers
     [Authorize]
     public class BoardController : Controller
     {
-        private ITaskApi _taskApi;
         private IBoardApi _boardApi;
         private TaskModelConverter _taskConverter;
         private BoardModelConverter _boardConverter;
@@ -24,7 +23,6 @@ namespace Mandatum.Controllers
         public BoardController(ITaskApi taskApi, IBoardApi boardApi, IUserApi userApi, TaskModelConverter taskConverter, 
             BoardModelConverter boardConverter)
         {
-            _taskApi = taskApi;
             _taskConverter = taskConverter;
             _boardApi = boardApi;
             _boardConverter = boardConverter;

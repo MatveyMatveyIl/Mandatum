@@ -16,14 +16,6 @@ namespace Mandatum.Controllers
     
     public class HomeController : Controller
     {
-        private readonly IBoardApi _boardApi;
-
-        public HomeController(IBoardApi boardApi)
-        {
-            _boardApi = boardApi;
-        }
-    
-
         public IActionResult Index()
         {
             return View();
