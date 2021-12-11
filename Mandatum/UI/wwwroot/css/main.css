@@ -33,7 +33,19 @@ label{
 	font: inherit;
 	vertical-align: baseline;
 }
-
+table {
+	border-left: 5px solid #1f232b;
+	border-right: 5px solid #1f232b;
+	/*background: #aaaaaa;*/
+}
+td {
+	padding: 5px;
+	border: 5px solid #1f232b;
+}
+th{
+	padding: 5px;
+	border: 5px solid #1f232b;
+}
 article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
 	display: block;}
@@ -2435,7 +2447,6 @@ input[type="radio"]:checked + label:after {
 			#footer .feature-list h3:before {
 				background: #3d4249 url("images/overlay.png");
 			}
-
 /* Copyright */
 
 	#copyright {
