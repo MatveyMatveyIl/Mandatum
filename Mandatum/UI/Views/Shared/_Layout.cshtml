@@ -12,17 +12,9 @@
 </head>
 
 <body>
-
-<header>
-    @* @await Html.PartialAsync("HeaderPartial") *@
-</header>
-
-@* <div class="container"> *@
-    <main role="main" class="pb-3">
+<main role="main" class="pb-3">
         @RenderBody()
     </main>
-@* </div> *@
-
 @await Html.PartialAsync("ScriptPartial")
 @await RenderSectionAsync("Scripts", required: false)
 
