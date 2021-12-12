@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Mandatum.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class Init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -45,6 +45,20 @@ namespace Mandatum.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Boards",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Privacy = table.Column<bool>(type: "bit", nullable: false),
+                    Format = table.Column<int>(type: "int", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Boards", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -154,23 +168,27 @@ namespace Mandatum.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Boards",
+                name: "BoardRecordUserRecord",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Privacy = table.Column<bool>(type: "bit", nullable: false),
-                    Format = table.Column<int>(type: "int", nullable: false),
-                    UserRecordId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    BoardsId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UsersId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Boards", x => x.Id);
+                    table.PrimaryKey("PK_BoardRecordUserRecord", x => new { x.BoardsId, x.UsersId });
                     table.ForeignKey(
-                        name: "FK_Boards_AspNetUsers_UserRecordId",
-                        column: x => x.UserRecordId,
+                        name: "FK_BoardRecordUserRecord_AspNetUsers_UsersId",
+                        column: x => x.UsersId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_BoardRecordUserRecord_Boards_BoardsId",
+                        column: x => x.BoardsId,
+                        principalTable: "Boards",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -237,9 +255,9 @@ namespace Mandatum.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Boards_UserRecordId",
-                table: "Boards",
-                column: "UserRecordId");
+                name: "IX_BoardRecordUserRecord_UsersId",
+                table: "BoardRecordUserRecord",
+                column: "UsersId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Tasks_BoardRecordId",
@@ -265,16 +283,19 @@ namespace Mandatum.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "BoardRecordUserRecord");
+
+            migrationBuilder.DropTable(
                 name: "Tasks");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "Boards");
+                name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
+                name: "Boards");
         }
     }
 }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Domain;
 
 namespace Application
 {
@@ -7,6 +8,8 @@ namespace Application
     {
         public Guid Id { get; set; }
         public virtual List<TaskRecord> TaskIds { get; set; } = new List<TaskRecord>();
+        public virtual List<UserRecord> Users { get; set; } = new List<UserRecord>();
+        
         public bool Privacy { get; set; }
         public BoardFormat Format { get; set; }
         public string Name { get; set; }

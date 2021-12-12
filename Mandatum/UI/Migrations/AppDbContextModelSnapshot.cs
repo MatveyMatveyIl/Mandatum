@@ -34,12 +34,7 @@ namespace Mandatum.Migrations
                     b.Property<bool>("Privacy")
                         .HasColumnType("bit");
 
-                    b.Property<string>("UserRecordId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("UserRecordId");
 
                     b.ToTable("Boards");
                 });
@@ -76,6 +71,21 @@ namespace Mandatum.Migrations
                     b.HasIndex("BoardRecordId");
 
                     b.ToTable("Tasks");
+                });
+
+            modelBuilder.Entity("BoardRecordUserRecord", b =>
+                {
+                    b.Property<Guid>("BoardsId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("UsersId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("BoardsId", "UsersId");
+
+                    b.HasIndex("UsersId");
+
+                    b.ToTable("BoardRecordUserRecord");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -287,18 +297,26 @@ namespace Mandatum.Migrations
                     b.HasDiscriminator().HasValue("UserRecord");
                 });
 
-            modelBuilder.Entity("Application.BoardRecord", b =>
-                {
-                    b.HasOne("Application.UserRecord", null)
-                        .WithMany("Boards")
-                        .HasForeignKey("UserRecordId");
-                });
-
             modelBuilder.Entity("Application.TaskRecord", b =>
                 {
                     b.HasOne("Application.BoardRecord", null)
                         .WithMany("TaskIds")
                         .HasForeignKey("BoardRecordId");
+                });
+
+            modelBuilder.Entity("BoardRecordUserRecord", b =>
+                {
+                    b.HasOne("Application.BoardRecord", null)
+                        .WithMany()
+                        .HasForeignKey("BoardsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Application.UserRecord", null)
+                        .WithMany()
+                        .HasForeignKey("UsersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -355,11 +373,6 @@ namespace Mandatum.Migrations
             modelBuilder.Entity("Application.BoardRecord", b =>
                 {
                     b.Navigation("TaskIds");
-                });
-
-            modelBuilder.Entity("Application.UserRecord", b =>
-                {
-                    b.Navigation("Boards");
                 });
 #pragma warning restore 612, 618
         }

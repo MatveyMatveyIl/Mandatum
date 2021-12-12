@@ -8,6 +8,7 @@ using Application;
 using Application.ApiInterface;
 using AspNet.Security.OAuth.GitHub;
 using Mandatum.Convertors;
+using Mandatum.infra;
 using Mandatum.Models;
 using Mandatum.ViewModels;
 using Microsoft.AspNetCore.Authentication;
@@ -28,6 +29,7 @@ namespace Mandatum.Controllers
         private readonly UserConverterRegister _converterRegister;
         private readonly UserManager<UserRecord> _userManager;
         private readonly SignInManager<UserRecord> _signInManager;
+        private readonly ResponseHandler _handler;
 
         public AccountController(UserManager<UserRecord> userManager, SignInManager<UserRecord> signInManager,
             IUserApi userApi, UserConverterModel converterModel, UserConverterRegister converterRegister)
@@ -37,6 +39,7 @@ namespace Mandatum.Controllers
             _converterRegister = converterRegister;
             _userManager = userManager;
             _signInManager = signInManager;
+            _handler = new ResponseHandler();
         }
         public IActionResult GoogleLogin()
         { 
@@ -46,23 +49,8 @@ namespace Mandatum.Controllers
         
         public async Task<IActionResult> GoogleResponse()
         {
-            
             var response = await HttpContext.AuthenticateAsync(GoogleDefaults.AuthenticationScheme);
-            var email = response.Principal?.Identities.FirstOrDefault()
-                .Claims
-                .Where(claim => (claim.Type.Split("/").Last() =="emailaddress" ))
-                .Select(claim => claim.Value.Split("/").Last())
-                .FirstOrDefault();
-          
-            
-            var user = new UserRecord() {Email = email, UserName = email};
-            if (await _userManager.GetUserAsync(response.Principal) is null)
-            {
-                var result = await _userManager.CreateAsync(user, "Qwer1%");
-
-            }
-
-            await _signInManager.SignInAsync(user, false);
+            await _handler.Auth(_userManager, _signInManager, response);
             return RedirectToAction("Index", "Home");
             
         }
@@ -70,34 +58,17 @@ namespace Mandatum.Controllers
         public IActionResult GithubLogin()
         { 
             var properties = new AuthenticationProperties { RedirectUri = Url.Action("GithubResponse") };
-
             return Challenge(properties, GitHubAuthenticationDefaults.AuthenticationScheme);
         }
         
         public async Task<IActionResult> GithubResponse()
         {
-            
             var response = await HttpContext.AuthenticateAsync(GitHubAuthenticationDefaults.AuthenticationScheme);
-
-            var email = response.Principal?.Identities.FirstOrDefault()
-            .Claims
-            .Where(claim => (claim.Type.Split("/").Last() =="name" ))
-            .Select(claim => claim.Value.Split("/").Last())
-            .FirstOrDefault();
-          
             
-            var user = new UserRecord() {Email = email, UserName = email};
-            if (await _userManager.GetUserAsync(response.Principal) is null)
-            {
-                var result = await _userManager.CreateAsync(user, "Qwer1%");
-
-            }
-
-            await _signInManager.SignInAsync(user, false);
+            await _handler.Auth(_userManager, _signInManager, response);
             return RedirectToAction("Index", "Home");
-            
         }
-     
+
         [HttpGet]
         public IActionResult Login(string returnUrl = null)
         {
