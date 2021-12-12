@@ -1,0 +1,23 @@
+﻿<!DOCTYPE HTML>
+@model BoardViewModel
+
+<div id="page-wrapper">
+    <section id="header" class="wrapper">
+        @await Html.PartialAsync("NavBarPartial")
+    </section>
+    <section id="main" class="wrapper style2">
+        <div class="title">@Model.Board.Name</div>
+        @if (!Model.Board.Privacy)
+        {
+            <div>
+                <form asp-action="ShareBoard" asp-controller="Task" asp-route-boardId="@Model.Board.Id" method="post">
+                    <label>Отправьте доску по почте:</label>
+                    <input type="text" name="userEmail"/>
+                    <input type="submit" value="Отправить"/>
+                </form>
+            </div>
+        }
+        @await Html.PartialAsync(Model.Board.Format.ToString(), Model)
+       
+    </section>
+</div>

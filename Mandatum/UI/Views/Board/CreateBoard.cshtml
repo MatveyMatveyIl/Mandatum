@@ -13,11 +13,12 @@
 			<div class="row aln-center">
 				<form asp-action="SaveBoard" method="post" enctype="multipart/form-data" class="p-2">
 					<div class="form-group">
+						 <div class="validation" asp-validation-summary="ModelOnly"></div>
 						<div class="row aln-center">
 							<div>
 								<label>Имя</label>
-                                <div><span asp-validation-for="Name"></span></div>
-                                <input asp-for="Name" class="form-control" type="text" value="">
+								<div><span asp-validation-for="Name"></span></div>
+								<input asp-for="Name" class="form-control" type="text" value="">
 							</div>
 						</div>
 					</div>
@@ -25,13 +26,13 @@
 					<div class="form-group">
 						<div class="row aln-center">
 							<div>
-							<input asp-for="Privacy" value="1" type="radio" name="privacy" id="private" checked>
+							<input asp-for="Privacy" value="True" type="radio" name="privacy" id="private">
 							<label for="private">Приватная</label>
 							</div>
 						</div>
 						<div class="row aln-center">
 							<div>
-							<input asp-for="Privacy" value="0" type="radio" name="privacy" id="public">
+							<input asp-for="Privacy" value="False" type="radio" name="privacy" id="public">
 							<label for="public">Публичная</label>
 							</div>
 						</div>
@@ -42,7 +43,7 @@
 								<div class="row aln-center">
 									<div class="col-4 col-12-medium">
 										<section class="highlight">
-											<a class="image featured"><img src="/images/kanban.png" alt="Канбан доска"/></a>
+											<a class="image featured"><img src="/images/KanbanBoard.png" alt="Канбан доска"/></a>
 											<div>
 												<input asp-for="Format" value="0" type="radio" name="format" id="kanban" checked>
 												<label for="kanban">Канбан доска</label>
@@ -51,10 +52,10 @@
 									</div>
 									<div class="col-4 col-12-medium">
 										<section class="highlight">
-											<a class="image featured"><img src="/images/graph.png" alt="Граф"/></a>
+											<a class="image featured"><img src="/images/Table.png" alt="Таблица"/></a>
 											<div>
-												 <input asp-for="Format" value="1" type="radio" name="format" id="graph">
-												 <label for="graph">Граф</label>
+												 <input asp-for="Format" value="1" type="radio" name="format" id="table">
+												 <label for="table">Таблица</label>
 											</div>
 										</section>
 									</div>

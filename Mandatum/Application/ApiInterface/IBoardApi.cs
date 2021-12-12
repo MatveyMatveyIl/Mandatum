@@ -10,7 +10,10 @@ namespace Application.ApiInterface
         public void AddTaskToBoard(Guid boardId, TaskRecord task);
         public IEnumerable<TaskRecord> GetBoardTasks(Guid boardId);
         public string GetBoardName(Guid boardId);
+        public bool GetBoardPrivacy(Guid boardId);
+        public BoardRecord GetBoard(Guid boardId);
         public void AddNewUserToBoard(string email, Guid boardId);
         public void UpdateTaskOnBoard(Guid boardId, TaskRecord task);
+        public void DeleteTaskOnBoard(Guid boardId, Guid idTask);
     }
 }

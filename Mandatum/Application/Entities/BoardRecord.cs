@@ -15,6 +15,6 @@ namespace Application
     public enum BoardFormat
     {
         KanbanBoard,
-        Graph
+        Table
     }
 }

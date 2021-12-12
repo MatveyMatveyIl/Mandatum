@@ -24,17 +24,17 @@ namespace Mandatum.Controllers
     public class AccountController : Controller
     {
         private readonly IUserApi _userApi;
-        private readonly UserConvertorModel _convertorModel;
-        private readonly UserConvertorRegister _convertorRegister;
+        private readonly UserConverterModel _converterModel;
+        private readonly UserConverterRegister _converterRegister;
         private readonly UserManager<UserRecord> _userManager;
         private readonly SignInManager<UserRecord> _signInManager;
 
         public AccountController(UserManager<UserRecord> userManager, SignInManager<UserRecord> signInManager,
-            IUserApi userApi, UserConvertorModel convertorModel, UserConvertorRegister convertorRegister)
+            IUserApi userApi, UserConverterModel converterModel, UserConverterRegister converterRegister)
         {
             _userApi = userApi;
-            _convertorModel = convertorModel;
-            _convertorRegister = convertorRegister;
+            _converterModel = converterModel;
+            _converterRegister = converterRegister;
             _userManager = userManager;
             _signInManager = signInManager;
         }
@@ -110,26 +110,23 @@ namespace Mandatum.Controllers
 
         public async Task<IActionResult> Login(LoginModel model)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid) return View(model);
+            var result = 
+                await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
+            if (result.Succeeded)
             {
-                var result = 
-                    await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
-                if (result.Succeeded)
+                if (!string.IsNullOrEmpty(model.ReturnUrl) && Url.IsLocalUrl(model.ReturnUrl))
                 {
-                    // проверяем, принадлежит ли URL приложению
-                    if (!string.IsNullOrEmpty(model.ReturnUrl) && Url.IsLocalUrl(model.ReturnUrl))
-                    {
-                        return Redirect(model.ReturnUrl);
-                    }
-                    else
-                    {
-                        return RedirectToAction("Index", "Home");
-                    }
+                    return Redirect(model.ReturnUrl);
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Неправильный логин и (или) пароль");
+                    return RedirectToAction("Index", "Home");
                 }
+            }
+            else
+            {
+                ModelState.AddModelError("", "Неправильный логин и (или) пароль");
             }
             return View(model);
         }

@@ -1,0 +1,35 @@
+﻿@model TaskViewModel
+
+<div id="page-wrapper">
+<section id="header" class="wrapper">
+		@await Html.PartialAsync("NavBarPartial")
+</section>
+
+<section id="main" class="wrapper style2">
+	<div class="title">Задача</div>
+	<div class="container">
+		<div class="row aln-center">
+			@if (Model.Method == "CreateTask")
+			{
+				<form asp-action="SaveTask" asp-route-boardId="@Model.BoardId" method="post" enctype="multipart/form-data" class="p-2">
+					@await Html.PartialAsync("TaskFormRartial", Model.TaskModel)
+					<button class="button" type="submit">Сохранить</button>
+					<a asp-action="CancelTask" asp-route-boardId="@Model.BoardId" class="btn btn-primary m-2 p-2">Отмена</a>
+				</form>
+
+			}
+			@if (Model.Method == "EditTask")
+			{
+				<form asp-action="UpdateTask" asp-route-boardId="@Model.BoardId" method="post" enctype="multipart/form-data" class="p-2">
+					@await Html.PartialAsync("TaskFormRartial", Model.TaskModel)
+					<button class="button" type="submit">Редактировать</button>
+					<a asp-action="CancelTask" asp-route-boardId="@Model.BoardId" class="btn btn-primary m-2 p-2">Отмена</a>
+				</form>
+			}
+		</div>
+    </div>
+</section>
+</div>
+
+
+

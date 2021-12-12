@@ -28,11 +28,30 @@ namespace Application
             var board = _boardRepo.GetBoard(boardId);
             _boardRepo.DeleteBoard(board);
         }
+        public void DeleteTaskOnBoard(Guid boardId, Guid idTask)
+        {
+            var task = _taskApi.GetTask(idTask);
+            _taskApi.DeleteTask(idTask);
+            var board = _boardRepo.GetBoard(boardId);
+            board.TaskIds.Remove(task);
+            _boardRepo.UpdateBoard(board);
+        }
 
         public string GetBoardName(Guid boardId)
         {
             var board = _boardRepo.GetBoard(boardId);
             return board.Name;
+        }
+
+        public bool GetBoardPrivacy(Guid boardId)
+        {
+            var board = _boardRepo.GetBoard(boardId);
+            return board.Privacy;
+        }
+
+        public BoardRecord GetBoard(Guid boardId)
+        {
+            return _boardRepo.GetBoard(boardId);
         }
 
         public void AddNewUserToBoard(string email, Guid boardId)

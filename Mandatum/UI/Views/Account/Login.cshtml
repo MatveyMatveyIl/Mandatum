@@ -25,14 +25,23 @@
                             <input asp-for="Password"/>
                             <span asp-validation-for="Password"/>
                         </div>
-                        <div>
-                            <label> </label>
-                            <input type="submit" value="Войти в аккаунт" class="btn btn-outline-dark"/>
+                        <br>
+                        <div class="row aln-center">
+                            <div>
+                                   <input type="submit" value="Войти в аккаунт" class="button"/>
+                            </div>
                         </div>
-                        <label>или</label>
-                        <a asp-action="Register" asp-controller="Account">Зарегестрироваться</a>
-                        <a asp-action="GoogleLogin" asp-controller="Account">Войти через Google</a>
-                        <a asp-action="GithubLogin" asp-controller="Account">Войти через GitHub</a>
+                        <div>
+                            <label>или</label>
+                        </div>
+                        <div>
+                             <a asp-action="GoogleLogin" asp-controller="Account">Войти через Google</a>
+                        </div>
+                        <div>
+                            <a asp-action="Register" asp-controller="Account">Зарегестрироваться</a>
+                        </div>
+                        
+                       
                     </div>
                 </form>
             </div>

@@ -1,0 +1,12 @@
+﻿@using TaskStatus = Mandatum.Models.TaskStatus
+@model BoardViewModel
+
+<section id="highlights" class="wrapper style2">
+    <div class="container">
+        <div class="row aln-center">
+            @await Html.PartialAsync("KanbanColumnPatrial", Tuple.Create(TaskStatus.InWait, Model))
+            @await Html.PartialAsync("KanbanColumnPatrial", Tuple.Create(TaskStatus.InProgress, Model))
+            @await Html.PartialAsync("KanbanColumnPatrial", Tuple.Create(TaskStatus.Done, Model))
+        </div>
+    </div>
+</section>

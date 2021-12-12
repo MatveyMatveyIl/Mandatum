@@ -5,7 +5,7 @@ using Mandatum.ViewModels;
 
 namespace Mandatum.Convertors
 {
-    public class TaskModelConverter: IConvertor<TaskRecord, TaskModel>
+    public class TaskModelConverter: IConverter<TaskRecord, TaskModel>
     {
         public TaskRecord Convert(TaskModel source)
         {
@@ -14,7 +14,8 @@ namespace Mandatum.Convertors
                 Id = source.Id,
                 Description = source.Description,
                 Status = ConvertToTaskRecordStatus(source.Status),
-                Deadline = source.Term,
+                Deadline = source.Deadline,
+                Executors = source.Executors,
                 Name = source.Topic,
             };
         }
@@ -46,7 +47,8 @@ namespace Mandatum.Convertors
                 Id = source.Id,
                 Description = source.Description,
                 Status = ConvertToTaskModelStatus(source.Status),
-                Term = source.Deadline,
+                Deadline = source.Deadline,
+                Executors = source.Executors,
                 Topic = source.Name,
             };
         }
