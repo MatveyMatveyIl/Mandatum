@@ -50,11 +50,15 @@ namespace Mandatum.Controllers
         
         public IActionResult UpdateTask(TaskModel taskModel, Guid boardId)
         {
-            _boardApi.UpdateTaskOnBoard(boardId, _taskConverter.Convert(taskModel));
-            
-            var boardView = new BoardViewModel(_boardConverter.Convert(_boardApi.GetBoard(boardId)), GetTasks(boardId));
-            
-            return View("BoardView", boardView);
+            var taskView = new TaskViewModel(boardId, taskModel, nameof(EditTask));
+            if (ModelState.IsValid)
+            {
+                _boardApi.UpdateTaskOnBoard(boardId, _taskConverter.Convert(taskModel));
+                var boardView = new BoardViewModel(_boardConverter.Convert(_boardApi.GetBoard(boardId)),
+                    GetTasks(boardId));
+                return View("BoardView", boardView);
+            }
+            return View("EditTask", taskView);
         }
 
         public IActionResult CancelTask(Guid boardId)
