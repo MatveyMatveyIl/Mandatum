@@ -16,25 +16,54 @@ namespace Application
         
         public void AddTask(TaskRecord task)
         {
-            _dbContext.Add(task);
-            _dbContext.SaveChanges();
+            try
+            {
+                _dbContext.Add(task);
+                _dbContext.SaveChanges();
+            }
+            catch
+            {
+                //
+            }
         }
 
         public void DeleteTask(TaskRecord task)
         {
-            _dbContext.Tasks.Remove(task);
-            _dbContext.SaveChanges();
+            try
+            {
+                _dbContext.Tasks.Remove(task);
+                _dbContext.SaveChanges();
+            }
+            catch
+            {
+                //
+            }
         }
 
         public void UpdateTask(TaskRecord updTask)
         {
-            _dbContext.Tasks.Update(updTask);
-            _dbContext.SaveChanges();
+            try
+            {
+                _dbContext.Tasks.Update(updTask);
+                _dbContext.SaveChanges();
+            }
+            catch 
+            {
+                //
+            }
+            
         }
 
         public TaskRecord GetTask(Guid id)
         {
-            return _dbContext.Tasks.FirstOrDefault(task => task.Id == id);
+            try
+            {
+                return _dbContext.Tasks.FirstOrDefault(task => task.Id == id);
+            }
+            catch
+            {
+                return new TaskRecord();
+            }
         }
     }
 }
