@@ -2,19 +2,14 @@ using System;
 
 namespace Domain
 {
-    public class Task// Entity<int>
+    public class Task
     {
-        public int Id { get; private set; }
-        public string Topic { get; private set; }
-        public TaskStatus Status { get; private set; }
-        public string Description { get; private set; }
-        
-        public Task(int id, string topic, string description, TaskStatus status) //: base(id)
-        {
-            Id = id;
-            Topic = topic;
-            Description = description;
-            Status = status;
-        }
+        public Guid Id { get; set; }
+        public string Name { get; set; }
+        public TaskStatus Status { get; set; }
+        public string Description { get; set; }
+        public DateTime Deadline { get; set; }
+        public int Priority { get; set; }
+        public string Executors { get; set; }
     }
 }
