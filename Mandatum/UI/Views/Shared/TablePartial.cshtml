@@ -14,6 +14,7 @@
         <th>Название</th>
         <th>Статус</th>
         <th>Описание</th>
+         <th>Исполнители</th>
         <th>Дедлайн</th>
     </tr>
     @foreach (var taskModel in Model.Tasks)
@@ -21,7 +22,7 @@
         <tr><td><a asp-action="DeleteTask" asp-controller="Task" asp-route-taskId="@taskModel.Id"
                 asp-route-boardId="@Model.Board.Id" class="fa fa-minus-square" aria-hidden="true" style="cursor:pointer;color: #f98780"></a>
                 </td><td><a asp-action="EditTask" asp-controller="Task" asp-route-taskId="@taskModel.Id" asp-route-boardId="@Model.Board.Id" class="actions">@taskModel.Topic</a>
-            </td><td>@taskModel.Status</td><td>@taskModel.Description</td><td>@taskModel.Deadline</td>
+            </td><td>@taskModel.Status</td><td>@taskModel.Description</td><td>@taskModel.Executors</td><td>@taskModel.Deadline</td>
         </tr>
     }
 </table>
