@@ -6,6 +6,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Application;
 using Application.ApiInterface;
+using AspNet.Security.OAuth.GitHub;
 using Mandatum.Convertors;
 using Mandatum.Models;
 using Mandatum.ViewModels;
@@ -38,9 +39,8 @@ namespace Mandatum.Controllers
             _signInManager = signInManager;
         }
         public IActionResult GoogleLogin()
-        {
+        { 
             var properties = new AuthenticationProperties { RedirectUri = Url.Action("GoogleResponse") };
-
             return Challenge(properties, GoogleDefaults.AuthenticationScheme);
         }
         
@@ -53,6 +53,37 @@ namespace Mandatum.Controllers
                 .Where(claim => (claim.Type.Split("/").Last() =="emailaddress" ))
                 .Select(claim => claim.Value.Split("/").Last())
                 .FirstOrDefault();
+          
+            
+            var user = new UserRecord() {Email = email, UserName = email};
+            if (await _userManager.GetUserAsync(response.Principal) is null)
+            {
+                var result = await _userManager.CreateAsync(user, "Qwer1%");
+
+            }
+
+            await _signInManager.SignInAsync(user, false);
+            return RedirectToAction("Index", "Home");
+            
+        }
+        
+        public IActionResult GithubLogin()
+        { 
+            var properties = new AuthenticationProperties { RedirectUri = Url.Action("GithubResponse") };
+
+            return Challenge(properties, GitHubAuthenticationDefaults.AuthenticationScheme);
+        }
+        
+        public async Task<IActionResult> GithubResponse()
+        {
+            
+            var response = await HttpContext.AuthenticateAsync(GitHubAuthenticationDefaults.AuthenticationScheme);
+
+            var email = response.Principal?.Identities.FirstOrDefault()
+            .Claims
+            .Where(claim => (claim.Type.Split("/").Last() =="name" ))
+            .Select(claim => claim.Value.Split("/").Last())
+            .FirstOrDefault();
           
             
             var user = new UserRecord() {Email = email, UserName = email};

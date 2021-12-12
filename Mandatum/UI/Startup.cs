@@ -57,6 +57,11 @@ namespace Mandatum
             // установка конфигурации подключения
 
             services.AddAuthentication()
+                .AddGitHub(options =>
+                {
+                    options.ClientId = "e7f46bd747f935b05dec";
+                    options.ClientSecret = "670a614ae729b7012b021acb41bedeb0f1c206eb";
+                })
                 .AddGoogle(options =>
                 {
                     IConfigurationSection googleAuthNSection =
