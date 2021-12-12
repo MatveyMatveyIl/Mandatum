@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Application.ApiInterface;
+using Application.Converters;
 
 namespace Application
 {
@@ -9,12 +10,17 @@ namespace Application
         private readonly IBoardRepo _boardRepo;
         private readonly IUserApi _userApi;
         private readonly ITaskApi _taskApi;
+        private readonly BoardConverterApiLayer _boardConverter;
+        private readonly TaskConverterAppLayer _taskConverter;
 
-        public BoardApi(IBoardRepo boardRepo, IUserApi userApi, ITaskApi taskApi)
+        public BoardApi(IBoardRepo boardRepo, IUserApi userApi, ITaskApi taskApi, BoardConverterApiLayer boardConverter,
+            TaskConverterAppLayer taskConverter)
         {
             _boardRepo = boardRepo;
             _userApi = userApi;
             _taskApi = taskApi;
+            _boardConverter = boardConverter;
+            _taskConverter = taskConverter;
         }
 
         public void CreateBoard(BoardRecord board, string email)
@@ -28,6 +34,7 @@ namespace Application
             var board = _boardRepo.GetBoard(boardId);
             _boardRepo.DeleteBoard(board);
         }
+
         public void DeleteTaskOnBoard(Guid boardId, Guid idTask)
         {
             var task = _taskApi.GetTask(idTask);
@@ -73,12 +80,18 @@ namespace Application
             board.TaskIds.Add(task);
             _boardRepo.UpdateBoard(board);
         }
-        
+
         public void UpdateTaskOnBoard(Guid boardId, TaskRecord task)
         {
             _taskApi.UpdateTask(task);
-            var board = _boardRepo.GetBoard(boardId);
+            /*var board = _boardRepo.GetBoard(boardId);
             board.TaskIds.Add(task);
+            _boardRepo.UpdateBoard(board);*/
+            var board = _boardRepo.GetBoard(boardId);
+            var boardDomain = _boardConverter.Convert(board);
+            var taskDomain = _taskConverter.Convert(task);
+            boardDomain.AddTask(taskDomain);
+            board = _boardConverter.Convert(boardDomain);
             _boardRepo.UpdateBoard(board);
         }
     }

@@ -31,7 +31,7 @@ namespace Application
         {
             try
             {
-                return _dbContext.Boards.Include(prop => prop.TaskIds).FirstOrDefault(board => board.Id == boardId);
+                return _dbContext.Boards.AsNoTracking().Include(prop => prop.TaskIds).FirstOrDefault(board => board.Id == boardId);
             }
             catch
             {

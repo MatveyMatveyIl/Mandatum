@@ -5,6 +5,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Application;
 using Application.ApiInterface;
+using Application.Converters;
 using Mandatum.Controllers;
 using Mandatum.Convertors;
 using Mandatum.Models;
@@ -51,6 +52,8 @@ namespace Mandatum
             // >> convertors
             services.AddScoped<TaskConverterUILayer>();
             services.AddScoped<BoardConverterUILayer>();
+            services.AddScoped<BoardConverterApiLayer>();
+            services.AddScoped<TaskConverterAppLayer>();
             // << convertors
             // установка конфигурации подключения
 
