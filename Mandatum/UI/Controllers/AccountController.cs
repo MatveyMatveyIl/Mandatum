@@ -24,17 +24,13 @@ namespace Mandatum.Controllers
     public class AccountController : Controller
     {
         private readonly IUserApi _userApi;
-        private readonly UserConverterModel _converterModel;
-        private readonly UserConverterRegister _converterRegister;
         private readonly UserManager<UserRecord> _userManager;
         private readonly SignInManager<UserRecord> _signInManager;
 
         public AccountController(UserManager<UserRecord> userManager, SignInManager<UserRecord> signInManager,
-            IUserApi userApi, UserConverterModel converterModel, UserConverterRegister converterRegister)
+            IUserApi userApi)
         {
             _userApi = userApi;
-            _converterModel = converterModel;
-            _converterRegister = converterRegister;
             _userManager = userManager;
             _signInManager = signInManager;
         }

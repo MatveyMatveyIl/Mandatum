@@ -5,7 +5,7 @@ using Mandatum.ViewModels;
 
 namespace Mandatum.Convertors
 {
-    public class TaskModelConverter: IConverter<TaskRecord, TaskModel>
+    public class TaskConverterUILayer: IConverter<TaskRecord, TaskModel>
     {
         public TaskRecord Convert(TaskModel source)
         {

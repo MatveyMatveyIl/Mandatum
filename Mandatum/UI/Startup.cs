@@ -49,10 +49,8 @@ namespace Mandatum
             services.AddScoped<IUserRepo, UserRepo>();
             // << repo
             // >> convertors
-            services.AddScoped<UserConverterModel>();
-            services.AddScoped<UserConverterRegister>();
-            services.AddScoped<TaskModelConverter>();
-            services.AddScoped<BoardModelConverter>();
+            services.AddScoped<TaskConverterUILayer>();
+            services.AddScoped<BoardConverterUILayer>();
             // << convertors
             // установка конфигурации подключения
 
