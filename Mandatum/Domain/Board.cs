@@ -1,24 +1,26 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Domain
 {
-    public class Board: Entity<int>
+    public enum BoardFormatDomain
     {
-        public int Id { get; private set; }
-        
-        public Board(int id) : base(id)
-        {
-            Id = id;
-        }
+        KanbanBoard,
+        Graph,
+        Table
+    }
+    
+    public class Board
+    {
+        public Guid Id { get; set; }
+        public virtual List<Task> Tasks { get; set; } = new List<Task>();
+        public bool Privacy { get; set; }
+        public BoardFormatDomain Format { get; set; }
+        public string Name { get; set; }
 
         public void AddTask(Task task)
         {
-            
-        }
-
-        public void UpdateTask(Task task, int id)
-        {
-            
+            Tasks.Add(task);
         }
     }
 }

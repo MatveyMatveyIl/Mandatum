@@ -10,7 +10,7 @@
         @if (!Model.Board.Privacy)
         {
             <div>
-                <form asp-action="ShareBoard" asp-controller="Task" asp-route-boardId="@Model.Board.Id" method="post">
+                <form asp-action="ShareBoard" asp-controller="Board" asp-route-boardId="@Model.Board.Id" method="post">
                     <label>Отправьте доску по почте:</label>
                     <input type="text" name="userEmail"/>
                     <input type="submit" value="Отправить"/>

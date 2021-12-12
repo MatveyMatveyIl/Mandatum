@@ -5,6 +5,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Application;
 using Application.ApiInterface;
+using Application.Converters;
 using Mandatum.Controllers;
 using Mandatum.Convertors;
 using Mandatum.Models;
@@ -49,10 +50,10 @@ namespace Mandatum
             services.AddScoped<IUserRepo, UserRepo>();
             // << repo
             // >> convertors
-            services.AddScoped<UserConverterModel>();
-            services.AddScoped<UserConverterRegister>();
-            services.AddScoped<TaskModelConverter>();
-            services.AddScoped<BoardModelConverter>();
+            services.AddScoped<TaskConverterUILayer>();
+            services.AddScoped<BoardConverterUILayer>();
+            services.AddScoped<BoardConverterApiLayer>();
+            services.AddScoped<TaskConverterAppLayer>();
             // << convertors
             // установка конфигурации подключения
 

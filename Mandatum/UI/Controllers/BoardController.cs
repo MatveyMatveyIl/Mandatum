@@ -16,27 +16,28 @@ namespace Mandatum.Controllers
     public class BoardController : Controller
     {
         private IBoardApi _boardApi;
-        private TaskModelConverter _taskConverter;
-        private BoardModelConverter _boardConverter;
+        private TaskConverterUILayer _taskConverterUiLayer;
+        private BoardConverterUILayer _boardConverterUiLayer;
         private IUserApi _userApi;
 
-        public BoardController(ITaskApi taskApi, IBoardApi boardApi, IUserApi userApi, TaskModelConverter taskConverter, 
-            BoardModelConverter boardConverter)
+        public BoardController(ITaskApi taskApi, IBoardApi boardApi, IUserApi userApi, TaskConverterUILayer taskConverterUiLayer, 
+            BoardConverterUILayer boardConverterUiLayer)
         {
-            _taskConverter = taskConverter;
+            _taskConverterUiLayer = taskConverterUiLayer;
             _boardApi = boardApi;
-            _boardConverter = boardConverter;
+            _boardConverterUiLayer = boardConverterUiLayer;
             _userApi = userApi;
         }
 
         public IActionResult AllBoards()
         {
-            return View(_boardConverter.Convert(_userApi.GetBoards(User.Identity.Name)));
+            return View(_boardConverterUiLayer.Convert(_userApi.GetBoards(User.Identity.Name)));
         }
 
         public IActionResult OpenBoard(Guid boardId)
         {
-            var boardView = new BoardViewModel(_boardConverter.Convert(_boardApi.GetBoard(boardId)), GetTasks(boardId));
+            
+            var boardView = new BoardViewModel(_boardConverterUiLayer.Convert(_boardApi.GetBoard(boardId)), GetTasks(boardId));
             return View("BoardView", boardView);
         }
 
@@ -47,26 +48,30 @@ namespace Mandatum.Controllers
         
         public IActionResult SaveBoard(BoardModel board)
         {
-            if (ModelState.IsValid)
-            {
-                board.Id = Guid.NewGuid();
-                _boardApi.CreateBoard(_boardConverter.Convert(board), User.Identity.Name);
-                var boardView = new BoardViewModel(board, GetTasks(board.Id));
-                return View("BoardView", boardView);
-            }
-            return View("CreateBoard");
+            if (!ModelState.IsValid) return View("CreateBoard");
+            var boardId =  Guid.NewGuid();
+            board.Id = boardId;
+            _boardApi.CreateBoard(_boardConverterUiLayer.Convert(board), User.Identity.Name);
+            return RedirectToAction("OpenBoard", "Board", new {boardId});
         }
         public IActionResult DeleteBoard(Guid boardId)
         {
             _boardApi.DeleteBoard(boardId);
-            var boards = _boardConverter.Convert(_userApi.GetBoards(User.Identity.Name));
+            var boards = _boardConverterUiLayer.Convert(_userApi.GetBoards(User.Identity.Name));
             return View("AllBoards", boards);
+        }
+        
+        public IActionResult ShareBoard(String userEmail, Guid boardId)
+        {
+            _boardApi.AddNewUserToBoard(userEmail, boardId);
+            var boardView = new BoardViewModel(_boardConverterUiLayer.Convert(_boardApi.GetBoard(boardId)), GetTasks(boardId));
+            return View("BoardView", boardView);
         }
         
         
         private IEnumerable<TaskModel> GetTasks(Guid boardId)
         {
-            return _taskConverter.Convert(_boardApi.GetBoardTasks(boardId));
+            return _taskConverterUiLayer.Convert(_boardApi.GetBoardTasks(boardId));
         }
     }
 }

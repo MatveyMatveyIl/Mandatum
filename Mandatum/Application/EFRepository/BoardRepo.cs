@@ -16,25 +16,53 @@ namespace Application
 
         public void SaveBoard(BoardRecord board)
         {
-            _dbContext.Boards.Add(board);
-            _dbContext.SaveChanges();
+            try
+            {
+                _dbContext.Boards.Add(board);
+                _dbContext.SaveChanges();
+            }
+            catch
+            {
+                //
+            }
         }
 
         public BoardRecord GetBoard(Guid boardId)
         {
-            return _dbContext.Boards.Include(prop => prop.TaskIds).FirstOrDefault(board => board.Id == boardId);
+            try
+            {
+                return _dbContext.Boards.AsNoTracking().Include(prop => prop.TaskIds).FirstOrDefault(board => board.Id == boardId);
+            }
+            catch
+            {
+                return new BoardRecord();
+            }
         }
 
         public void UpdateBoard(BoardRecord updBoard)
         {
-            _dbContext.Boards.Update(updBoard);
-            _dbContext.SaveChanges();
+            try
+            {
+                _dbContext.Boards.Update(updBoard);
+                _dbContext.SaveChanges();
+            }
+            catch
+            {
+                //
+            }
         }
 
         public void DeleteBoard(BoardRecord board)
         {
-            _dbContext.Boards.Remove(board);
-            _dbContext.SaveChanges();
+            try
+            {
+                _dbContext.Boards.Remove(board);
+                _dbContext.SaveChanges();
+            }
+            catch
+            {
+                //
+            }
         }
     }
 }

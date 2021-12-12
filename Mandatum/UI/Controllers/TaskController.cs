@@ -11,10 +11,10 @@ namespace Mandatum.Controllers
     {
         private ITaskApi _taskApi;
         private IBoardApi _boardApi;
-        private TaskModelConverter _taskConverter;
-        private BoardModelConverter _boardConverter;
+        private TaskConverterUILayer _taskConverter;
+        private BoardConverterUILayer _boardConverter;
 
-        public TaskController(ITaskApi taskApi, IBoardApi boardApi, TaskModelConverter taskConverter, BoardModelConverter boardConverter)
+        public TaskController(ITaskApi taskApi, IBoardApi boardApi, TaskConverterUILayer taskConverter, BoardConverterUILayer boardConverter)
         {
             _taskApi = taskApi;
             _taskConverter = taskConverter;
@@ -37,23 +37,18 @@ namespace Mandatum.Controllers
         public IActionResult SaveTask(TaskModel taskModel, Guid boardId)
         {
             var taskView = new TaskViewModel(boardId, new TaskModel(), nameof(CreateTask));
-            if (ModelState.IsValid)
-            {
-                _boardApi.AddTaskToBoard(boardId, _taskConverter.Convert(taskModel));
-                var boardView = new BoardViewModel(_boardConverter.Convert(_boardApi.GetBoard(boardId)),
-                    GetTasks(boardId));
-                return View("BoardView", boardView);
-            }
-
-            return View("EditTask", taskView);
+            if (!ModelState.IsValid) return View("EditTask", taskView);
+            _boardApi.AddTaskToBoard(boardId, _taskConverter.Convert(taskModel));
+            return RedirectToAction("OpenBoard", "Board", new {boardId});
         }
         
         public IActionResult UpdateTask(TaskModel taskModel, Guid boardId)
         {
+            var taskView = new TaskViewModel(boardId, taskModel, nameof(EditTask));
+            if (!ModelState.IsValid) return View("EditTask", taskView);
             _boardApi.UpdateTaskOnBoard(boardId, _taskConverter.Convert(taskModel));
-            
-            var boardView = new BoardViewModel(_boardConverter.Convert(_boardApi.GetBoard(boardId)), GetTasks(boardId));
-            
+            var boardView = new BoardViewModel(_boardConverter.Convert(_boardApi.GetBoard(boardId)),
+                GetTasks(boardId));
             return View("BoardView", boardView);
         }
 
@@ -63,13 +58,6 @@ namespace Mandatum.Controllers
             return View("BoardView", boardView);
         }
 
-        
-        public IActionResult ShareBoard(String userEmail, Guid boardId)
-        {
-            var boardView = new BoardViewModel(_boardConverter.Convert(_boardApi.GetBoard(boardId)), GetTasks(boardId));
-            return View("BoardView", boardView);
-        }
-        
         private IEnumerable<TaskModel> GetTasks(Guid boardId)
         {
             return _taskConverter.Convert(_boardApi.GetBoardTasks(boardId));
