@@ -11,15 +11,15 @@ namespace Mandatum.Controllers
     {
         private ITaskApi _taskApi;
         private IBoardApi _boardApi;
-        private TaskConverterUILayer _taskConverterUiLayer;
-        private BoardConverterUILayer _boardConverterUiLayer;
+        private TaskConverterUILayer _taskConverter;
+        private BoardConverterUILayer _boardConverter;
 
-        public TaskController(ITaskApi taskApi, IBoardApi boardApi, TaskConverterUILayer taskConverterUiLayer, BoardConverterUILayer boardConverterUiLayer)
+        public TaskController(ITaskApi taskApi, IBoardApi boardApi, TaskConverterUILayer taskConverter, BoardConverterUILayer boardConverter)
         {
             _taskApi = taskApi;
-            _taskConverterUiLayer = taskConverterUiLayer;
+            _taskConverter = taskConverter;
             _boardApi = boardApi;
-            _boardConverterUiLayer = boardConverterUiLayer;
+            _boardConverter = boardConverter;
         }
         
          public IActionResult CreateTask(Guid boardId, TaskStatus taskStatus)
@@ -30,7 +30,7 @@ namespace Mandatum.Controllers
 
         public IActionResult EditTask(Guid taskId, Guid boardId)
         {
-            var taskView = new TaskViewModel(boardId,_taskConverterUiLayer.Convert(_taskApi.GetTask(taskId)), nameof(EditTask));
+            var taskView = new TaskViewModel(boardId,_taskConverter.Convert(_taskApi.GetTask(taskId)), nameof(EditTask));
             return View("EditTask", taskView);
         }
 
@@ -38,10 +38,11 @@ namespace Mandatum.Controllers
         {
             var taskView = new TaskViewModel(boardId, new TaskModel(), nameof(CreateTask));
             if (!ModelState.IsValid) return View("EditTask", taskView);
-            _boardApi.AddTaskToBoard(boardId, _taskConverterUiLayer.Convert(taskModel));
-            var boardView = new BoardViewModel(_boardConverterUiLayer.Convert(_boardApi.GetBoard(boardId)),
-                GetTasks(boardId));
-            return View("BoardView", boardView);
+            _boardApi.AddTaskToBoard(boardId, _taskConverter.Convert(taskModel));
+            /*var boardView = new BoardViewModel(_boardConverter.Convert(_boardApi.GetBoard(boardId)),
+                GetTasks(boardId));*/
+            return RedirectToAction("OpenBoard", "Board", new {boardId});
+            /*return View("BoardView", boardView);*/
 
         }
         
@@ -49,27 +50,27 @@ namespace Mandatum.Controllers
         {
             var taskView = new TaskViewModel(boardId, taskModel, nameof(EditTask));
             if (!ModelState.IsValid) return View("EditTask", taskView);
-            _boardApi.UpdateTaskOnBoard(boardId, _taskConverterUiLayer.Convert(taskModel));
-            var boardView = new BoardViewModel(_boardConverterUiLayer.Convert(_boardApi.GetBoard(boardId)),
+            _boardApi.UpdateTaskOnBoard(boardId, _taskConverter.Convert(taskModel));
+            var boardView = new BoardViewModel(_boardConverter.Convert(_boardApi.GetBoard(boardId)),
                 GetTasks(boardId));
             return View("BoardView", boardView);
         }
 
         public IActionResult CancelTask(Guid boardId)
         {
-            var boardView = new BoardViewModel(_boardConverterUiLayer.Convert(_boardApi.GetBoard(boardId)), GetTasks(boardId));
+            var boardView = new BoardViewModel(_boardConverter.Convert(_boardApi.GetBoard(boardId)), GetTasks(boardId));
             return View("BoardView", boardView);
         }
 
         private IEnumerable<TaskModel> GetTasks(Guid boardId)
         {
-            return _taskConverterUiLayer.Convert(_boardApi.GetBoardTasks(boardId));
+            return _taskConverter.Convert(_boardApi.GetBoardTasks(boardId));
         }
         
         public IActionResult DeleteTask(Guid taskId, Guid boardId)
         {
             _boardApi.DeleteTaskOnBoard(boardId, taskId);
-            var boardView = new BoardViewModel(_boardConverterUiLayer.Convert(_boardApi.GetBoard(boardId)), GetTasks(boardId));
+            var boardView = new BoardViewModel(_boardConverter.Convert(_boardApi.GetBoard(boardId)), GetTasks(boardId));
             return View("BoardView", boardView);
         }
     }
