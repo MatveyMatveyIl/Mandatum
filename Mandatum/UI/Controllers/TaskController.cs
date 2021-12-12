@@ -39,11 +39,7 @@ namespace Mandatum.Controllers
             var taskView = new TaskViewModel(boardId, new TaskModel(), nameof(CreateTask));
             if (!ModelState.IsValid) return View("EditTask", taskView);
             _boardApi.AddTaskToBoard(boardId, _taskConverter.Convert(taskModel));
-            /*var boardView = new BoardViewModel(_boardConverter.Convert(_boardApi.GetBoard(boardId)),
-                GetTasks(boardId));*/
             return RedirectToAction("OpenBoard", "Board", new {boardId});
-            /*return View("BoardView", boardView);*/
-
         }
         
         public IActionResult UpdateTask(TaskModel taskModel, Guid boardId)

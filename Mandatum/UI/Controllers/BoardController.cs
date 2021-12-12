@@ -36,6 +36,7 @@ namespace Mandatum.Controllers
 
         public IActionResult OpenBoard(Guid boardId)
         {
+            
             var boardView = new BoardViewModel(_boardConverterUiLayer.Convert(_boardApi.GetBoard(boardId)), GetTasks(boardId));
             return View("BoardView", boardView);
         }
@@ -47,14 +48,11 @@ namespace Mandatum.Controllers
         
         public IActionResult SaveBoard(BoardModel board)
         {
-            if (ModelState.IsValid)
-            {
-                board.Id = Guid.NewGuid();
-                _boardApi.CreateBoard(_boardConverterUiLayer.Convert(board), User.Identity.Name);
-                var boardView = new BoardViewModel(board, GetTasks(board.Id));
-                return View("BoardView", boardView);
-            }
-            return View("CreateBoard");
+            if (!ModelState.IsValid) return View("CreateBoard");
+            var boardId =  Guid.NewGuid();
+            board.Id = boardId;
+            _boardApi.CreateBoard(_boardConverterUiLayer.Convert(board), User.Identity.Name);
+            return RedirectToAction("OpenBoard", "Board", new {boardId});
         }
         public IActionResult DeleteBoard(Guid boardId)
         {
