@@ -63,14 +63,6 @@ namespace Mandatum.Controllers
             return View("BoardView", boardView);
         }
 
-        
-        public IActionResult ShareBoard(String userEmail, Guid boardId)
-        {
-            _boardApi.AddNewUserToBoard(userEmail, boardId);
-            var boardView = new BoardViewModel(_boardConverter.Convert(_boardApi.GetBoard(boardId)), GetTasks(boardId));
-            return View("BoardView", boardView);
-        }
-        
         private IEnumerable<TaskModel> GetTasks(Guid boardId)
         {
             return _taskConverter.Convert(_boardApi.GetBoardTasks(boardId));
