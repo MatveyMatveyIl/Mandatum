@@ -81,6 +81,7 @@ th{
 	width: 20em
 }
 
+
 input[type="radio"]:checked,
 input[type="radio"]:not(:checked)
 {
@@ -1708,9 +1709,10 @@ input, select, textarea {
 		display: inline-block;
 	}
 
-		.image img {
-			display: block;
-			width: 100%;
+		.image.img {
+			/*display: block;*/
+			/*max-width: 100%;*/
+			max-height: 0.75em;
 		}
 
 		.image.fit {
@@ -1786,6 +1788,10 @@ input, select, textarea {
 			font-size: 1em;
 			min-width: 14em;
 		}
+		
+		.button.login{
+			
+		}
 
 		input[type="button"].style1,
 		input[type="submit"].style1,
@@ -1821,6 +1827,24 @@ input, select, textarea {
 			color: #606167;
 			box-shadow: inset 0px 0px 2px 0px #a0a1a7;
 		}
+
+input[type="button"].style2.login,
+input[type="submit"].style2.login,
+input[type="reset"].style2.login,
+button.style2.login,
+.button.style2.login {
+	width: 22em;
+}
+
+input[type="button"].login,
+input[type="submit"].login,
+input[type="reset"].login,
+button.login,
+.button.login {
+	width: 22em;
+}
+
+
 
 			input[type="button"].style2:hover,
 			input[type="submit"].style2:hover,
