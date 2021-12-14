@@ -10,15 +10,15 @@ namespace Mandatum.infra
 {
     public class ResponseHandler
     {
-        private static Dictionary<AuthTypes, string> TypesKeys = new Dictionary<AuthTypes, string>()
+        private static Dictionary<AuthType, string> TypesKeys = new Dictionary<AuthType, string>()
         {
-            {AuthTypes.Github, "name"},
-            {AuthTypes.Google, "emailaddres"}
+            {AuthType.Github, "name"},
+            {AuthType.Google, "emailaddress"}
         };
 
-        public async Task Auth(UserManager<UserRecord> userManager, SignInManager<UserRecord> _signInManager,AuthenticateResult  response)
+        public async Task Auth(UserManager<UserRecord> userManager, SignInManager<UserRecord> _signInManager,AuthenticateResult  response, AuthType type )
         {
-            var email = ResponseHandler.GetEmail(AuthTypes.Github, response);
+            var email = GetEmail(type, response);
             var user = new UserRecord() {Email = email, UserName = email};
             if (await userManager.GetUserAsync(response.Principal) is null)
                 await userManager.CreateAsync(user, "Qwer1%");
@@ -26,7 +26,7 @@ namespace Mandatum.infra
             await _signInManager.SignInAsync(user, false);
         }
 
-        public static string GetEmail(AuthTypes type, AuthenticateResult response)
+        public static string GetEmail(AuthType type, AuthenticateResult response)
         {
             
             
@@ -39,7 +39,7 @@ namespace Mandatum.infra
         }
     }
 
-    public enum AuthTypes
+    public enum AuthType
     {
         Github,
         Google

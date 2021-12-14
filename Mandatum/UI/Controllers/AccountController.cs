@@ -18,6 +18,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using GoogleHandler = Mandatum.infra.GoogleHandler;
 using Task = System.Threading.Tasks.Task;
 
 namespace Mandatum.Controllers
@@ -28,6 +29,7 @@ namespace Mandatum.Controllers
         private readonly UserManager<UserRecord> _userManager;
         private readonly SignInManager<UserRecord> _signInManager;
         private readonly ResponseHandler _handler;
+        private readonly GoogleHandler _googleHandler;
 
         public AccountController(UserManager<UserRecord> userManager, SignInManager<UserRecord> signInManager,
             IUserApi userApi)
@@ -36,6 +38,7 @@ namespace Mandatum.Controllers
             _userManager = userManager;
             _signInManager = signInManager;
             _handler = new ResponseHandler();
+            _googleHandler = new GoogleHandler();
         }
         public IActionResult GoogleLogin()
         { 
@@ -46,10 +49,11 @@ namespace Mandatum.Controllers
         public async Task<IActionResult> GoogleResponse()
         {
             var response = await HttpContext.AuthenticateAsync(GoogleDefaults.AuthenticationScheme);
-            await _handler.Auth(_userManager, _signInManager, response);
+            await _handler.Auth(_userManager, _signInManager, response, AuthType.Google);
             return RedirectToAction("Index", "Home");
             
         }
+      
         
         public IActionResult GithubLogin()
         { 
@@ -60,15 +64,13 @@ namespace Mandatum.Controllers
         public async Task<IActionResult> GithubResponse()
         {
             var response = await HttpContext.AuthenticateAsync(GitHubAuthenticationDefaults.AuthenticationScheme);
-            
-            await _handler.Auth(_userManager, _signInManager, response);
+            await _handler.Auth(_userManager, _signInManager, response, AuthType.Github);
             return RedirectToAction("Index", "Home");
         }
 
         [HttpGet]
         public IActionResult Login(string returnUrl = null)
         {
-            
             return View(new LoginModel { ReturnUrl = returnUrl });
         }
  
@@ -86,15 +88,11 @@ namespace Mandatum.Controllers
                 {
                     return Redirect(model.ReturnUrl);
                 }
-                else
-                {
-                    return RedirectToAction("Index", "Home");
-                }
+
+                return RedirectToAction("Index", "Home");
             }
-            else
-            {
-                ModelState.AddModelError("", "Неправильный логин и (или) пароль");
-            }
+
+            ModelState.AddModelError("", "Неправильный логин и (или) пароль");
             return View(model);
         }
  
