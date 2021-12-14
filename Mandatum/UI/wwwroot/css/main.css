@@ -40,6 +40,8 @@ label{
 	color: #d96760;
 }
 
+
+
 .actions{
 	color: #1f232b;
 }
@@ -229,6 +231,13 @@ input, select, textarea {
 	h1, h2, h3, h4, h5, h6 {
 		font-weight: 700;
 		color: #484d55;
+	}
+	
+	.h3.pink{
+		color: #e97770;
+		margin: 0 0 0.75em 0;
+		font-size: 1.15em;
+		letter-spacing: 0.05em;
 	}
 
 		h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
@@ -1806,6 +1815,14 @@ input, select, textarea {
 			color: #fff;
 		}
 
+input[type="button"].style1.login,
+input[type="submit"].style1.login,
+input[type="reset"].style1.login,
+button.style1.login,
+.button.style1.login {
+	width: 22em;
+}
+
 			input[type="button"].style1:hover,
 			input[type="submit"].style1:hover,
 			input[type="reset"].style1:hover,
@@ -1821,6 +1838,7 @@ input, select, textarea {
 			.button.style1:active {
 				background-color: #d96760;
 			}
+			
 
 		input[type="button"].style2,
 		input[type="submit"].style2,

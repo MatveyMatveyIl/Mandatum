@@ -7,17 +7,22 @@
     </section>
     <section id="main" class="wrapper style2">
         <div class="title">@Model.Board.Name</div>
-        @if (!Model.Board.Privacy)
-        {
-            <div>
-                <form asp-action="ShareBoard" asp-controller="Board" asp-route-boardId="@Model.Board.Id" method="post">
-                    <label>Отправьте доску по почте:</label>
-                    <input type="text" name="userEmail"/>
-                    <input type="submit" value="Отправить"/>
-                </form>
-            </div>
-        }
+      
         @await Html.PartialAsync(Model.Board.Format.ToString(), Model)
-       
+         @if (!Model.Board.Privacy)
+               {
+                   <div>
+                       <form asp-action="ShareBoard" asp-controller="Board" asp-route-boardId="@Model.Board.Id" method="post">
+                           <div class="form-group">
+                               <h3 class="h3 pink">Поделитесь доской:</h3>
+                               <input type="text" name="userEmail" value="Введите Email получателя"/>
+                           </div>
+                           <br>
+                           <div class="align-center">
+                                <input type="submit" class="button style1 login" value="Поделиться"/>
+                           </div>
+                       </form>
+                   </div>
+               }
     </section>
 </div>
