@@ -10,12 +10,12 @@
     <section id="highlights" class="wrapper style2">
         <div class="title">Все доски</div>
         <div class="container">
-        <div class="row aln-center">
+        <div class="align-center row">
             @foreach (var boardModel in Model)
             {
                 <div class="col-4 col-12-medium">
                     <section class="highlight">
-                        <a asp-action="OpenBoard" asp-route-boardId="@boardModel.Id" class="image featured"><img src=@($"/images/{boardModel.Format}.png") alt="@boardModel.Name"/></a>
+                        <a asp-action="OpenBoard" asp-route-boardId="@boardModel.Id"><img class="image featured" src=@($"/images/{boardModel.Format}.png") alt="@boardModel.Name"/></a>
                         <a asp-action="OpenBoard" asp-route-boardId="@boardModel.Id" class="button style1">@boardModel.Name</a>
                         <a asp-action="DeleteBoard" asp-controller="Board" asp-route-boardId="@boardModel.Id" class="fa fa-minus-square" aria-hidden="true" style="cursor:pointer;color: #f98780"></a>
                     </section>

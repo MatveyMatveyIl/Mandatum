@@ -75,6 +75,9 @@ th{
 	align-items: center;
 }
 
+.align-center.row{
+	flex-direction: row;
+}
 .form-group{
 	margin-left: auto;
 	margin-right: auto;
@@ -1737,8 +1740,9 @@ input, select, textarea {
 
 		.image.featured {
 			display: block;
-			width: 100%;
+			max-width: 100%;
 			margin: 0 0 2em 0;
+			height:auto;
 		}
 
 /* Button */
@@ -2100,7 +2104,7 @@ button.login,
 
 	.wrapper {
 		position: relative;
-		padding: 6em 0 9em 0;
+		padding: 6em 0 0 0;
 	}
 
 		.wrapper .title {
