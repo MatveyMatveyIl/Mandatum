@@ -8,13 +8,15 @@
 <section id="main" class="wrapper style2">
 	<div class="title">Задача</div>
 	<div class="container">
-		<div class="row aln-center">
+		<div class="align-center">
 			@if (Model.Method == "CreateTask")
 			{
 				<form asp-action="SaveTask" asp-route-boardId="@Model.BoardId" method="post" enctype="multipart/form-data" class="p-2">
 					@await Html.PartialAsync("TaskFormPartial", Model.TaskModel)
-					<button class="button" type="submit">Сохранить</button>
-					<a asp-action="CancelTask" asp-route-boardId="@Model.BoardId" class="btn btn-primary m-2 p-2">Отмена</a>
+					<div class="align-center">
+						<button class="button" type="submit">Сохранить</button>
+						<a asp-action="CancelTask" asp-route-boardId="@Model.BoardId" class="actions grey">Отмена</a>
+					</div>
 				</form>
 
 			}
@@ -22,8 +24,10 @@
 			{
 				<form asp-action="UpdateTask" asp-route-boardId="@Model.BoardId" method="post" enctype="multipart/form-data" class="p-2">
 					@await Html.PartialAsync("TaskFormPartial", Model.TaskModel)
-					<button class="button" type="submit">Редактировать</button>
-					<a asp-action="CancelTask" asp-route-boardId="@Model.BoardId" class="btn btn-primary m-2 p-2">Отмена</a>
+					<div class="align-center">
+                    	<button class="button" type="submit">Редактировать</button>
+                    	<a asp-action="CancelTask" asp-route-boardId="@Model.BoardId" class="actions grey">Отмена</a>
+                    </div>
 				</form>
 			}
 		</div>

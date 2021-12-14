@@ -25,6 +25,8 @@ section, summary, time, mark, audio, video {
 	font: inherit;
 	vertical-align: baseline;}
 
+/* Точно используется */
+
 label{
 	margin: 0;
 	padding: 0px;
@@ -40,6 +42,10 @@ label{
 
 .actions{
 	color: #1f232b;
+}
+
+.actions.grey{
+	color: #484d55;
 }
 
 table {
@@ -69,6 +75,70 @@ th{
 	align-items: center;
 }
 
+.form-group{
+	margin-left: auto;
+	margin-right: auto;
+	width: 20em
+}
+
+input[type="radio"]:checked,
+input[type="radio"]:not(:checked)
+{
+	position: absolute;
+	left: -9999px;
+}
+input[type="radio"]:checked + label,
+input[type="radio"]:not(:checked) + label {
+	display: inline-block;
+	position: relative;
+	padding-left: 28px;
+	line-height: 20px;
+	cursor: pointer;
+}
+
+input[type="radio"]:checked + label:before,
+input[type="radio"]:not(:checked) + label:before {
+	content: "";
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	width: 18px;
+	height: 18px;
+	border: 1px solid #dddddd;
+	background-color: #ffffff;
+}
+input[type="radio"]:checked + label:before,
+input[type="radio"]:not(:checked) + label:before {
+	border-radius: 100%;
+}
+
+input[type="radio"]:checked + label:after,
+input[type="radio"]:not(:checked) + label:after {
+	content: "";
+	position: absolute;
+	-webkit-transition: all 0.2s ease;
+	-moz-transition: all 0.2s ease;
+	-o-transition: all 0.2s ease;
+	transition: all 0.2s ease;
+}
+input[type="radio"]:checked + label:after,
+input[type="radio"]:not(:checked) + label:after {
+	left: 5px;
+	top: 5px;
+	width: 10px;
+	height: 10px;
+	border-radius: 100%;
+	background-color: #f98780;
+}
+
+input[type="radio"]:not(:checked) + label:after {
+	opacity: 0;
+}
+input[type="radio"]:checked + label:after {
+	opacity: 1;
+}
+
+/* */
 
 article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
@@ -116,6 +186,7 @@ input, select, textarea {
 	-ms-appearance: none;
 	appearance: none;
 }
+
 
 /* Basic */
 
@@ -220,62 +291,7 @@ input, select, textarea {
 	}
 
 /* Container */
-input[type="radio"]:checked,
-input[type="radio"]:not(:checked)
-{
-	position: absolute;
-	left: -9999px;
-}
-input[type="radio"]:checked + label,
-input[type="radio"]:not(:checked) + label {
-	display: inline-block;
-	position: relative;
-	padding-left: 28px;
-	line-height: 20px;
-	cursor: pointer;
-}
 
-input[type="radio"]:checked + label:before,
-input[type="radio"]:not(:checked) + label:before {
-	content: "";
-	position: absolute;
-	left: 0px;
-	top: 0px;
-	width: 18px;
-	height: 18px;
-	border: 1px solid #dddddd;
-	background-color: #ffffff;
-}
-input[type="radio"]:checked + label:before,
-input[type="radio"]:not(:checked) + label:before {
-	border-radius: 100%;
-}
-
-input[type="radio"]:checked + label:after,
-input[type="radio"]:not(:checked) + label:after {
-	content: "";
-	position: absolute;
-	-webkit-transition: all 0.2s ease;
-	-moz-transition: all 0.2s ease;
-	-o-transition: all 0.2s ease;
-	transition: all 0.2s ease;
-}
-input[type="radio"]:checked + label:after,
-input[type="radio"]:not(:checked) + label:after {
-	left: 5px;
-	top: 5px;
-	width: 10px;
-	height: 10px;
-	border-radius: 100%;
-	background-color: #f98780;
-}
-
-input[type="radio"]:not(:checked) + label:after {
-	opacity: 0;
-}
-input[type="radio"]:checked + label:after {
-	opacity: 1;
-}
 
 	.container {
 		margin: 0 auto;
@@ -1735,7 +1751,8 @@ input[type="radio"]:checked + label:after {
 		-ms-transition: all .25s ease-in-out;
 		transition: all .25s ease-in-out;
 		display: inline-block;
-		background: #444;
+		background: #2f333b url("images/overlay.png");
+		color: #fff;
 		text-align: center;
 		/*text-transform: uppercase;*/
 		font-weight: 700;
@@ -1757,7 +1774,8 @@ input[type="radio"]:checked + label:after {
 		input[type="reset"]:hover,
 		button:hover,
 		.button:hover {
-			background-color: #f98780;
+			background: #e97770 url("images/overlay.png");
+			color: #fff;
 		}
 
 		input[type="button"].large,
