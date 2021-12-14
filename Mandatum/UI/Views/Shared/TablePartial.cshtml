@@ -1,14 +1,8 @@
-﻿@model BoardViewModel
+﻿@using TaskStatus = Mandatum.Models.TaskStatus
+@model BoardViewModel
 
-<head>
-    <meta charset="utf-8">
-    <title>Задачи</title>
-</head>
 <body>
 <table>
-   	<header class="style1">
-    <h2>Ваши задачи</h2>
-    </header>
     <tr>
         <th></th>
         <th>Название</th>
@@ -19,10 +13,30 @@
     </tr>
     @foreach (var taskModel in Model.Tasks)
     {
-        <tr><td><a asp-action="DeleteTask" asp-controller="Task" asp-route-taskId="@taskModel.Id"
-                asp-route-boardId="@Model.Board.Id" class="fa fa-minus-square" aria-hidden="true" style="cursor:pointer;color: #f98780"></a>
-                </td><td><a asp-action="EditTask" asp-controller="Task" asp-route-taskId="@taskModel.Id" asp-route-boardId="@Model.Board.Id" class="actions">@taskModel.Topic</a>
-            </td><td>@taskModel.Status</td><td>@taskModel.Description</td><td>@taskModel.Executors</td><td>@taskModel.Deadline</td>
+        <tr>
+            
+            <td>
+                <a asp-action="DeleteTask" asp-controller="Task" asp-route-taskId="@taskModel.Id"
+                   asp-route-boardId="@Model.Board.Id" class="fa fa-minus-square" aria-hidden="true" style="cursor:pointer;color: #f98780"></a>
+            </td>
+            <td>
+                <a asp-action="EditTask" asp-controller="Task" asp-route-taskId="@taskModel.Id" asp-route-boardId="@Model.Board.Id" class="actions">@taskModel.Topic</a>
+            </td>
+            @if (taskModel.Status == TaskStatus.InWait)
+            {
+                <td>Не начато</td>
+            }
+            @if (taskModel.Status == TaskStatus.InProgress)
+            {
+                <td>В процессе</td>
+            }
+            @if (taskModel.Status == TaskStatus.Done)
+            {
+                <td>Готово</td>
+            }
+            <td>@taskModel.Description</td>
+            <td>@taskModel.Executors</td>
+            <td>@taskModel.Deadline</td>
         </tr>
     }
 </table>
