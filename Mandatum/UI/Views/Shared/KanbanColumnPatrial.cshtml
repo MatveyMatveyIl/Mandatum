@@ -1,21 +1,26 @@
-﻿@using TaskStatus = Mandatum.Models.TaskStatus
-@model KanbanColumnModel
+﻿@model KanbanColumnModel
 
-@foreach (var label in Model.Labels)
+@foreach (var (key, value) in Model.Labels)
 {
     <div class="col-4 col-12-medium">
         <section class="highlight">
-            <h3>@label.Value</h3>
-              @foreach (var task in Model.Tasks[label.Key])
-                    {
-                        <div><a asp-action="EditTask" asp-controller="Task" asp-route-taskId="@task.Id" asp-route-boardId="@Model.BoardId" class="button style2">@task.Topic</a>
-                            <a asp-action="DeleteTask" asp-controller="Task" asp-route-taskId="@task.Id" asp-route-boardId="@Model.BoardId" class="fa fa-minus-square" aria-hidden="true" style="cursor:pointer;color: #f98780"></a>
-                        </div>
-                        <br>
-                    }
+            <h3>@value</h3>
+            @foreach (var task in Model.Tasks[key])
+            {
+                <div><a asp-action="EditTask" asp-controller="Task" asp-route-taskId="@task.Id" asp-route-boardId="@Model.BoardId" class="button style2">@task.Topic</a>
+                    <a asp-action="DeleteTask" asp-controller="Task" asp-route-taskId="@task.Id" asp-route-boardId="@Model.BoardId" class="fa fa-minus-square" aria-hidden="true" style="cursor:pointer;color: #f98780"></a>
+                </div>
+                <br>
+            }
+
+            <a asp-action="CreateTask" asp-controller="Task" asp-route-boardId="@Model.BoardId" asp-route-taskStatus="@key" class="button style3" onclick="checkCount(@Model.Tasks[key].Count())">Новая задача</a>
             
-                    <a asp-action="CreateTask" asp-controller="Task" asp-route-boardId="@Model.BoardId" asp-route-taskStatus="@label.Key" class="button style3">Новая задача</a>
+              
         </section>
-        </div>
+    </div>
+    <script>
+    function checkCount(v){
+        if (v > 10) window.alert( "Вы не можете создать больше 10 тасков с одним статусом" )}
+    </script>
     
 }
