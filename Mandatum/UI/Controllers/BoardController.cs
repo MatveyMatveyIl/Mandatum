@@ -15,18 +15,20 @@ namespace Mandatum.Controllers
     [Authorize]
     public class BoardController : Controller
     {
-        private IBoardApi _boardApi;
-        private TaskConverterUILayer _taskConverterUiLayer;
-        private BoardConverterUILayer _boardConverterUiLayer;
-        private IUserApi _userApi;
+        private readonly IBoardApi _boardApi;
+        private readonly TaskConverterUILayer _taskConverterUiLayer;
+        private readonly BoardConverterUILayer _boardConverterUiLayer;
+        private readonly IUserApi _userApi;
+        private readonly IEnumerable<IBoardFormat> _boardFormats;
 
         public BoardController(ITaskApi taskApi, IBoardApi boardApi, IUserApi userApi, TaskConverterUILayer taskConverterUiLayer, 
-            BoardConverterUILayer boardConverterUiLayer)
+            BoardConverterUILayer boardConverterUiLayer, IEnumerable<IBoardFormat> boardFormats)
         {
             _taskConverterUiLayer = taskConverterUiLayer;
             _boardApi = boardApi;
             _boardConverterUiLayer = boardConverterUiLayer;
             _userApi = userApi;
+            _boardFormats = boardFormats;
         }
 
         public IActionResult AllBoards()
@@ -43,7 +45,7 @@ namespace Mandatum.Controllers
 
         public IActionResult CreateBoard()
         {
-            return View("CreateBoard", new BoardModel());
+            return View("CreateBoard", new BoardModel {BoardFormats = _boardFormats});
         }
         
         public IActionResult SaveBoard(BoardModel board)

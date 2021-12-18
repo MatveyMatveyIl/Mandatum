@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Mandatum.Models
@@ -11,6 +12,7 @@ namespace Mandatum.Models
         
         [Required(ErrorMessage = "Введите имя доски")]
         public string Name { get; set; }
+        public IEnumerable<IBoardFormat> BoardFormats { get; set; } 
     }
 
     public enum BoardFormat
