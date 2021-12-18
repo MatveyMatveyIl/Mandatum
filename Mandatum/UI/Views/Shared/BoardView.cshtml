@@ -6,13 +6,13 @@
         @await Html.PartialAsync("NavBarPartial")
     </section>
     <section id="main" class="wrapper style2">
-        <div class="title">@Model.Board.Name</div>
+        <div class="title">@Model.Name</div>
       
-        @await Html.PartialAsync(Model.Board.Format.ToString(), Model)
-         @if (!Model.Board.Privacy)
+        @await Html.PartialAsync(Model.ViewName, Model)
+         @if (!Model.Privacy)
                {
                    <div>
-                       <form asp-action="ShareBoard" asp-controller="Board" asp-route-boardId="@Model.Board.Id" method="post">
+                       <form asp-action="ShareBoard" asp-controller="Board" asp-route-boardId="@Model.Id" method="post">
                            <div class="form-group">
                                <h3 class="h3 pink">Поделитесь доской:</h3>
                                <input type="text" name="userEmail" value="Введите Email получателя"/>

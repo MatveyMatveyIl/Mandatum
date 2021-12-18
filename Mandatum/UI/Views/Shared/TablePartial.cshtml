@@ -17,10 +17,10 @@
             
             <td>
                 <a asp-action="DeleteTask" asp-controller="Task" asp-route-taskId="@taskModel.Id"
-                   asp-route-boardId="@Model.Board.Id" class="fa fa-minus-square" aria-hidden="true" style="cursor:pointer;color: #f98780"></a>
+                   asp-route-boardId="@Model.Id" class="fa fa-minus-square" aria-hidden="true" style="cursor:pointer;color: #f98780"></a>
             </td>
             <td>
-                <a asp-action="EditTask" asp-controller="Task" asp-route-taskId="@taskModel.Id" asp-route-boardId="@Model.Board.Id" class="actions">@taskModel.Topic</a>
+                <a asp-action="EditTask" asp-controller="Task" asp-route-taskId="@taskModel.Id" asp-route-boardId="@Model.Id" class="actions">@taskModel.Topic</a>
             </td>
             @if (taskModel.Status == TaskStatus.InWait)
             {
@@ -41,5 +41,5 @@
     }
 </table>
 
-    <a asp-action="CreateTask" asp-controller="Task" asp-route-boardId="@Model.Board.Id"  class="button style3">Новая задача</a>
+    <a asp-action="CreateTask" asp-controller="Task" asp-route-boardId="@Model.Id"  class="button style3">Новая задача</a>
 </body>

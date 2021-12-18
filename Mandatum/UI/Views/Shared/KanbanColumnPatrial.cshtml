@@ -1,29 +1,21 @@
 ﻿@using TaskStatus = Mandatum.Models.TaskStatus
-@model Tuple<TaskStatus, BoardViewModel>
+@model KanbanColumnModel
 
-<div class="col-4 col-12-medium">
-    <section class="highlight">
-
-        @if (Model.Item1 == TaskStatus.InWait)
-        {
-            <h3>Не начато</h3>
-        }
-        @if (Model.Item1 == TaskStatus.InProgress)
-        {
-            <h3>В процессе</h3>
-        }
-        @if (Model.Item1 == TaskStatus.Done)
-        {
-            <h3>Готово</h3>
-        }
-        @foreach (var taskModel in Model.Item2.Tasks.Where(task => task.Status == Model.Item1))
-        {
-            <div><a asp-action="EditTask" asp-controller="Task" asp-route-taskId="@taskModel.Id" asp-route-boardId="@Model.Item2.Board.Id" class="button style2">@taskModel.Topic</a>
-                <a asp-action="DeleteTask" asp-controller="Task" asp-route-taskId="@taskModel.Id" asp-route-boardId="@Model.Item2.Board.Id" class="fa fa-minus-square" aria-hidden="true" style="cursor:pointer;color: #f98780"></a>
-            </div>
-            <br>
-        }
-
-        <a asp-action="CreateTask" asp-controller="Task" asp-route-boardId="@Model.Item2.Board.Id" asp-route-taskStatus="@Model.Item1" class="button style3">Новая задача</a>
-    </section>
-</div>
+@foreach (var label in Model.Labels)
+{
+    <div class="col-4 col-12-medium">
+        <section class="highlight">
+            <h3>@label.Value</h3>
+              @foreach (var task in Model.Tasks[label.Key])
+                    {
+                        <div><a asp-action="EditTask" asp-controller="Task" asp-route-taskId="@task.Id" asp-route-boardId="@Model.BoardId" class="button style2">@task.Topic</a>
+                            <a asp-action="DeleteTask" asp-controller="Task" asp-route-taskId="@task.Id" asp-route-boardId="@Model.BoardId" class="fa fa-minus-square" aria-hidden="true" style="cursor:pointer;color: #f98780"></a>
+                        </div>
+                        <br>
+                    }
+            
+                    <a asp-action="CreateTask" asp-controller="Task" asp-route-boardId="@Model.BoardId" asp-route-taskStatus="@label.Key" class="button style3">Новая задача</a>
+        </section>
+        </div>
+    
+}
