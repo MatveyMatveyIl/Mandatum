@@ -19,18 +19,22 @@ namespace Domain
         public BoardFormatDomain Format { get; set; }
         public string Name { get; set; }
 
-        public void AddTask(Task task, string email)
+        public bool AddTask(Task task, string email)
         {
             task.RefreshToValidTask(email);
             if (CountTasksInProgress() <= 10 && task.Status == TaskStatus.InProgress)
             {
                 Tasks.Add(task);
+                return true;
             }
 
             if (task.Status != TaskStatus.InProgress)
             {
                 Tasks.Add(task);
+                return true;
             }
+
+            return false;
         }
 
         private int CountTasksInProgress()

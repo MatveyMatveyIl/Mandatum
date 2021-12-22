@@ -87,23 +87,26 @@ namespace Application.Api
         {
             task.Id = Guid.NewGuid();
             _taskApi.SaveTask(task);
-            UpdateBoard(boardId, task, email);
+            UpdateBoard(boardId, task, email, out var _);
         }
 
         public void UpdateTaskOnBoard(Guid boardId, TaskRecord task, string email)
         {
-            _taskApi.UpdateTask(task);
-            UpdateBoard(boardId, task, email);
+            UpdateBoard(boardId, task, email, out var edit);
+            if(edit) _taskApi.UpdateTask(task); 
         }
         
-        private void UpdateBoard(Guid boardId, TaskRecord task, string email)
+        private void UpdateBoard(Guid boardId, TaskRecord task, string email, out bool correctEdit)
         {
             var board = _boardRepo.GetBoard(boardId);
             var boardDomain = _boardConverter.Convert(board);
             var taskDomain = _taskConverter.Convert(task);
-            boardDomain.AddTask(taskDomain, email);
-            board = _boardConverter.Convert(boardDomain);
-            _boardRepo.UpdateBoard(board);
+            correctEdit = boardDomain.AddTask(taskDomain, email);
+            if (correctEdit)
+            {
+                board = _boardConverter.Convert(boardDomain);
+                _boardRepo.UpdateBoard(board);
+            }
         }
     }
 }
