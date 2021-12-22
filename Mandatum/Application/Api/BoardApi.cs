@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using Application.ApiInterface;
 using Application.Converters;
-using Domain;
-using Mandatum.Models;
-using Microsoft.EntityFrameworkCore;
+using Application.DbContext;
+using Application.Entities;
+using Application.RepositoryInterface;
 
-namespace Application
+namespace Application.Api
 {
     public class BoardApi : IBoardApi
     {

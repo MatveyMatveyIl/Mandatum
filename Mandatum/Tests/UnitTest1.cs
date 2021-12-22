@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Application;
 using Application.ApiInterface;
+using Application.Entities;
 using Mandatum;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

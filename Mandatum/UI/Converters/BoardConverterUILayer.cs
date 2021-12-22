@@ -1,7 +1,8 @@
 using System.Collections.Generic;
 using Application;
+using Application.Entities;
 using Mandatum.Models;
-using BoardFormatRecord = Application.BoardFormat;
+using BoardFormatRecord = Application.Entities.BoardFormat;
 using BoardFormatModel = Mandatum.Models.BoardFormat;
 
 namespace Mandatum.Convertors

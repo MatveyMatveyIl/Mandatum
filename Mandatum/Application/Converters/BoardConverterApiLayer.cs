@@ -1,7 +1,8 @@
 using System.Linq;
+using Application.DbContext;
+using Application.Entities;
 using Domain;
 using Mandatum.Convertors;
-using Mandatum.Models;
 
 namespace Application.Converters
 {

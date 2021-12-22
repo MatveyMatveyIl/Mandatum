@@ -1,7 +1,9 @@
 using System;
 using Application.ApiInterface;
+using Application.Entities;
+using Application.RepositoryInterface;
 
-namespace Application
+namespace Application.Api
 {
     public class TaskApi : ITaskApi
     {

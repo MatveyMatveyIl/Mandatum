@@ -6,6 +6,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Application;
 using Application.ApiInterface;
+using Application.Entities;
 using AspNet.Security.OAuth.GitHub;
 using Mandatum.Convertors;
 using Mandatum.infra;

@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
+using Application.Entities;
+
 namespace Mandatum.infra
 {
     public class ResponseHandler

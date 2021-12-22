@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Application;
+using Application.Entities;
 using Mandatum.Models;
 using Mandatum.ViewModels;
 

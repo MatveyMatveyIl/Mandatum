@@ -1,9 +1,10 @@
-using System;
 using System.Linq;
-using Mandatum.Models;
+using Application.DbContext;
+using Application.Entities;
+using Application.RepositoryInterface;
 using Microsoft.EntityFrameworkCore;
 
-namespace Application
+namespace Application.EFRepository
 {
     public class UserRepo : IUserRepo
     {
