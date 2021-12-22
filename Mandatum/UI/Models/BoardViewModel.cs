@@ -1,16 +1,25 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Mandatum.Models
 {
     public class BoardViewModel
     {
-        public BoardModel Board { get; }
+        public Guid Id { get; set; }
+        public bool Privacy { get; set; }
+        public string Name { get; set; }
+        
+        public string ViewName { get; set; }
+   
         public IEnumerable<TaskModel> Tasks { get; }
 
-        public BoardViewModel(BoardModel board, IEnumerable<TaskModel> tasks)
+        public BoardViewModel(BoardModel boardModel, IEnumerable<TaskModel> tasks)
         {
-            Board = board;
+            Id = boardModel.Id;
+            Privacy = boardModel.Privacy;
+            ViewName = boardModel.Format.ToString();
+            Name = boardModel.Name;
             Tasks = tasks;
-        } 
+        }
     }
 }

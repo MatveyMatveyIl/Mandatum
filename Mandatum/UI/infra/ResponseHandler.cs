@@ -42,6 +42,7 @@ namespace Mandatum.infra
     public enum AuthType
     {
         Github,
-        Google
+        Google,
+        Mandatum
     }
 }

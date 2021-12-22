@@ -29,7 +29,8 @@ namespace Mandatum.Controllers
         private readonly UserManager<UserRecord> _userManager;
         private readonly SignInManager<UserRecord> _signInManager;
         private readonly ResponseHandler _handler;
-        private readonly GoogleHandler _googleHandler;
+        
+        
 
         public AccountController(UserManager<UserRecord> userManager, SignInManager<UserRecord> signInManager,
             IUserApi userApi)
@@ -38,40 +39,24 @@ namespace Mandatum.Controllers
             _userManager = userManager;
             _signInManager = signInManager;
             _handler = new ResponseHandler();
-            _googleHandler = new GoogleHandler();
-        }
-        public IActionResult GoogleLogin()
-        { 
-            var properties = new AuthenticationProperties { RedirectUri = Url.Action("GoogleResponse") };
-            return Challenge(properties, GoogleDefaults.AuthenticationScheme);
         }
         
-        public async Task<IActionResult> GoogleResponse()
+        public async Task<IActionResult> Response(AuthType auth)
         {
-            var response = await HttpContext.AuthenticateAsync(GoogleDefaults.AuthenticationScheme);
-            await _handler.Auth(_userManager, _signInManager, response, AuthType.Google);
-            return RedirectToAction("Index", "Home");
-            
-        }
-      
-        
-        public IActionResult GithubLogin()
-        { 
-            var properties = new AuthenticationProperties { RedirectUri = Url.Action("GithubResponse") };
-            return Challenge(properties, GitHubAuthenticationDefaults.AuthenticationScheme);
-        }
-        
-        public async Task<IActionResult> GithubResponse()
-        {
-            var response = await HttpContext.AuthenticateAsync(GitHubAuthenticationDefaults.AuthenticationScheme);
-            await _handler.Auth(_userManager, _signInManager, response, AuthType.Github);
+            var response = await HttpContext.AuthenticateAsync(LoginParams.Schemes[auth]);
+            await _handler.Auth(_userManager, _signInManager, response, auth);
             return RedirectToAction("Index", "Home");
         }
 
         [HttpGet]
-        public IActionResult Login(string returnUrl = null)
+        public IActionResult Login(string returnUrl = null, AuthType authType=AuthType.Mandatum)
         {
-            return View(new LoginModel { ReturnUrl = returnUrl });
+            if (authType==AuthType.Mandatum)
+                return View(new LoginModel {AuthType = authType, ReturnUrl = returnUrl});
+            var properties = new AuthenticationProperties {RedirectUri = Url.Action("Response",new {auth=authType} )};
+            var challenge =  Challenge(properties, LoginParams.Schemes[authType]);
+            return challenge;
+            
         }
  
         [HttpPost]
@@ -79,21 +64,22 @@ namespace Mandatum.Controllers
 
         public async Task<IActionResult> Login(LoginModel model)
         {
-            if (!ModelState.IsValid) return View(model);
-            var result = 
-                await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
-            if (result.Succeeded)
-            {
-                if (!string.IsNullOrEmpty(model.ReturnUrl) && Url.IsLocalUrl(model.ReturnUrl))
+      
+                if (!ModelState.IsValid) return View(model);
+                var result = 
+                    await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
+                if (result.Succeeded)
                 {
-                    return Redirect(model.ReturnUrl);
+                    if (!string.IsNullOrEmpty(model.ReturnUrl) && Url.IsLocalUrl(model.ReturnUrl))
+                    {
+                        return Redirect(model.ReturnUrl);
+                    }
+
+                    return RedirectToAction("Index", "Home");
                 }
 
-                return RedirectToAction("Index", "Home");
-            }
-
-            ModelState.AddModelError("", "Неправильный логин и (или) пароль");
-            return View(model);
+                ModelState.AddModelError("", "Неправильный логин и (или) пароль");
+                return View(model);
         }
  
         

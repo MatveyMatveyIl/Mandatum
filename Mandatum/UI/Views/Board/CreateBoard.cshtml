@@ -1,4 +1,5 @@
 ﻿<!DOCTYPE HTML>
+
 @model BoardModel
 
 <div id="page-wrapper">
@@ -37,28 +38,20 @@
 					
 					<section id="highlights" class="wrapper style2">
 						<div class="align-center row">
-							<div class="col-4 col-12-medium">
-                            	<section class="highlight">
-                            		<div>
-                            			<a><img class="image featured" src="/images/KanbanBoard.png" alt="Канбан доска"/></a>
-                            			<div>
-                            				<input asp-for="Format" value="0" type="radio" name="format" id="kanban" checked>
-                            				<label for="kanban">Канбан доска</label>
-                            			</div>
-                            		</div>
-                            	</section>
-                            </div>
-                            <div class="col-4 col-12-medium">
-                            	<section class="highlight">
-                            		<div>
-                            			<a><img class="image featured" src="/images/Table.png" alt="Таблица"/></a>
-                            			<div>
-                            				<input asp-for="Format" value="1" type="radio" name="format" id="table">
-                            				<label for="table">Таблица</label>
-                            			</div>
-                            		</div>
-                            	</section>
-                            </div>
+							@foreach (var boardFormat in Model.BoardFormats)
+							{
+								<div class="col-4 col-12-medium">
+									<section class="highlight">
+										<div>
+											<a><img class="image featured" src=@($"/images/{boardFormat.Image}.png") alt="@boardFormat.Image"/></a>
+											<div>
+												<input asp-for="Format" value="@boardFormat.Format" type="radio" name="format" id="id-@boardFormat.Format.ToString()" checked>
+												<label for="id-@boardFormat.Format.ToString()">@boardFormat.Label</label>
+											</div>
+										</div>
+									</section>
+								</div>
+							}
 						</div>
 					</section>
 					
