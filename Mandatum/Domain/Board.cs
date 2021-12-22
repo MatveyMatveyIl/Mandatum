@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Domain
 {
@@ -20,7 +21,8 @@ namespace Domain
 
         public void AddTask(Task task)
         {
-            if (Tasks.Count <= 10 && task.Status == TaskStatus.InProgress)
+            task.RefreshToValidTask();
+            if (CountTasksInProgress() <= 10 && task.Status == TaskStatus.InProgress)
             {
                 Tasks.Add(task);
             }
@@ -29,6 +31,11 @@ namespace Domain
             {
                 Tasks.Add(task);
             }
+        }
+
+        private int CountTasksInProgress()
+        {
+            return Tasks.Count(t => t.Status == TaskStatus.InProgress);
         }
     }
 }

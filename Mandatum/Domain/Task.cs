@@ -11,5 +11,19 @@ namespace Domain
         public DateTime Deadline { get; set; }
         public int Priority { get; set; }
         public string Executors { get; set; }
+
+        public void RefreshToValidTask()
+        {
+            CheckDatetime();
+        }
+
+        private void CheckDatetime()
+        {
+            var check = DateTime.Compare(Deadline, DateTime.Now);
+            if (check < 0)
+            {
+                Deadline = DateTime.Now;
+            }
+        }
     }
 }
