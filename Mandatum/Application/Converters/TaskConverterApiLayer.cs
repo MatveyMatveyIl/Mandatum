@@ -22,6 +22,7 @@ namespace Application.Converters
             taskRecord.Status = ConvertToTaskRecordStatus(source.Status);
             taskRecord.Deadline = source.Deadline;
             taskRecord.Executors = source.Executors;
+            taskRecord.Description = source.Description;
             return taskRecord;
         }
 

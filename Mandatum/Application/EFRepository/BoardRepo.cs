@@ -24,16 +24,14 @@ namespace Application
 
         public BoardRecord GetBoard(Guid boardId)
         {
-            var boardRecord = _dbContext.Boards.AsNoTracking().Include(prop => prop.TaskIds)
+            return  _dbContext.Boards.AsNoTracking().Include(prop => prop.TaskIds)
                 .FirstOrDefault(board => board.Id == boardId);
-            return boardRecord ?? new BoardRecord();
         }
 
         public void UpdateBoard(BoardRecord updBoard)
         {
             var containsBoard = GetBoard(updBoard.Id);
             if (containsBoard is null) return;
-            _dbContext.Entry(updBoard).State = EntityState.Detached;
             _dbContext.Boards.Update(updBoard);
             _dbContext.SaveChanges();
         }

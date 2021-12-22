@@ -58,8 +58,8 @@ namespace Mandatum
             services.AddScoped<BoardConverterApiLayer>();
             services.AddScoped<TaskConverterAppLayer>();
             // << convertors
-            services.AddScoped<IBoardFormat, KanbanBoardFormat>();
-            services.AddScoped<IBoardFormat, TableBoardFormat>();
+            services.AddSingleton<IBoardFormat, KanbanBoardFormat>();
+            services.AddSingleton<IBoardFormat, TableBoardFormat>();
             // установка конфигурации подключения
 
             services.AddAuthentication()

@@ -13,6 +13,11 @@ namespace Application
             _userRepo = userRepo;
         }
 
+        public UserRecord GetUser(string email)
+        {
+            return _userRepo.GetUser(email);
+        }
+
         public void AddBoard(BoardRecord board, string email)
         {
             var user = _userRepo.GetUser(email);

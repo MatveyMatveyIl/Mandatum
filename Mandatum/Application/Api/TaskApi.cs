@@ -29,6 +29,7 @@ namespace Application
 
         public void DeleteTask(Guid taskId)
         {
+            if(GetTask(taskId) is null) return;
             var task = _taskRepo.GetTask(taskId);
             _taskRepo.DeleteTask(task);
         }

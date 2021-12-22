@@ -7,5 +7,6 @@ namespace Application.ApiInterface
         public void AddBoard(BoardRecord board, string email);
         public IEnumerable<BoardRecord> GetBoards(string email);
         public void AddNewUserToBoard(string email);
+        public UserRecord GetUser(string email);
     }
 }

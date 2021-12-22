@@ -16,27 +16,14 @@ namespace Application
 
         public UserRecord GetUser(string email)
         {
-            try
-            {
-                return _dbContext.Users.Include(x => x.Boards).FirstOrDefault(u => u.Email == email);
-            }
-            catch
-            {
-                return new UserRecord();
-            }
+            return _dbContext.Users.Include(x => x.Boards).FirstOrDefault(u => u.Email == email);
         }
 
         public void UpdateUser(UserRecord user)
         {
-            try
-            {
-                _dbContext.Update(user);
-                _dbContext.SaveChanges();
-            }
-            catch
-            {
-                //
-            }
+            if (GetUser(user.Email) is null) return;
+            _dbContext.Update(user);
+            _dbContext.SaveChanges();
         }
     }
 }

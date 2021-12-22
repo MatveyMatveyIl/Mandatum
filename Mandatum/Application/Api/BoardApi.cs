@@ -42,6 +42,7 @@ namespace Application
         public void DeleteBoard(Guid boardId)
         {
             var board = _boardRepo.GetBoard(boardId);
+            if(board is null) return;
             _boardRepo.DeleteBoard(board);
         }
 
@@ -74,6 +75,7 @@ namespace Application
         public void AddNewUserToBoard(string email, Guid boardId)
         {
             var board = _boardRepo.GetBoard(boardId);
+            if(_userApi.GetUser(email) is null) return;
             _userApi.AddBoard(board, email);
         }
 
@@ -85,11 +87,7 @@ namespace Application
 
         public void AddTaskToBoard(Guid boardId, TaskRecord task)
         {
-            //_dbContext.ChangeTracker.AutoDetectChangesEnabled = false;
-            //_dbContext.Entry(task).State = EntityState.Modified; /// первый способ изменить конвертор
-            /*_dbContext.Add(task); 
-            _dbContext.Entry(task).State = EntityState.Detached;//второй способ
-            _dbContext.Update(new TaskRecord(){Id = task.Id});*/
+            task.Id = Guid.NewGuid();
             _taskApi.SaveTask(task);
             UpdateBoard(boardId, task);
         }
