@@ -37,7 +37,10 @@ namespace Mandatum
         {
             // >> db connect 
             var connection = Configuration.GetConnectionString("DefaultConnection");
-            services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connection, b => b.MigrationsAssembly("UI")));
+            services.AddDbContext<AppDbContext>(options =>
+            {
+                options.UseSqlServer(connection, b => b.MigrationsAssembly("UI"));
+            });
             // << db connect 
             // >> api
             services.AddScoped<IBoardApi, BoardApi>();

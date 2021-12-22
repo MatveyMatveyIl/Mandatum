@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using Mandatum.Models;
 using Microsoft.EntityFrameworkCore;
@@ -24,14 +26,14 @@ namespace Application
         {
             var boardRecord = _dbContext.Boards.AsNoTracking().Include(prop => prop.TaskIds)
                 .FirstOrDefault(board => board.Id == boardId);
-            if (boardRecord is null) return new BoardRecord();
-            return boardRecord;
+            return boardRecord ?? new BoardRecord();
         }
 
         public void UpdateBoard(BoardRecord updBoard)
         {
             var containsBoard = GetBoard(updBoard.Id);
             if (containsBoard is null) return;
+            _dbContext.Entry(updBoard).State = EntityState.Detached;
             _dbContext.Boards.Update(updBoard);
             _dbContext.SaveChanges();
         }

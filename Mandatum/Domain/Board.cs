@@ -20,7 +20,15 @@ namespace Domain
 
         public void AddTask(Task task)
         {
-            Tasks.Add(task);
+            if (Tasks.Count <= 10 && task.Status == TaskStatus.InProgress)
+            {
+                Tasks.Add(task);
+            }
+
+            if (task.Status != TaskStatus.InProgress)
+            {
+                Tasks.Add(task);
+            }
         }
     }
 }

@@ -1,7 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Application.ApiInterface;
 using Application.Converters;
+using Domain;
+using Mandatum.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application
 {
@@ -12,21 +16,27 @@ namespace Application
         private readonly ITaskApi _taskApi;
         private readonly BoardConverterApiLayer _boardConverter;
         private readonly TaskConverterAppLayer _taskConverter;
+        private readonly AppDbContext _dbContext;
 
         public BoardApi(IBoardRepo boardRepo, IUserApi userApi, ITaskApi taskApi, BoardConverterApiLayer boardConverter,
-            TaskConverterAppLayer taskConverter)
+            TaskConverterAppLayer taskConverter, AppDbContext dbContext)
         {
             _boardRepo = boardRepo;
             _userApi = userApi;
             _taskApi = taskApi;
             _boardConverter = boardConverter;
             _taskConverter = taskConverter;
+            _dbContext = dbContext;
         }
 
         public void CreateBoard(BoardRecord board, string email)
         {
-            _boardRepo.SaveBoard(board);
-            _userApi.AddBoard(board, email);
+            var boards = _userApi.GetBoards(email);
+            if (boards.FirstOrDefault(b => b.Name == board.Name) is null)
+            {
+                _boardRepo.SaveBoard(board);
+                _userApi.AddBoard(board, email);
+            }
         }
 
         public void DeleteBoard(Guid boardId)
@@ -75,18 +85,23 @@ namespace Application
 
         public void AddTaskToBoard(Guid boardId, TaskRecord task)
         {
+            //_dbContext.ChangeTracker.AutoDetectChangesEnabled = false;
+            //_dbContext.Entry(task).State = EntityState.Modified; /// первый способ изменить конвертор
+            /*_dbContext.Add(task); 
+            _dbContext.Entry(task).State = EntityState.Detached;//второй способ
+            _dbContext.Update(new TaskRecord(){Id = task.Id});*/
             _taskApi.SaveTask(task);
-            var board = _boardRepo.GetBoard(boardId);
-            board.TaskIds.Add(task);
-            _boardRepo.UpdateBoard(board);
+            UpdateBoard(boardId, task);
         }
 
         public void UpdateTaskOnBoard(Guid boardId, TaskRecord task)
         {
             _taskApi.UpdateTask(task);
-            /*var board = _boardRepo.GetBoard(boardId);
-            board.TaskIds.Add(task);
-            _boardRepo.UpdateBoard(board);*/
+            UpdateBoard(boardId, task);
+        }
+        
+        private void UpdateBoard(Guid boardId, TaskRecord task)
+        {
             var board = _boardRepo.GetBoard(boardId);
             var boardDomain = _boardConverter.Convert(board);
             var taskDomain = _taskConverter.Convert(task);
