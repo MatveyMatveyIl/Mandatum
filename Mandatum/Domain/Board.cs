@@ -19,9 +19,9 @@ namespace Domain
         public BoardFormatDomain Format { get; set; }
         public string Name { get; set; }
 
-        public void AddTask(Task task)
+        public void AddTask(Task task, string email)
         {
-            task.RefreshToValidTask();
+            task.RefreshToValidTask(email);
             if (CountTasksInProgress() <= 10 && task.Status == TaskStatus.InProgress)
             {
                 Tasks.Add(task);

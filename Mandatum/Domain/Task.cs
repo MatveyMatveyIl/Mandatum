@@ -12,9 +12,10 @@ namespace Domain
         public int Priority { get; set; }
         public string Executors { get; set; }
 
-        public void RefreshToValidTask()
+        public void RefreshToValidTask(string email)
         {
             CheckDatetime();
+            CheckExecutors(email);
         }
 
         private void CheckDatetime()
@@ -24,6 +25,13 @@ namespace Domain
             {
                 Deadline = DateTime.Now;
             }
+        }
+
+        private void CheckExecutors(string email)
+        {
+            Executors ??= $"{email}";
+            if(Executors.Contains(email)) return;
+            Executors += $"\n {email}";
         }
     }
 }

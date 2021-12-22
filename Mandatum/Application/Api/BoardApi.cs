@@ -32,11 +32,9 @@ namespace Application.Api
         public void CreateBoard(BoardRecord board, string email)
         {
             var boards = _userApi.GetBoards(email);
-            if (boards.FirstOrDefault(b => b.Name == board.Name) is null)
-            {
-                _boardRepo.SaveBoard(board);
-                _userApi.AddBoard(board, email);
-            }
+            if (boards.FirstOrDefault(b => b.Name == board.Name) is not null) return;
+            _boardRepo.SaveBoard(board);
+            _userApi.AddBoard(board, email);
         }
 
         public void DeleteBoard(Guid boardId)
@@ -85,25 +83,25 @@ namespace Application.Api
             return board.TaskIds;
         }
 
-        public void AddTaskToBoard(Guid boardId, TaskRecord task)
+        public void AddTaskToBoard(Guid boardId, TaskRecord task, string email)
         {
             task.Id = Guid.NewGuid();
             _taskApi.SaveTask(task);
-            UpdateBoard(boardId, task);
+            UpdateBoard(boardId, task, email);
         }
 
-        public void UpdateTaskOnBoard(Guid boardId, TaskRecord task)
+        public void UpdateTaskOnBoard(Guid boardId, TaskRecord task, string email)
         {
             _taskApi.UpdateTask(task);
-            UpdateBoard(boardId, task);
+            UpdateBoard(boardId, task, email);
         }
         
-        private void UpdateBoard(Guid boardId, TaskRecord task)
+        private void UpdateBoard(Guid boardId, TaskRecord task, string email)
         {
             var board = _boardRepo.GetBoard(boardId);
             var boardDomain = _boardConverter.Convert(board);
             var taskDomain = _taskConverter.Convert(task);
-            boardDomain.AddTask(taskDomain);
+            boardDomain.AddTask(taskDomain, email);
             board = _boardConverter.Convert(boardDomain);
             _boardRepo.UpdateBoard(board);
         }

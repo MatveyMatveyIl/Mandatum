@@ -38,7 +38,7 @@ namespace Mandatum.Controllers
         {
             var taskView = new TaskViewModel(boardId, new TaskModel(), nameof(CreateTask));
             if (!ModelState.IsValid) return View("EditTask", taskView);
-            _boardApi.AddTaskToBoard(boardId, _taskConverter.Convert(taskModel));
+            _boardApi.AddTaskToBoard(boardId, _taskConverter.Convert(taskModel), User.Identity.Name);
             return RedirectToAction("OpenBoard", "Board", new {boardId});
         }
         
@@ -46,7 +46,7 @@ namespace Mandatum.Controllers
         {
             var taskView = new TaskViewModel(boardId, taskModel, nameof(EditTask));
             if (!ModelState.IsValid) return View("EditTask", taskView);
-            _boardApi.UpdateTaskOnBoard(boardId, _taskConverter.Convert(taskModel));
+            _boardApi.UpdateTaskOnBoard(boardId, _taskConverter.Convert(taskModel), User.Identity.Name);
             var boardView = new BoardViewModel(_boardConverter.Convert(_boardApi.GetBoard(boardId)),
                 GetTasks(boardId));
             return View("BoardView", boardView);

@@ -35,7 +35,7 @@ namespace Tests
             startUp.ConfigureServices(serviceCollection);
             var serviceProvider = serviceCollection.BuildServiceProvider();
             var boardApi = serviceProvider.GetRequiredService<IBoardApi>();
-            boardApi.AddTaskToBoard(new Guid("1178DA4F-242B-4038-B2B8-E0728BDE3BFE"), new TaskRecord());
+            boardApi.AddTaskToBoard(new Guid("1178DA4F-242B-4038-B2B8-E0728BDE3BFE"), new TaskRecord(), "hello");
         }
     }
 }
