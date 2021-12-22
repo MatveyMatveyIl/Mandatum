@@ -4,8 +4,13 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Application;
+using Application.Api;
 using Application.ApiInterface;
 using Application.Converters;
+using Application.DbContext;
+using Application.EFRepository;
+using Application.Entities;
+using Application.RepositoryInterface;
 using Mandatum.Controllers;
 using Mandatum.Convertors;
 using Mandatum.Models;
@@ -37,7 +42,10 @@ namespace Mandatum
         {
             // >> db connect 
             var connection = Configuration.GetConnectionString("DefaultConnection");
-            services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connection, b => b.MigrationsAssembly("UI")));
+            services.AddDbContext<AppDbContext>(options =>
+            {
+                options.UseSqlServer(connection, b => b.MigrationsAssembly("UI"));
+            });
             // << db connect 
             // >> api
             services.AddScoped<IBoardApi, BoardApi>();
@@ -55,8 +63,8 @@ namespace Mandatum
             services.AddScoped<BoardConverterApiLayer>();
             services.AddScoped<TaskConverterAppLayer>();
             // << convertors
-            services.AddScoped<IBoardFormat, KanbanBoardFormat>();
-            services.AddScoped<IBoardFormat, TableBoardFormat>();
+            services.AddSingleton<IBoardFormat, KanbanBoardFormat>();
+            services.AddSingleton<IBoardFormat, TableBoardFormat>();
             // установка конфигурации подключения
 
             services.AddAuthentication()

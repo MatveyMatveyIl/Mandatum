@@ -1,8 +1,7 @@
-using System;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Identity;
 
-namespace Application
+namespace Application.Entities
 {
     public class UserRecord: IdentityUser
     {

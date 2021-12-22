@@ -1,10 +1,8 @@
-using System;
-using System.Collections.Generic;
-using Application;
+using Application.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace Mandatum.Models
+namespace Application.DbContext
 {
     public class AppDbContext: IdentityDbContext
     {

@@ -1,4 +1,5 @@
 using System;
+using Application.Entities;
 
 namespace Application.ApiInterface
 {

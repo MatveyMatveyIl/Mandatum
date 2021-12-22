@@ -1,9 +1,13 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Application.ApiInterface;
 using Application.Converters;
+using Application.DbContext;
+using Application.Entities;
+using Application.RepositoryInterface;
 
-namespace Application
+namespace Application.Api
 {
     public class BoardApi : IBoardApi
     {
@@ -12,19 +16,23 @@ namespace Application
         private readonly ITaskApi _taskApi;
         private readonly BoardConverterApiLayer _boardConverter;
         private readonly TaskConverterAppLayer _taskConverter;
+        private readonly AppDbContext _dbContext;
 
         public BoardApi(IBoardRepo boardRepo, IUserApi userApi, ITaskApi taskApi, BoardConverterApiLayer boardConverter,
-            TaskConverterAppLayer taskConverter)
+            TaskConverterAppLayer taskConverter, AppDbContext dbContext)
         {
             _boardRepo = boardRepo;
             _userApi = userApi;
             _taskApi = taskApi;
             _boardConverter = boardConverter;
             _taskConverter = taskConverter;
+            _dbContext = dbContext;
         }
 
         public void CreateBoard(BoardRecord board, string email)
         {
+            var boards = _userApi.GetBoards(email);
+            if (boards.FirstOrDefault(b => b.Name == board.Name) is not null) return;
             _boardRepo.SaveBoard(board);
             _userApi.AddBoard(board, email);
         }
@@ -32,6 +40,7 @@ namespace Application
         public void DeleteBoard(Guid boardId)
         {
             var board = _boardRepo.GetBoard(boardId);
+            if(board is null) return;
             _boardRepo.DeleteBoard(board);
         }
 
@@ -64,6 +73,7 @@ namespace Application
         public void AddNewUserToBoard(string email, Guid boardId)
         {
             var board = _boardRepo.GetBoard(boardId);
+            if(_userApi.GetUser(email) is null) return;
             _userApi.AddBoard(board, email);
         }
 
@@ -73,24 +83,25 @@ namespace Application
             return board.TaskIds;
         }
 
-        public void AddTaskToBoard(Guid boardId, TaskRecord task)
+        public void AddTaskToBoard(Guid boardId, TaskRecord task, string email)
         {
+            task.Id = Guid.NewGuid();
             _taskApi.SaveTask(task);
-            var board = _boardRepo.GetBoard(boardId);
-            board.TaskIds.Add(task);
-            _boardRepo.UpdateBoard(board);
+            UpdateBoard(boardId, task, email);
         }
 
-        public void UpdateTaskOnBoard(Guid boardId, TaskRecord task)
+        public void UpdateTaskOnBoard(Guid boardId, TaskRecord task, string email)
         {
             _taskApi.UpdateTask(task);
-            /*var board = _boardRepo.GetBoard(boardId);
-            board.TaskIds.Add(task);
-            _boardRepo.UpdateBoard(board);*/
+            UpdateBoard(boardId, task, email);
+        }
+        
+        private void UpdateBoard(Guid boardId, TaskRecord task, string email)
+        {
             var board = _boardRepo.GetBoard(boardId);
             var boardDomain = _boardConverter.Convert(board);
             var taskDomain = _taskConverter.Convert(task);
-            boardDomain.AddTask(taskDomain);
+            boardDomain.AddTask(taskDomain, email);
             board = _boardConverter.Convert(boardDomain);
             _boardRepo.UpdateBoard(board);
         }

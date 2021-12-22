@@ -1,9 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using Mandatum.Models;
+using Application.DbContext;
+using Application.Entities;
+using Application.RepositoryInterface;
 
-namespace Application
+namespace Application.EFRepository
 {
     public class TaskRepo : ITaskRepo
     {
@@ -13,57 +14,37 @@ namespace Application
         {
             _dbContext = dbContext;
         }
-        
+
         public void AddTask(TaskRecord task)
         {
-            try
-            {
-                _dbContext.Add(task);
-                _dbContext.SaveChanges();
-            }
-            catch
-            {
-                //
-            }
+            _dbContext.Add(task);
+            _dbContext.SaveChanges();
         }
 
         public void DeleteTask(TaskRecord task)
         {
-            try
-            {
-                _dbContext.Tasks.Remove(task);
-                _dbContext.SaveChanges();
-            }
-            catch
-            {
-                //
-            }
+            if (GetTask(task.Id) is null) return;
+            _dbContext.Tasks.Remove(task);
+            _dbContext.SaveChanges();
         }
 
         public void UpdateTask(TaskRecord updTask)
         {
             try
             {
+                if (GetTask(updTask.Id) is null) return;
                 _dbContext.Tasks.Update(updTask);
                 _dbContext.SaveChanges();
             }
-            catch 
+            catch (InvalidOperationException)
             {
-                //
+                _dbContext.SaveChanges();
             }
-            
         }
 
         public TaskRecord GetTask(Guid id)
         {
-            try
-            {
-                return _dbContext.Tasks.FirstOrDefault(task => task.Id == id);
-            }
-            catch
-            {
-                return new TaskRecord();
-            }
+            return _dbContext.Tasks.FirstOrDefault(task => task.Id == id);
         }
     }
 }

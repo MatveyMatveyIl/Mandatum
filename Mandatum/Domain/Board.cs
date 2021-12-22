@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Domain
 {
@@ -18,9 +19,23 @@ namespace Domain
         public BoardFormatDomain Format { get; set; }
         public string Name { get; set; }
 
-        public void AddTask(Task task)
+        public void AddTask(Task task, string email)
         {
-            Tasks.Add(task);
+            task.RefreshToValidTask(email);
+            if (CountTasksInProgress() <= 10 && task.Status == TaskStatus.InProgress)
+            {
+                Tasks.Add(task);
+            }
+
+            if (task.Status != TaskStatus.InProgress)
+            {
+                Tasks.Add(task);
+            }
+        }
+
+        private int CountTasksInProgress()
+        {
+            return Tasks.Count(t => t.Status == TaskStatus.InProgress);
         }
     }
 }

@@ -1,4 +1,6 @@
-namespace Application
+using Application.Entities;
+
+namespace Application.RepositoryInterface
 {
     public interface IUserRepo
     {
