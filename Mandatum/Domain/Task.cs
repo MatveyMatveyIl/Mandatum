@@ -23,7 +23,8 @@ namespace Domain
             var check = DateTime.Compare(Deadline, DateTime.Now);
             if (check < 0)
             {
-                Deadline = DateTime.Now;
+                var date = DateTime.Now;
+                Deadline = date.AddDays(1);
             }
         }
 
