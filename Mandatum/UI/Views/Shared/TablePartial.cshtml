@@ -41,5 +41,16 @@
     }
 </table>
 
-    <a asp-action="CreateTask" asp-controller="Task" asp-route-boardId="@Model.Id"  class="button style3">Новая задача</a>
+<a asp-action="CreateTask" asp-controller="Task" asp-route-boardId="@Model.Id"  onclick="checkCount(@Model.Tasks.Count(task => task.Status == TaskStatus.InProgress))" class="button style3">Новая задача</a>
 </body>
+<script>
+    function checkCount(v){
+     
+        if (v > 10) { const res = confirm( "Вы не можете создать больше 11 тасков, находящихся в прогрессе" );
+            if (res)
+                {
+                window.location.href = 'BoardView.cshtml';
+               }
+            }
+    }
+    </script>

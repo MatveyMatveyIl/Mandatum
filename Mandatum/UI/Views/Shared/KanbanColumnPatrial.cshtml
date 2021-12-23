@@ -1,4 +1,5 @@
-﻿@model KanbanColumnModel
+﻿@using TaskStatus = Mandatum.Models.TaskStatus
+@model KanbanColumnModel
 
 @foreach (var (key, value) in Model.Labels)
 {
@@ -13,14 +14,21 @@
                 <br>
             }
 
-            <a asp-action="CreateTask" asp-controller="Task" asp-route-boardId="@Model.BoardId" asp-route-taskStatus="@key" class="button style3" onclick="checkCount(@Model.Tasks[key].Count())">Новая задача</a>
+            <a asp-action="CreateTask" asp-controller="Task" asp-route-boardId="@Model.BoardId" asp-route-taskStatus="@key" class="button style3" onclick="checkCount(@Model.Tasks[TaskStatus.InProgress].Count())">Новая задача</a>
             
               
         </section>
     </div>
     <script>
     function checkCount(v){
-        if (v > 10) window.alert( "Вы не можете создать больше 10 тасков с одним статусом" )}
+     
+        if (v > 10) { const res = confirm( "Вы не можете создать больше 11 тасков, находящихся в прогрессе" );
+            if (res)
+                {
+                window.location.href = 'BoardView.cshtml';
+               }
+            }
+    }
     </script>
     
 }

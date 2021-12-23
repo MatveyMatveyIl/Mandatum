@@ -21,11 +21,9 @@ namespace Domain
         private void CheckDatetime()
         {
             var check = DateTime.Compare(Deadline, DateTime.Now);
-            if (check < 0)
-            {
-                var date = DateTime.Now;
-                Deadline = date.AddDays(1);
-            }
+            if (check >= 0) return;
+            var date = DateTime.Now;
+            Deadline = date;
         }
 
         private void CheckExecutors(string email)
