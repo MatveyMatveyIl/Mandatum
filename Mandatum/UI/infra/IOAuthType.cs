@@ -6,10 +6,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Mandatum.infra
 {
-    public interface IResponseHandler
+    public interface IOAuthType
     {
-        public IActionResult Login();
-
-        public Task<IActionResult> GithubResponse();
+        public AuthType Name { get; set; }
+        public string Image { get; set; }
+        public string Scheme { get; set; }
     }
 }

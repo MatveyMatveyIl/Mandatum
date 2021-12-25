@@ -6,6 +6,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <Folder Include="Views\OAuth" />
       <Folder Include="wwwroot\images" />
     </ItemGroup>
 

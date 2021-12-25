@@ -8,6 +8,7 @@ using Application.ApiInterface;
 using Application.Converters;
 using Mandatum.Controllers;
 using Mandatum.Convertors;
+using Mandatum.infra;
 using Mandatum.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -57,8 +58,11 @@ namespace Mandatum
             // << convertors
             services.AddScoped<IBoardFormat, KanbanBoardFormat>();
             services.AddScoped<IBoardFormat, TableBoardFormat>();
-            // установка конфигурации подключения
 
+            services.AddScoped<IOAuthType, GoogleAuthType>();
+            services.AddScoped<IOAuthType, GitAuthType>();
+            // установка конфигурации подключения
+            services.AddScoped<ResponseHandler>();
             services.AddAuthentication()
                 .AddGitHub(options =>
                 {
@@ -75,6 +79,7 @@ namespace Mandatum
             services.AddIdentity<UserRecord, IdentityRole>()
                 .AddEntityFrameworkStores<AppDbContext>();
             services.AddControllersWithViews();
+            services.AddControllers();
         }
  
         public void Configure(IApplicationBuilder app)

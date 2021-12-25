@@ -1,25 +1,16 @@
-﻿using System;
+﻿
 using System.Collections.Generic;
-using System.Linq;
-using System.Text.Json;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using Application;
 using Application.ApiInterface;
-using AspNet.Security.OAuth.GitHub;
-using Mandatum.Convertors;
+
 using Mandatum.infra;
-using Mandatum.Models;
+
 using Mandatum.ViewModels;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authentication.Google;
-using Microsoft.AspNetCore.Authorization;
+
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using GoogleHandler = Mandatum.infra.GoogleHandler;
-using Task = System.Threading.Tasks.Task;
+
 
 namespace Mandatum.Controllers
 {
@@ -28,35 +19,22 @@ namespace Mandatum.Controllers
         private readonly IUserApi _userApi;
         private readonly UserManager<UserRecord> _userManager;
         private readonly SignInManager<UserRecord> _signInManager;
-        private readonly ResponseHandler _handler;
-        
-        
+        private readonly IEnumerable<IOAuthType> _authTypes;
 
         public AccountController(UserManager<UserRecord> userManager, SignInManager<UserRecord> signInManager,
-            IUserApi userApi)
+            IUserApi userApi, IEnumerable<IOAuthType> authTypes)
         {
             _userApi = userApi;
             _userManager = userManager;
             _signInManager = signInManager;
-            _handler = new ResponseHandler();
+            _authTypes = authTypes;
         }
         
-        public async Task<IActionResult> Response(AuthType auth)
-        {
-            var response = await HttpContext.AuthenticateAsync(LoginParams.Schemes[auth]);
-            await _handler.Auth(_userManager, _signInManager, response, auth);
-            return RedirectToAction("Index", "Home");
-        }
 
         [HttpGet]
         public IActionResult Login(string returnUrl = null, AuthType authType=AuthType.Mandatum)
         {
-            if (authType==AuthType.Mandatum)
-                return View(new LoginModel {AuthType = authType, ReturnUrl = returnUrl});
-            var properties = new AuthenticationProperties {RedirectUri = Url.Action("Response",new {auth=authType} )};
-            var challenge =  Challenge(properties, LoginParams.Schemes[authType]);
-            return challenge;
-            
+            return View(new LoginModel {AuthTypes = _authTypes, ReturnUrl = returnUrl});
         }
  
         [HttpPost]

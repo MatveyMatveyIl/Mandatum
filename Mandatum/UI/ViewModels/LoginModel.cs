@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using Mandatum.infra;
 
 namespace Mandatum.ViewModels
@@ -16,6 +17,8 @@ namespace Mandatum.ViewModels
         public bool RememberMe { get; set; }
          
         public string ReturnUrl { get; set; }
-        public AuthType AuthType { get; set; }
+        public IOAuthType AuthType { get; set; }
+
+        public IEnumerable<IOAuthType> AuthTypes { get; set; }
     }
 }

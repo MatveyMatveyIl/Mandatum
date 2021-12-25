@@ -31,13 +31,13 @@
                             
                             <input type="submit" value="Войти в аккаунт" class="button login"/>
                             <label>или</label>
-                            <a asp-action="Login" asp-route-authType="@AuthType.Github" asp-controller="Account" class="button style2 login"><img class="image img" src="/images/git.png" alt="">     Войти через Git</a>
                         </div>
-                        <br>
-                        <div class="align-center">
-                            <a asp-action="Login" asp-route-authType="@AuthType.Google" asp-controller="Account" class="button style2 login"><img class="image img" src="/images/google_colored.png" alt=""> Войти через Google</a>
-                        </div>
-                        <br>
+                        @foreach (var type in Model.AuthTypes)
+                        {
+                            <div class="align-center">
+                                <a asp-action="Login" asp-route-authType="@type.Name" asp-route-authScheme="@type.Scheme" asp-controller="OAuth" class="button style2 login"><img class="image img" src=@type.Image alt=""> Войти через @type.Name</a>
+                            </div>
+                        }
                         <div class="align-center">
                             <a asp-action="Register" asp-controller="Account">Зарегестрироваться</a>
                             
