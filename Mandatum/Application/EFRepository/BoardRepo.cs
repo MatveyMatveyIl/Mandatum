@@ -1,9 +1,11 @@
 using System;
 using System.Linq;
-using Mandatum.Models;
+using Application.DbContext;
+using Application.Entities;
+using Application.RepositoryInterface;
 using Microsoft.EntityFrameworkCore;
 
-namespace Application
+namespace Application.EFRepository
 {
     public class BoardRepo : IBoardRepo
     {
@@ -16,53 +18,30 @@ namespace Application
 
         public void SaveBoard(BoardRecord board)
         {
-            try
-            {
-                _dbContext.Boards.Add(board);
-                _dbContext.SaveChanges();
-            }
-            catch
-            {
-                //
-            }
+            _dbContext.Boards.Add(board);
+            _dbContext.SaveChanges();
         }
 
         public BoardRecord GetBoard(Guid boardId)
         {
-            try
-            {
-                return _dbContext.Boards.AsNoTracking().Include(prop => prop.TaskIds).FirstOrDefault(board => board.Id == boardId);
-            }
-            catch
-            {
-                return new BoardRecord();
-            }
+            return  _dbContext.Boards.AsNoTracking().Include(prop => prop.TaskIds)
+                .FirstOrDefault(board => board.Id == boardId);
         }
 
         public void UpdateBoard(BoardRecord updBoard)
         {
-            try
-            {
-                _dbContext.Boards.Update(updBoard);
-                _dbContext.SaveChanges();
-            }
-            catch
-            {
-                //
-            }
+            var containsBoard = GetBoard(updBoard.Id);
+            if (containsBoard is null) return;
+            _dbContext.Boards.Update(updBoard);
+            _dbContext.SaveChanges();
         }
 
         public void DeleteBoard(BoardRecord board)
         {
-            try
-            {
-                _dbContext.Boards.Remove(board);
-                _dbContext.SaveChanges();
-            }
-            catch
-            {
-                //
-            }
+            var containsBoard = GetBoard(board.Id);
+            if (containsBoard is null) return;
+            _dbContext.Boards.Remove(board);
+            _dbContext.SaveChanges();
         }
     }
 }

@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Application
+namespace Application.Entities
 {
     public class BoardRecord
     {

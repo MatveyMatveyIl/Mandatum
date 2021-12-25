@@ -1,6 +1,7 @@
 using System;
+using Application.Entities;
 
-namespace Application
+namespace Application.RepositoryInterface
 {
     public interface IBoardRepo
     {

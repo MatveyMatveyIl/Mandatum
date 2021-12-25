@@ -1,4 +1,7 @@
 using System.Collections.Generic;
+using System.Linq;
+using Application.DbContext;
+using Application.Entities;
 using Domain;
 using Mandatum.Convertors;
 
@@ -6,17 +9,22 @@ namespace Application.Converters
 {
     public class TaskConverterAppLayer: IConverter<TaskRecord, Task>
     {
+        private readonly AppDbContext _dbContext;
+
+        public TaskConverterAppLayer(AppDbContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
+
         public TaskRecord Convert(Task source)
         {
-            return new TaskRecord()
-            {
-                Id = source.Id,
-                Description = source.Description,
-                Status = ConvertToTaskRecordStatus(source.Status),
-                Deadline = source.Deadline,
-                Executors = source.Executors,
-                Name = source.Name,
-            };
+            var taskRecord = _dbContext.Tasks.FirstOrDefault(t => t.Id == source.Id);
+            taskRecord.Name = source.Name;
+            taskRecord.Status = ConvertToTaskRecordStatus(source.Status);
+            taskRecord.Deadline = source.Deadline;
+            taskRecord.Executors = source.Executors;
+            taskRecord.Description = source.Description;
+            return taskRecord;
         }
 
         public Task Convert(TaskRecord source)

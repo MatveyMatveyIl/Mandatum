@@ -1,8 +1,9 @@
-using System;
 using System.Collections.Generic;
 using Application.ApiInterface;
+using Application.Entities;
+using Application.RepositoryInterface;
 
-namespace Application
+namespace Application.Api
 {
     public class UserApi : IUserApi
     {
@@ -11,6 +12,11 @@ namespace Application
         public UserApi(IUserRepo userRepo)
         {
             _userRepo = userRepo;
+        }
+
+        public UserRecord GetUser(string email)
+        {
+            return _userRepo.GetUser(email);
         }
 
         public void AddBoard(BoardRecord board, string email)
@@ -24,11 +30,6 @@ namespace Application
         {
             var user = _userRepo.GetUser(email);
             return user.Boards;
-        }
-
-        public void AddNewUserToBoard(string email)
-        {
-            throw new NotImplementedException();
         }
     }
 }

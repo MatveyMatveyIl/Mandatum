@@ -11,5 +11,26 @@ namespace Domain
         public DateTime Deadline { get; set; }
         public int Priority { get; set; }
         public string Executors { get; set; }
+
+        public void RefreshToValidTask(string email)
+        {
+            CheckDatetime();
+            CheckExecutors(email);
+        }
+
+        private void CheckDatetime()
+        {
+            var check = DateTime.Compare(Deadline, DateTime.Now);
+            if (check >= 0) return;
+            var date = DateTime.Now;
+            Deadline = date;
+        }
+
+        private void CheckExecutors(string email)
+        {
+            Executors ??= $"{email}";
+            if(Executors.Contains(email)) return;
+            Executors += $"\n {email}";
+        }
     }
 }
