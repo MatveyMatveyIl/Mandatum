@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Application;
 using Application.ApiInterface;
-
+using Application.Entities;
 using Mandatum.infra;
 
 using Mandatum.ViewModels;
