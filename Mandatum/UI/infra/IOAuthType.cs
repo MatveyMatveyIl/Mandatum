@@ -11,5 +11,6 @@ namespace Mandatum.infra
         public AuthType Name { get; set; }
         public string Image { get; set; }
         public string Scheme { get; set; }
+        public string EmailKey { get; set; }
     }
 }

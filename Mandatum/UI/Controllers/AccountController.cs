@@ -34,7 +34,7 @@ namespace Mandatum.Controllers
         [HttpGet]
         public IActionResult Login(string returnUrl = null, AuthType authType=AuthType.Mandatum)
         {
-            return View(new LoginModel {AuthTypes = _authTypes, ReturnUrl = returnUrl});
+            return View(new LoginModel { ReturnUrl = returnUrl});
         }
  
         [HttpPost]

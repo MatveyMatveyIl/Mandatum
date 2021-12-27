@@ -17,8 +17,9 @@ namespace Mandatum.ViewModels
         public bool RememberMe { get; set; }
          
         public string ReturnUrl { get; set; }
-        public IOAuthType AuthType { get; set; }
+        public string key { get; set; }
+        public string scheme { get; set; }
 
-        public IEnumerable<IOAuthType> AuthTypes { get; set; }
+        public IEnumerable<IOAuthType> AuthTypes = new IOAuthType[] {new GitAuthType(), new GoogleAuthType()};
     }
 }

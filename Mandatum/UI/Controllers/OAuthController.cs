@@ -29,19 +29,19 @@ namespace Mandatum.Controllers
             _authTypes = authTypes;
         }
 
-        public async Task<IActionResult> Response(AuthType auth, string scheme)
+        public async Task<IActionResult> Response(IOAuthType type)
         {
-            var response = await HttpContext.AuthenticateAsync(scheme);
-            await _handler.Auth(_userManager, _signInManager, response, auth);
+            var response = await HttpContext.AuthenticateAsync(type.Scheme);
+            await _handler.Auth(_userManager, _signInManager, response, type);
             return RedirectToAction("Index", "Home");
         }
 
         [HttpGet]
-        public IActionResult Login( string authScheme, AuthType authType, string returnUrl = null)
+        public IActionResult Login( IOAuthType type)
         {
-            var properties = new AuthenticationProperties {RedirectUri = Url.Action("Response",new {auth=authType, scheme=authScheme} )};
-            var challenge =  Challenge(properties, authScheme);
-            return challenge;
+            var properties = new AuthenticationProperties {RedirectUri = Url.Action("Response",new {auth=type} )};
+            var challenge =  Challenge(properties,type.Scheme);
+            return challenge;   
             
         }
     }

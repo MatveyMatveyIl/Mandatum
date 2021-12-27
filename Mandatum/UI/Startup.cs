@@ -63,9 +63,9 @@ namespace Mandatum
             // << convertors
             services.AddScoped<IBoardFormat, KanbanBoardFormat>();
             services.AddScoped<IBoardFormat, TableBoardFormat>();
-
-            services.AddScoped<IOAuthType, GoogleAuthType>();
-            services.AddScoped<IOAuthType, GitAuthType>();
+            // Auth 
+            services.AddSingleton<IOAuthType, GoogleAuthType>();
+            services.AddSingleton<IOAuthType, GitAuthType>();
             // установка конфигурации подключения
             services.AddScoped<ResponseHandler>();
             services.AddAuthentication()
