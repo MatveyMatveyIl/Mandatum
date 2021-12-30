@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Application;
@@ -29,18 +30,18 @@ namespace Mandatum.Controllers
             _authTypes = authTypes;
         }
 
-        public async Task<IActionResult> Response(IOAuthType type)
+        public async Task<IActionResult> Response(string authScheme, string emailKey)
         {
-            var response = await HttpContext.AuthenticateAsync(type.Scheme);
-            await _handler.Auth(_userManager, _signInManager, response, type);
+            var response = await HttpContext.AuthenticateAsync(authScheme);
+            await _handler.Auth(_userManager, _signInManager, response, emailKey);
             return RedirectToAction("Index", "Home");
         }
 
         [HttpGet]
-        public IActionResult Login( IOAuthType type)
+        public IActionResult Login(string scheme, string key)
         {
-            var properties = new AuthenticationProperties {RedirectUri = Url.Action("Response",new {auth=type} )};
-            var challenge =  Challenge(properties,type.Scheme);
+            var properties = new AuthenticationProperties {RedirectUri = Url.Action("Response",new {authScheme=scheme, emailKey=key} )};
+            var challenge =  Challenge(properties ,scheme);
             return challenge;   
             
         }

@@ -35,7 +35,7 @@
                         @foreach (var type in Model.AuthTypes)
                         {
                             <div class="align-center">
-                                <a asp-action="Login" asp-route-scheme="@type" asp-controller="OAuth" class="button style2 login"><img class="image img" src=@type.Image alt=""> Войти через @type.Name</a>
+                                <a asp-action="Login" asp-route-scheme="@type.Scheme" asp-route-key="@type.EmailKey" asp-controller="OAuth" class="button style2 login"><img class="image img" src=@type.Image alt=""> Войти через @type.Name</a>
                             </div>
                         }
                         <div class="align-center">
