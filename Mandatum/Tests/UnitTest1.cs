@@ -22,7 +22,7 @@ namespace Tests
         }
 
         [Test]
-        public void Test1()
+        public void AddTaskNotFailed()
         {
             var serviceCollection = new ServiceCollection();
             IEnumerable<KeyValuePair<string, string>> confValues = new List<KeyValuePair<string, string>>()
@@ -43,7 +43,7 @@ namespace Tests
         }
         
         [Test]
-        public void Test2()
+        public void AddUserNotFailed()
         {
             var serviceCollection = new ServiceCollection();
             IEnumerable<KeyValuePair<string, string>> confValues = new List<KeyValuePair<string, string>>()
@@ -66,7 +66,7 @@ namespace Tests
         }
         
         [Test]
-        public void Test3()
+        public void SaveTask()
         {
             var serviceCollection = new ServiceCollection();
             IEnumerable<KeyValuePair<string, string>> confValues = new List<KeyValuePair<string, string>>()
@@ -92,7 +92,7 @@ namespace Tests
         }
         
         [Test]
-        public void Test4()
+        public void CheckTaskId()
         {
             var serviceCollection = new ServiceCollection();
             IEnumerable<KeyValuePair<string, string>> confValues = new List<KeyValuePair<string, string>>()
@@ -115,7 +115,7 @@ namespace Tests
             Assert.AreEqual(task.Id, new Guid("1998DA4F-252B-4038-B2B8-E0728BDE3BFE"));
         }
         [Test]
-        public void Test5()
+        public void CheckGetBoardName()
         {
             var serviceCollection = new ServiceCollection();
             IEnumerable<KeyValuePair<string, string>> confValues = new List<KeyValuePair<string, string>>()
@@ -137,7 +137,7 @@ namespace Tests
             Assert.AreEqual(name, "12");
         }
         [Test]
-        public void Test6()
+        public void CountTasksOnBoard()
         {
             var serviceCollection = new ServiceCollection();
             IEnumerable<KeyValuePair<string, string>> confValues = new List<KeyValuePair<string, string>>()
@@ -160,7 +160,7 @@ namespace Tests
             Assert.AreEqual(board.TaskIds.Count, 1);
         }
         [Test]
-        public void Test7()
+        public void UserAddBoard()
         {
             var serviceCollection = new ServiceCollection();
             IEnumerable<KeyValuePair<string, string>> confValues = new List<KeyValuePair<string, string>>()
