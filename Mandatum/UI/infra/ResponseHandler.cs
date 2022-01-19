@@ -23,8 +23,6 @@ namespace Mandatum.infra
 
         public static string GetEmail(string emailKey, AuthenticateResult response)
         {
-            
-            
             var email = response.Principal?.Identities.FirstOrDefault()
                 ?.Claims
                 .Where(claim => (claim.Type.Split("/").Last() ==emailKey ))
