@@ -61,8 +61,10 @@ namespace Mandatum
             services.AddScoped<BoardConverterApiLayer>();
             services.AddScoped<TaskConverterAppLayer>();
             // << convertors
+            // >> board formats
             services.AddScoped<IBoardFormat, KanbanBoardFormat>();
             services.AddScoped<IBoardFormat, TableBoardFormat>();
+            // >> board formats
             // Auth 
             services.AddSingleton<IOAuthType, GoogleAuthType>();
             services.AddSingleton<IOAuthType, GitAuthType>();

@@ -20,6 +20,7 @@ namespace Mandatum.Controllers
         private readonly UserManager<UserRecord> _userManager;
         private readonly SignInManager<UserRecord> _signInManager;
         private readonly IEnumerable<IOAuthType> _authTypes;
+        private readonly Dictionary<string, string> _registrationErrors;
 
         public AccountController(UserManager<UserRecord> userManager, SignInManager<UserRecord> signInManager,
             IUserApi userApi, IEnumerable<IOAuthType> authTypes)
@@ -28,6 +29,13 @@ namespace Mandatum.Controllers
             _userManager = userManager;
             _signInManager = signInManager;
             _authTypes = authTypes;
+            _registrationErrors = new Dictionary<string, string>
+            {
+                ["PasswordTooShort"] = "Пароль должен состоять из 6 или более символов",
+                ["PasswordRequiresNonAlphanumeric"] = "Пароль должен содержать как минимум одну цифру",
+                ["PasswordRequiresLower"] = "Пароль должен содержать хотя бы одну маленькую букву из английского алфавита ('a'-'z')",
+                ["PasswordRequiresUpper"] = "Пароль должен содержать хотя бы одну заглавную букву из английского алфавита ('A'-'Z')"
+            };
         }
         
 
@@ -90,7 +98,7 @@ namespace Mandatum.Controllers
                 {
                     foreach (var error in result.Errors)
                     {
-                        ModelState.AddModelError(string.Empty, error.Description);
+                        ModelState.AddModelError(string.Empty, _registrationErrors[error.Code]);
                     }
                 }
             }
