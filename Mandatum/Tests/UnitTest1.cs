@@ -5,6 +5,7 @@ using Application;
 using Application.Api;
 using Application.ApiInterface;
 using Application.Entities;
+using Application.RepositoryInterface;
 using Mandatum;
 using Mandatum.Controllers;
 using Microsoft.Extensions.Configuration;
@@ -157,6 +158,34 @@ namespace Tests
             boardApi.AddTaskToBoard(new Guid("1991DA4F-252B-4038-B2B8-E0728BDE3BFE"), new TaskRecord(){Name = "1", Id = new Guid("2991DA4F-252B-4038-B2B8-E0728BDE3BFE")}, "iulp");
             var board = boardApi.GetBoard(new Guid("1991DA4F-252B-4038-B2B8-E0728BDE3BFE"));
             Assert.AreEqual(board.TaskIds.Count, 1);
+        }
+        [Test]
+        public void Test7()
+        {
+            var serviceCollection = new ServiceCollection();
+            IEnumerable<KeyValuePair<string, string>> confValues = new List<KeyValuePair<string, string>>()
+            {
+                new KeyValuePair<string, string>("TransactionLogging:Enabled", "True"),
+                new KeyValuePair<string, string>("ConnectionStrings:DefaultConnection", "Data Source=mandatumdasha.database.windows.net;Initial Catalog=Mandatum;Persist Security Info= True; User Id=dasha;Password=Mandatum2038")
+            };
+            ConfigurationBuilder builder = new ConfigurationBuilder();
+            builder.AddInMemoryCollection(confValues);
+            var confRoot = builder.Build();
+            
+            var startUp = new Startup(confRoot);
+            startUp.ConfigureServices(serviceCollection);
+            var serviceProvider = serviceCollection.BuildServiceProvider();
+            var boardApi = serviceProvider.GetRequiredService<IBoardApi>();
+            var userApi = serviceProvider.GetRequiredService<IUserRepo>();
+            boardApi.DeleteBoard(new Guid("1991DA4F-252B-4038-B2B8-E0728BDE3BFE"));
+            boardApi.DeleteBoard(new Guid("2991DA4F-252B-4038-B2B8-E0728BDE3BFE"));
+            var boards = userApi.GetUser("iulpv").Boards.Count;
+            boardApi.CreateBoard(new BoardRecord(){Id = new Guid("1991DA4F-252B-4038-B2B8-E0728BDE3BFE"), Name = "12"}, "iulpv");
+            boardApi.AddTaskToBoard(new Guid("1991DA4F-252B-4038-B2B8-E0728BDE3BFE"), new TaskRecord(){Name = "1", Id = new Guid("2991DA4F-252B-4038-B2B8-E0728BDE3BFE")}, "iulp");
+            boardApi.CreateBoard(new BoardRecord(){Id = new Guid("2991DA4F-252B-4038-B2B8-E0728BDE3BFE"), Name = "13"}, "iulpv");
+            var board = userApi.GetUser("iulpv").Boards;
+            boards += 2;
+            Assert.AreEqual(board.Count, boards);
         }
         
     }
